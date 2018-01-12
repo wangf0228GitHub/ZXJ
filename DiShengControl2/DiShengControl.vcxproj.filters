@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="w5500">
+      <UniqueIdentifier>{4a58b90f-ff06-4999-b56f-8466044da3ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FlagDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareProfile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="p24FJ128GB106.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="w5500\Ethernet\socket.h">
+      <Filter>w5500</Filter>
+    </ClInclude>
+    <ClInclude Include="w5500\Ethernet\wizchip_conf.h">
+      <Filter>w5500</Filter>
+    </ClInclude>
+    <ClInclude Include="w5500\Ethernet\W5500\w5500.h">
+      <Filter>w5500</Filter>
+    </ClInclude>
+    <ClInclude Include="w5500_Conf.h">
+      <Filter>w5500</Filter>
+    </ClInclude>
+    <ClInclude Include="TCM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CP1616_NoAddr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Init.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WithPC.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="w5500\Ethernet\socket.c">
+      <Filter>w5500</Filter>
+    </ClCompile>
+    <ClCompile Include="w5500\Ethernet\wizchip_conf.c">
+      <Filter>w5500</Filter>
+    </ClCompile>
+    <ClCompile Include="w5500\Ethernet\W5500\w5500.c">
+      <Filter>w5500</Filter>
+    </ClCompile>
+    <ClCompile Include="w5500_Conf.c">
+      <Filter>w5500</Filter>
+    </ClCompile>
+    <ClCompile Include="TCM.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CP1616_NoAddr.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DiShengControl2.mcp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="DiShengControl2.mcs">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="DiShengControl2.mcw">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="Debug\DiShengControl2.hex">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+</Project>
