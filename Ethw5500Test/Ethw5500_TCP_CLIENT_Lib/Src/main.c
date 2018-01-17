@@ -9,7 +9,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * COPYRIGHT(c) 2017 STMicroelectronics
+  * COPYRIGHT(c) 2018 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -39,6 +39,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f1xx_hal.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
@@ -47,6 +48,7 @@
 #include "wfSys.h"
 #include "w5500_Conf.h"
 #include "socket.h"
+#include "ADS8689.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -58,6 +60,9 @@ uint16_t DESPORT=6000;
 uint8_t buffer[1024];
 volatile uint8_t gTemp;
 uint8_t gDATABUF[DATA_BUF_SIZE];
+uint8_t ADList[1024];
+uint16_t ADIndex;
+uint8_t bNeedTx;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE END PV */
@@ -78,7 +83,6 @@ void Reset_W5500(void)
 	HAL_GPIO_WritePin(WREST_GPIO_Port,WREST_Pin,GPIO_PIN_SET);
 	wfDelay_ms(800);
 }
-/* USER CODE END 0 */
 int32_t loopback_tcpc(uint8_t sn, uint8_t* buf, uint8_t* destip, uint16_t destport)
 {
 	int32_t ret; // return value for SOCK_ERRORs
@@ -109,25 +113,30 @@ int32_t loopback_tcpc(uint8_t sn, uint8_t* buf, uint8_t* destip, uint16_t destpo
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		// Data Transaction Parts; Handle the [data receive and send] process
 		//////////////////////////////////////////////////////////////////////////////////////////////
-		if((size = getSn_RX_RSR(sn)) > 0) // Sn_RX_RSR: Socket n Received Size Register, Receiving data length
+// 		if((size = getSn_RX_RSR(sn)) > 0) // Sn_RX_RSR: Socket n Received Size Register, Receiving data length
+// 		{
+// 			if(size > DATA_BUF_SIZE) size = DATA_BUF_SIZE; // DATA_BUF_SIZE means user defined buffer size (array)
+// 			ret = recv(sn, buf, size); // Data Receive process (H/W Rx socket buffer -> User's buffer)
+// 
+// 			if(ret <= 0) return ret; // If the received data length <= 0, receive failed and process end
+// 			sentsize = 0;
+// 
+// 			// Data sentsize control
+// 			while(size != sentsize)
+// 			{
+// 				ret = send(sn, buf+sentsize, size-sentsize); // Data send process (User's buffer -> Destination through H/W Tx socket buffer)
+// 				if(ret < 0) // Send Error occurred (sent data length < 0)
+// 				{
+// 					close(sn); // socket close
+// 					return ret;
+// 				}
+// 				sentsize += ret; // Don't care SOCKERR_BUSY, because it is zero.
+// 			}
+// 		}
+		if(bNeedTx!=0)
 		{
-			if(size > DATA_BUF_SIZE) size = DATA_BUF_SIZE; // DATA_BUF_SIZE means user defined buffer size (array)
-			ret = recv(sn, buf, size); // Data Receive process (H/W Rx socket buffer -> User's buffer)
-
-			if(ret <= 0) return ret; // If the received data length <= 0, receive failed and process end
-			sentsize = 0;
-
-			// Data sentsize control
-			while(size != sentsize)
-			{
-				ret = send(sn, buf+sentsize, size-sentsize); // Data send process (User's buffer -> Destination through H/W Tx socket buffer)
-				if(ret < 0) // Send Error occurred (sent data length < 0)
-				{
-					close(sn); // socket close
-					return ret;
-				}
-				sentsize += ret; // Don't care SOCKERR_BUSY, because it is zero.
-			}
+			bNeedTx=0;
+			send(sn, ADList, 1024);
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		break;
@@ -162,6 +171,8 @@ int32_t loopback_tcpc(uint8_t sn, uint8_t* buf, uint8_t* destip, uint16_t destpo
 	}
 	return 1;
 }
+/* USER CODE END 0 */
+
 int main(void)
 {
 
@@ -189,24 +200,14 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();  
-  wfDelay_init(8);
-  SimSPI_Init();
-  Reset_W5500();
-  w5500LibInit(); 
-//   w5500_Init();
-//   w5500_Set_Mac_self();
-//   w5500_Set_SubnetMask_self();
-//   w5500_Set_GateWay_self();
-//   w5500_Set_IP_self();
-//   w5500_Socket_BufSizeInit(0xff,w5500_RegVal_BufSize2K,w5500_RegVal_BufSize2K);///*初始化8个socket*/
-//   w5500_Set_RetransmissionTime(2000);//设置溢出时间值=200ms
-//   w5500_Set_NumOfRetransmission(5);//设置最大重新发送次数
-//   w5500_Get_Mac(wfTemp8);
-//   w5500_Get_SubnetMask(wfTemp8);
-//   w5500_Get_GateWay(wfTemp8);
-//   w5500_Get_IP(wfTemp8);
+  MX_GPIO_Init();
+  MX_TIM4_Init();
+
+  /* USER CODE BEGIN 2 */
+  ADS8689_Setting(0x16,0x000b);//0~5.12V
+  HAL_TIM_Base_Start_IT(&htim4);
   /* USER CODE END 2 */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)

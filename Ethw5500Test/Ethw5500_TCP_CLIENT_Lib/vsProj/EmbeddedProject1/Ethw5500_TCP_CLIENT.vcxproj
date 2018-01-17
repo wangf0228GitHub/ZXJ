@@ -43,7 +43,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakePreprocessorDefinitions>__VisualGDB_CFG_Debug;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>.;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0\arm-eabi\thumb\cortex_m3;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0\backward;$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include;$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include-fixed;$(TOOLCHAIN_ROOT)\arm-eabi\sys-include;$(TOOLCHAIN_ROOT)\arm-eabi\include;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../../../../WF_Device_STM32;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../wf;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../Drivers/CMSIS/Include;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Inc;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Src;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../../5500/Ethernet;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>.;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0\arm-eabi\thumb\cortex_m3;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0\backward;$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include;$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include-fixed;$(TOOLCHAIN_ROOT)\arm-eabi\sys-include;$(TOOLCHAIN_ROOT)\arm-eabi\include;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../wf;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../Drivers/CMSIS/Include;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Inc;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Src;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../../5500/Ethernet;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../../../../WF_Device;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\../../../../../WF_Device/stm32;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeForcedIncludes>$(ProjectDir)\gcc_Debug.h;$(VISUALGDB_DIR)\gcc_compat.h;$(BSP_ROOT)\stm32_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /build "$(ProjectPath)" "/solution:$(SolutionPath)"  "/config:$(Configuration)" "/platform:$(Platform)"</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)"  "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
@@ -55,7 +55,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakePreprocessorDefinitions>__VisualGDB_CFG_Release;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>.;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0\arm-eabi\thumb\cortex_m3;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0\backward;$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include;$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include-fixed;$(TOOLCHAIN_ROOT)\arm-eabi\sys-include;$(TOOLCHAIN_ROOT)\arm-eabi\include;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Inc;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Src;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>.;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0\arm-eabi\thumb\cortex_m3;$(TOOLCHAIN_ROOT)\arm-eabi\include\c++\7.2.0\backward;$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include;$(TOOLCHAIN_ROOT)\lib\gcc\arm-eabi\7.2.0\include-fixed;$(TOOLCHAIN_ROOT)\arm-eabi\sys-include;$(TOOLCHAIN_ROOT)\arm-eabi\include;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Inc;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Src;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeForcedIncludes>$(ProjectDir)\gcc_Release.h;$(VISUALGDB_DIR)\gcc_compat.h;$(BSP_ROOT)\stm32_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /build "$(ProjectPath)" "/solution:$(SolutionPath)"  "/config:$(Configuration)" "/platform:$(Platform)"</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)"  "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
@@ -74,8 +74,9 @@
   </ImportGroup>
   <ItemGroup />
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\WF_Device_STM32\SimSPI.c" />
-    <ClCompile Include="..\..\..\..\..\WF_Device_STM32\wfSys.c" />
+    <ClCompile Include="..\..\..\..\..\WF_Device\ADS8689.c" />
+    <ClCompile Include="..\..\..\..\..\WF_Device\SimSPI.c" />
+    <ClCompile Include="..\..\..\..\..\WF_Device\stm32\wfSys.c" />
     <ClCompile Include="..\..\..\5500\Ethernet\socket.c" />
     <ClCompile Include="..\..\..\5500\Ethernet\W5500\w5500.c" />
     <ClCompile Include="..\..\..\5500\Ethernet\wizchip_conf.c" />
@@ -95,13 +96,16 @@
     <ClCompile Include="..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_flash.c" />
     <ClCompile Include="..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_flash_ex.c" />
     <ClCompile Include="..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio.c" />
+    <ClCompile Include="..\..\Src\tim.c" />
     <ClCompile Include="..\..\wf\w5500_Conf.c" />
-    <ClInclude Include="..\..\..\..\..\WF_Device_STM32\SimSPI.h" />
-    <ClInclude Include="..\..\..\..\..\WF_Device_STM32\TypeDefine.h" />
-    <ClInclude Include="..\..\..\..\..\WF_Device_STM32\wfSys.h" />
+    <ClInclude Include="..\..\..\..\..\WF_Device\ADS8689.h" />
+    <ClInclude Include="..\..\..\..\..\WF_Device\SimSPI.h" />
+    <ClInclude Include="..\..\..\..\..\WF_Device\stm32\wfSys.h" />
     <ClInclude Include="..\..\..\5500\Ethernet\socket.h" />
     <ClInclude Include="..\..\..\5500\Ethernet\W5500\w5500.h" />
     <ClInclude Include="..\..\..\5500\Ethernet\wizchip_conf.h" />
+    <ClInclude Include="..\..\Inc\tim.h" />
+    <ClInclude Include="..\..\wf\ADS8689_Conf.h" />
     <ClInclude Include="..\..\wf\SimSPI_Conf.h" />
     <ClInclude Include="..\..\wf\w5500_Conf.h" />
     <None Include="..\..\Ethw5500_TCP_CLIENT.ioc" />

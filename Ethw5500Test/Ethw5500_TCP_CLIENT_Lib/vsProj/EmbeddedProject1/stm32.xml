@@ -41,7 +41,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\..\Ethw5500_TCP_CLIENT.gpdsc</RelativePath>
-        <Timestamp>131590989405988616</Timestamp>
+        <Timestamp>131606516946123110</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -121,10 +121,10 @@
                   <RelativePath>..\..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h</RelativePath>
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
-                  <RelativePath>..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim.c</RelativePath>
+                  <RelativePath>..\..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h</RelativePath>
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
-                  <RelativePath>..\..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h</RelativePath>
+                  <RelativePath>..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim.c</RelativePath>
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
                   <RelativePath>..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim_ex.c</RelativePath>
@@ -199,6 +199,9 @@
           <RelativePath>..\..\Inc\gpio.h</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
+          <RelativePath>..\..\Inc\tim.h</RelativePath>
+        </VirtualFileSnapshot>
+        <VirtualFileSnapshot>
           <RelativePath>..\..\Inc\stm32f1xx_it.h</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
@@ -209,6 +212,9 @@
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
           <RelativePath>..\..\Src\gpio.c</RelativePath>
+        </VirtualFileSnapshot>
+        <VirtualFileSnapshot>
+          <RelativePath>..\..\Src\tim.c</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
           <RelativePath>..\..\Src\stm32f1xx_it.c</RelativePath>
@@ -225,11 +231,11 @@
       <ImportedConfiguration>
         <Settings>
           <IncludeDirectories>
-            <string>F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Inc</string>
-            <string>F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include</string>
-            <string>F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc</string>
-            <string>F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy</string>
-            <string>F:\work_tfs\MCU\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Src</string>
+            <string>F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Inc</string>
+            <string>F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include</string>
+            <string>F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc</string>
+            <string>F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy</string>
+            <string>F:\work\ZXJ\Ethw5500Test\Ethw5500_TCP_CLIENT_Lib\vsProj\EmbeddedProject1\..\..\Drivers\STM32F1xx_HAL_Driver\Src</string>
           </IncludeDirectories>
           <PreprocessorMacros>
             <string>$$com.sysprogs.bspoptions.primary_memory$$_layout</string>

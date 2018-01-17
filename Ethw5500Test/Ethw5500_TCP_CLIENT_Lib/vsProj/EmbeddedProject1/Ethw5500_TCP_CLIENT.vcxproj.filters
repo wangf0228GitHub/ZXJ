@@ -240,12 +240,6 @@
     <None Include="stm32.xml">
       <Filter>VisualGDB settings</Filter>
     </None>
-    <ClCompile Include="..\..\..\..\..\WF_Device_STM32\SimSPI.c">
-      <Filter>wf\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\WF_Device_STM32\wfSys.c">
-      <Filter>wf\Lib</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\5500\Ethernet\W5500\w5500.c">
       <Filter>5500</Filter>
     </ClCompile>
@@ -258,19 +252,22 @@
     <ClCompile Include="..\..\wf\w5500_Conf.c">
       <Filter>wf\config</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\WF_Device\stm32\wfSys.c">
+      <Filter>wf\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\WF_Device\SimSPI.c">
+      <Filter>wf\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\WF_Device\ADS8689.c">
+      <Filter>wf\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\tim.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\WF_Device_STM32\TypeDefine.h">
-      <Filter>wf</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\wf\SimSPI_Conf.h">
       <Filter>wf\config</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\WF_Device_STM32\SimSPI.h">
-      <Filter>wf\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\WF_Device_STM32\wfSys.h">
-      <Filter>wf\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\5500\Ethernet\W5500\w5500.h">
       <Filter>5500</Filter>
@@ -283,6 +280,21 @@
     </ClInclude>
     <ClInclude Include="..\..\wf\w5500_Conf.h">
       <Filter>wf\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\WF_Device\stm32\wfSys.h">
+      <Filter>wf\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\WF_Device\SimSPI.h">
+      <Filter>wf\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\wf\ADS8689_Conf.h">
+      <Filter>wf\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\WF_Device\ADS8689.h">
+      <Filter>wf\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\tim.h">
+      <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

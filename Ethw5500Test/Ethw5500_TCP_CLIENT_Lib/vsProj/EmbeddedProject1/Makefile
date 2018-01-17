@@ -36,7 +36,7 @@ error:
 	$(error Invalid configuration, please check your inputs)
 endif
 
-SOURCEFILES := ../../../../../WF_Device_STM32/SimSPI.c ../../../../../WF_Device_STM32/wfSys.c ../../../5500/Ethernet/socket.c ../../../5500/Ethernet/W5500/w5500.c ../../../5500/Ethernet/wizchip_conf.c ../../Src/gpio.c ../../Src/stm32f1xx_it.c ../../Src/stm32f1xx_hal_msp.c ../../Src/main.c ../../Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c ../../wf/w5500_Conf.c $(BSP_ROOT)/STM32F1xxxx/StartupFiles/startup_stm32f103xb.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
+SOURCEFILES := ../../../../../WF_Device/ADS8689.c ../../../../../WF_Device/SimSPI.c ../../../../../WF_Device/stm32/wfSys.c ../../../5500/Ethernet/socket.c ../../../5500/Ethernet/W5500/w5500.c ../../../5500/Ethernet/wizchip_conf.c ../../Src/gpio.c ../../Src/stm32f1xx_it.c ../../Src/stm32f1xx_hal_msp.c ../../Src/main.c ../../Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c ../../Src/tim.c ../../wf/w5500_Conf.c $(BSP_ROOT)/STM32F1xxxx/StartupFiles/startup_stm32f103xb.c ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
 EXTERNAL_LIBS := 
 EXTERNAL_LIBS_COPIED := $(foreach lib, $(EXTERNAL_LIBS),$(BINARYDIR)/$(notdir $(lib)))
 
@@ -182,11 +182,15 @@ $(BINARYDIR)/%.o : %.cxx $(all_make_files) |$(BINARYDIR)
 #VisualGDB: GeneratedRules				#<--- All lines below are auto-generated. Remove this line to suppress auto-generation of file rules.
 
 
-$(BINARYDIR)/SimSPI.o : ../../../../../WF_Device_STM32/SimSPI.c $(all_make_files) |$(BINARYDIR)
+$(BINARYDIR)/ADS8689.o : ../../../../../WF_Device/ADS8689.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 
-$(BINARYDIR)/wfSys.o : ../../../../../WF_Device_STM32/wfSys.c $(all_make_files) |$(BINARYDIR)
+$(BINARYDIR)/SimSPI.o : ../../../../../WF_Device/SimSPI.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/wfSys.o : ../../../../../WF_Device/stm32/wfSys.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 
@@ -263,6 +267,10 @@ $(BINARYDIR)/stm32f1xx_hal_flash_ex.o : ../../Drivers/STM32F1xx_HAL_Driver/Src/s
 
 
 $(BINARYDIR)/stm32f1xx_hal_gpio.o : ../../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/tim.o : ../../Src/tim.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 

@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : main.hpp
-  * Description        : This file contains the common defines of the application
+  * File Name          : TIM.c
+  * Description        : This file provides code for the configuration
+  *                      of the TIM instances.
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -35,70 +36,110 @@
   *
   ******************************************************************************
   */
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H
-#define __MAIN_H
-  /* Includes ------------------------------------------------------------------*/
 
 /* Includes ------------------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-#include <stdint.h>
-#include "stm32f1xx_hal.h"
-/* USER CODE END Includes */
+#include "tim.h"
 
-/* Private define ------------------------------------------------------------*/
 
-#define AD_RVS_Pin GPIO_PIN_2
-#define AD_RVS_GPIO_Port GPIOA
-#define AD_SCLK_Pin GPIO_PIN_4
-#define AD_SCLK_GPIO_Port GPIOA
-#define AD_CS_Pin GPIO_PIN_5
-#define AD_CS_GPIO_Port GPIOA
-#define AD_SDO_Pin GPIO_PIN_6
-#define AD_SDO_GPIO_Port GPIOA
-#define AD_SDI_Pin GPIO_PIN_7
-#define AD_SDI_GPIO_Port GPIOA
-#define SPI_WSCS_Pin GPIO_PIN_12
-#define SPI_WSCS_GPIO_Port GPIOB
-#define SPI_CLK_Pin GPIO_PIN_13
-#define SPI_CLK_GPIO_Port GPIOB
-#define SPI_MISO_Pin GPIO_PIN_14
-#define SPI_MISO_GPIO_Port GPIOB
-#define SPI_MOSI_Pin GPIO_PIN_15
-#define SPI_MOSI_GPIO_Port GPIOB
-#define WREST_Pin GPIO_PIN_8
-#define WREST_GPIO_Port GPIOA
-
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
-
-/* USER CODE BEGIN Private defines */
-extern uint8_t ADList[1024];
-extern uint16_t ADIndex;
-extern uint8_t bNeedTx;
-/* USER CODE END Private defines */
-
-#ifdef __cplusplus
- extern "C" {
-#endif
-void _Error_Handler(char *, int);
-
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
-#ifdef __cplusplus
+/* USER CODE BEGIN 0 */
+#include "TypeDefine.h"
+#include "ADS8689.h"
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	u32_wf ad=ADS8689_ReadResult();
+	ADList[ADIndex++]=ad.u16H.u8H;
+	ADList[ADIndex++]=ad.u16H.u8L;
+	if(ADIndex>=1024)
+	{
+		ADIndex=0;
+		bNeedTx=1;
+	}
 }
-#endif
+/* USER CODE END 0 */
+
+TIM_HandleTypeDef htim4;
+
+/* TIM4 init function */
+void MX_TIM4_Init(void)
+{
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 0;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 800;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
+void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
+{
+
+  if(tim_baseHandle->Instance==TIM4)
+  {
+  /* USER CODE BEGIN TIM4_MspInit 0 */
+
+  /* USER CODE END TIM4_MspInit 0 */
+    /* TIM4 clock enable */
+    __HAL_RCC_TIM4_CLK_ENABLE();
+
+    /* TIM4 interrupt Init */
+    HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(TIM4_IRQn);
+  /* USER CODE BEGIN TIM4_MspInit 1 */
+
+  /* USER CODE END TIM4_MspInit 1 */
+  }
+}
+
+void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
+{
+
+  if(tim_baseHandle->Instance==TIM4)
+  {
+  /* USER CODE BEGIN TIM4_MspDeInit 0 */
+
+  /* USER CODE END TIM4_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_TIM4_CLK_DISABLE();
+
+    /* TIM4 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(TIM4_IRQn);
+  /* USER CODE BEGIN TIM4_MspDeInit 1 */
+
+  /* USER CODE END TIM4_MspDeInit 1 */
+  }
+} 
+
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-*/ 
+  */
 
-#endif /* __MAIN_H */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

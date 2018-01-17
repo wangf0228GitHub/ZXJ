@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : main.hpp
-  * Description        : This file contains the common defines of the application
+  * File Name          : TIM.h
+  * Description        : This file provides code for the configuration
+  *                      of the TIM instances.
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -36,69 +37,45 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H
-#define __MAIN_H
-  /* Includes ------------------------------------------------------------------*/
-
-/* Includes ------------------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-#include <stdint.h>
-#include "stm32f1xx_hal.h"
-/* USER CODE END Includes */
-
-/* Private define ------------------------------------------------------------*/
-
-#define AD_RVS_Pin GPIO_PIN_2
-#define AD_RVS_GPIO_Port GPIOA
-#define AD_SCLK_Pin GPIO_PIN_4
-#define AD_SCLK_GPIO_Port GPIOA
-#define AD_CS_Pin GPIO_PIN_5
-#define AD_CS_GPIO_Port GPIOA
-#define AD_SDO_Pin GPIO_PIN_6
-#define AD_SDO_GPIO_Port GPIOA
-#define AD_SDI_Pin GPIO_PIN_7
-#define AD_SDI_GPIO_Port GPIOA
-#define SPI_WSCS_Pin GPIO_PIN_12
-#define SPI_WSCS_GPIO_Port GPIOB
-#define SPI_CLK_Pin GPIO_PIN_13
-#define SPI_CLK_GPIO_Port GPIOB
-#define SPI_MISO_Pin GPIO_PIN_14
-#define SPI_MISO_GPIO_Port GPIOB
-#define SPI_MOSI_Pin GPIO_PIN_15
-#define SPI_MOSI_GPIO_Port GPIOB
-#define WREST_Pin GPIO_PIN_8
-#define WREST_GPIO_Port GPIOA
-
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
-
-/* USER CODE BEGIN Private defines */
-extern uint8_t ADList[1024];
-extern uint16_t ADIndex;
-extern uint8_t bNeedTx;
-/* USER CODE END Private defines */
-
+#ifndef __tim_H
+#define __tim_H
 #ifdef __cplusplus
  extern "C" {
 #endif
-void _Error_Handler(char *, int);
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f1xx_hal.h"
+#include "main.h"
+
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+extern TIM_HandleTypeDef htim4;
+
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END Private defines */
+
+extern void _Error_Handler(char *, int);
+
+void MX_TIM4_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+
+/* USER CODE END Prototypes */
+
 #ifdef __cplusplus
 }
 #endif
+#endif /*__ tim_H */
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-*/ 
+  */
 
-#endif /* __MAIN_H */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

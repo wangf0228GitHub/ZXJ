@@ -6,7 +6,7 @@ BINARYDIR := Debug
 
 #Additional flags
 PREPROCESSOR_MACROS := DEBUG=1 flash_layout STM32F103xB
-INCLUDE_DIRS := ../../../../../WF_Device_STM32 ../../wf ../../Drivers/CMSIS/Include ..\..\Inc ..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include ..\..\Drivers\STM32F1xx_HAL_Driver\Inc ..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy ..\..\Drivers\STM32F1xx_HAL_Driver\Src ../../../5500/Ethernet
+INCLUDE_DIRS := ../../wf ../../Drivers/CMSIS/Include ..\..\Inc ..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include ..\..\Drivers\STM32F1xx_HAL_Driver\Inc ..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy ..\..\Drivers\STM32F1xx_HAL_Driver\Src ../../../5500/Ethernet ../../../../../WF_Device ../../../../../WF_Device/stm32
 LIBRARY_DIRS := 
 LIBRARY_NAMES := 
 ADDITIONAL_LINKER_INPUTS := 
