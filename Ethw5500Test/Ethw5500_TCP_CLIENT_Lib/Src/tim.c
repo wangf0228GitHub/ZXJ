@@ -40,7 +40,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
 
-
 /* USER CODE BEGIN 0 */
 #include "TypeDefine.h"
 #include "ADS8689.h"

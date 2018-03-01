@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "地声数据监测", "地声数据监测\地声数据监测.csproj", "{2561D141-3C17-491D-8463-D367E66E4981}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "水听器数据监测", "水听器数据监测\水听器数据监测.csproj", "{10CFB975-80D9-4FEA-B037-B83CBA9F1062}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFNetLib40", "..\..\..\WFLib\WFNetLib\WFNetLib40.csproj", "{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}"
 EndProject
@@ -21,26 +21,26 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2561D141-3C17-491D-8463-D367E66E4981}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Debug|x86.ActiveCfg = Debug|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Debug|x86.Build.0 = Debug|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.NET35|Any CPU.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.NET35|Mixed Platforms.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.NET35|Mixed Platforms.Build.0 = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.NET35|x86.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.NET35|x86.Build.0 = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.OffLine|Any CPU.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.OffLine|Mixed Platforms.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.OffLine|Mixed Platforms.Build.0 = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.OffLine|x86.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.OffLine|x86.Build.0 = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Release|Any CPU.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Release|Mixed Platforms.Build.0 = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Release|x86.ActiveCfg = Release|x86
-		{2561D141-3C17-491D-8463-D367E66E4981}.Release|x86.Build.0 = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Debug|x86.ActiveCfg = Debug|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Debug|x86.Build.0 = Debug|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.NET35|Any CPU.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.NET35|Mixed Platforms.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.NET35|Mixed Platforms.Build.0 = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.NET35|x86.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.NET35|x86.Build.0 = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.OffLine|Any CPU.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.OffLine|Mixed Platforms.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.OffLine|Mixed Platforms.Build.0 = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.OffLine|x86.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.OffLine|x86.Build.0 = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Release|Any CPU.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Release|Mixed Platforms.Build.0 = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Release|x86.ActiveCfg = Release|x86
+		{10CFB975-80D9-4FEA-B037-B83CBA9F1062}.Release|x86.Build.0 = Release|x86
 		{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
