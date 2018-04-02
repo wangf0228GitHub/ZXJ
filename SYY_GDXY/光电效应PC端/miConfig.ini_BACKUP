@@ -1,7 +1,0 @@
-﻿;工作模式设定
-[Work Setting]
-;打印机打印 or 转存PDF
-bPrint=0
-;转存PDF保存路径
-pathPDF=D:	
-
