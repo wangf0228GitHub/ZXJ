@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{216EEC84-0C4E-4905-8F62-DF1BA4601EF5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_703主抽气器试验台</RootNamespace>
+    <AssemblyName>主抽气器试验台（改造）-数据采集系统</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NationalInstruments.Common, Version=13.0.40.190, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL" />
+    <Reference Include="NationalInstruments.DAQmx, Version=14.1.40.15, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Instrumentation" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAL\ExDataData.cs" />
+    <Compile Include="DAL\ExperimentInfoData.cs" />
+    <Compile Include="DAL\NIChannelSettingData.cs" />
+    <Compile Include="exportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="exportForm.Designer.cs">
+      <DependentUpon>exportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="loginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="loginForm.Designer.cs">
+      <DependentUpon>loginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mainForm.Designer.cs">
+      <DependentUpon>mainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="newtaskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="newtaskForm.Designer.cs">
+      <DependentUpon>newtaskForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NIChannelSetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NIChannelSetForm.Designer.cs">
+      <DependentUpon>NIChannelSetForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NISettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NISettingForm.Designer.cs">
+      <DependentUpon>NISettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="taskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="taskForm.Designer.cs">
+      <DependentUpon>taskForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="userEidtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="userEidtForm.Designer.cs">
+      <DependentUpon>userEidtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="userForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="userForm.Designer.cs">
+      <DependentUpon>userForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="userForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="userForm1.Designer.cs">
+      <DependentUpon>userForm1.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="exportForm.resx">
+      <DependentUpon>exportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="loginForm.resx">
+      <DependentUpon>loginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mainForm.resx">
+      <DependentUpon>mainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="newtaskForm.resx">
+      <DependentUpon>newtaskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NIChannelSetForm.resx">
+      <DependentUpon>NIChannelSetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NISettingForm.resx">
+      <DependentUpon>NISettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="taskForm.resx">
+      <DependentUpon>taskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="userEidtForm.resx">
+      <DependentUpon>userEidtForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="userForm.resx">
+      <DependentUpon>userForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="userForm1.resx">
+      <DependentUpon>userForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\WFLib\WFNetLib\WFNetLib40.csproj">
+      <Project>{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}</Project>
+      <Name>WFNetLib40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WFLib\WFOffice2007\WFOffice2007_40.csproj">
+      <Project>{9BC4D8DE-01F7-4535-97C3-C24926095EB9}</Project>
+      <Name>WFOffice2007_40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
