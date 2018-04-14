@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFNetLib40", "..\..\WFLib\W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFOffice2007_40", "..\..\WFLib\WFOffice2007\WFOffice2007_40.csproj", "{9BC4D8DE-01F7-4535-97C3-C24926095EB9}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "703主抽气试验台（改造）-数据采集系统安装", "703主抽气试验台（改造）-数据采集系统安装\703主抽气试验台（改造）-数据采集系统安装.vdproj", "{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
@@ -95,6 +97,18 @@ Global
 		{9BC4D8DE-01F7-4535-97C3-C24926095EB9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9BC4D8DE-01F7-4535-97C3-C24926095EB9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9BC4D8DE-01F7-4535-97C3-C24926095EB9}.Release|x86.ActiveCfg = Release|Any CPU
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.Debug|Any CPU.ActiveCfg = Debug
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.Debug|x86.ActiveCfg = Debug
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.NET35|Any CPU.ActiveCfg = Release
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.NET35|Mixed Platforms.ActiveCfg = Release
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.NET35|x86.ActiveCfg = Release
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.OffLine|Any CPU.ActiveCfg = Release
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.OffLine|Mixed Platforms.ActiveCfg = Release
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.OffLine|x86.ActiveCfg = Release
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.Release|Any CPU.ActiveCfg = Release
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.Release|Mixed Platforms.ActiveCfg = Release
+		{2B90B465-CF45-44D7-9E47-FA2611E4F5B8}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
