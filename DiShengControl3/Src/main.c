@@ -39,6 +39,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f0xx_hal.h"
+#include "iwdg.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -51,6 +53,11 @@
 #include "ModbusRTU_Master.h"
 #include "SimI2C.h"
 #include "MS8607.h"
+#include "RIO.h"
+#include "..\..\..\WF_Device\NMEA0183.h"
+#include "..\..\..\WF_Device\GPS_GPRMC.h"
+#include "wfDefine.h"
+#include "..\..\..\WF_Device\stm32\wfEEPROM.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -77,7 +84,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	uint8_t i;
+	uint32_t i,sum;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -100,53 +107,109 @@ int main(void)
   MX_GPIO_Init();
   MX_USART6_UART_Init();
   MX_USART3_UART_Init();
+  MX_USART5_UART_Init();
+  MX_USART7_UART_Init();
+  MX_USART4_UART_Init();
+  MX_USART8_UART_Init();
+  MX_IWDG_Init();
+  MX_TIM17_Init();
 
   /* USER CODE BEGIN 2 */
+  TIM17->CR1 |= TIM_CR1_URS;  
   wfDelay_init(48);
+  Reset_W5500();
+  InitSystemParam();
   SimSPI_Init();
   w5500LibInit(); 
   SenserPower_ON();
+  JTPower_ON();
   SimI2C_Init();
   MS8607_Init();
   ModbusRTU_Master_TargetAddr=1;
   HAL_UART_Receive_IT(&TCMUart,&TCM_Rx,1);
   HAL_UART_Receive_IT(&ModbusRTU_MasterUart,&ModbusRTU_MasterRx,1);
+  HAL_UART_Receive_IT(&RIOUart,&RIO_Rx,1);
+  HAL_UART_Receive_IT(&GPRSUart,&GPRSRx,1); 
+  __HAL_TIM_CLEAR_IT(&htim17, TIM_IT_UPDATE);
+  HAL_TIM_Base_Start_IT(&htim17);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //i=1/0;
   while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+	  HAL_IWDG_Refresh(&hiwdg);
+	  if(w5500Retry>10)
+	  {
+		  NVIC_SystemReset();
+	  }
+	  if(MissServer>10)
+	  {
+		  Reset_W5500();
+		  w5500LibInit(); 
+		  MissServer=0;
+		  w5500Retry++;
+	  }
 	  if(GetDeltaTick(RunTick)>1000)
 	  {
 		  RunTick=HAL_GetTick();
 		  HAL_GPIO_TogglePin(RUNLED_GPIO_Port,RUNLED_Pin);
-	  }
+	  }	  
 	  if(GetDeltaTick(ReadSensorTick)>1000)
 	  {
 		  ReadSensorTick=HAL_GetTick();
+		  TCMErr++;
+		  ModbusErr++;
+		  MS8607Err++;
+		  RIOErr++;
+		  GPRSErr++;
 		  TCM_SendData();
 		  ModbusRTU_Master_SendCommand03(0x0006,2);
 		  ModbusRTU_Master_preRxProcInit();	
-		  if(MS8607_Flags.bInit==0)
+		  if(MS8607_Flags.bInit!=0)
 		  {
-			  MS8607_Init();
+			  if(MS8607_ReadPT(ms8607_pressure_resolution_osr_8192))
+				  MS8607Err=0;
+			  if(MS8607_ReadRH()!=0)
+				  MS8607Err=0;
 		  }
 		  else
 		  {
-			  MS8607_ReadPT(ms8607_pressure_resolution_osr_8192);
-			  MS8607_ReadRH();
+			  if(MS8607_Init()!=0)
+				  MS8607Err=0;			 
+		  }
+		  if(bRIORead!=0)
+		  {
+			  if(RIO_ReadCommand(0x0e)==1)
+			  {
+				  for(i=0;i<6;i++)
+				  {
+					  RIO_0E[i]=RIO_RxList[pRIOData+i];
+				  }
+				  RIOErr=0;
+			  }
+		  }
+		  else
+		  {
+			  if(RIO_ReadCommand(0x26)==1)
+			  {
+				  RIOCur=MAKE_SHORT(RIO_RxList[pRIOData],RIO_RxList[pRIOData+1]);
+				  bRIORead=1;
+				  RIOErr=0;
+			  }
 		  }
 	  }
 	  if(ModbusRTU_Master_Flags.bRx)
 	  {
 		  Temperature.u8H=ModbusRTU_Master_RxList[3];
 		  Temperature.u8L=ModbusRTU_Master_RxList[4];
+		  ModbusErr=0;
 	  }
-	  if(TCMErr>30)
+	  if(TCMErr>10)
 	  {
 		  MX_USART3_UART_Init();
 		  HAL_UART_Receive_IT(&TCMUart,&TCM_Rx,1);
@@ -158,15 +221,24 @@ int main(void)
 			  TCMData[i]=0;
 		  }
 		  TCMErr=0;
-	  }
-	  else if(TCMErr>20)
+	  }	 
+	  if(ModbusErr>10)
 	  {
-		  MX_USART3_UART_Init();
-		  HAL_UART_Receive_IT(&TCMUart,&TCM_Rx,1);
+		  MX_USART6_UART_Init();
+		  HAL_UART_Receive_IT(&ModbusRTU_MasterUart,&ModbusRTU_MasterRx,1);
+		  SenserPower_OFF();
+		  wfDelay_ms(50);
+		  SenserPower_ON();
+		  Temperature.u16=0;
+		  ModbusErr=0;
 	  }
-	  else if(TCMErr>10)
+	  if(NMEA0183_Flags.bRx)
 	  {
-		  HAL_UART_Receive_IT(&TCMUart,&TCM_Rx,1);
+		  NMEA0183_Verify();
+		  if(GPS_GPRMC_DataProc(NMEA0183_RxBuf)!=0)
+			  GPRSErr=0;
+		  NMEA0183_RxCount=0;
+		  NMEA0183_Flags.bRx=0;
 	  }
 	  if(TCM_Flags.bRx)
 	  {
@@ -200,8 +272,9 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
@@ -240,7 +313,7 @@ void SystemClock_Config(void)
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
   /* SysTick_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(SysTick_IRQn, 1, 0);
 }
 
 /* USER CODE BEGIN 4 */
@@ -258,6 +331,8 @@ void _Error_Handler(char * file, int line)
   /* User can add his own implementation to report the HAL error return state */
   while(1) 
   {
+	  wfDelay_ms(100);
+	  HAL_GPIO_TogglePin(RUNLED_GPIO_Port,RUNLED_Pin);
   }
   /* USER CODE END Error_Handler_Debug */ 
 }

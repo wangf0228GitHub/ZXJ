@@ -36,12 +36,17 @@
 #include "stm32f0xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "wfSys.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim17;
 extern UART_HandleTypeDef huart3;
+extern UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart5;
 extern UART_HandleTypeDef huart6;
+extern UART_HandleTypeDef huart7;
+extern UART_HandleTypeDef huart8;
 
 /******************************************************************************/
 /*            Cortex-M0 Processor Interruption and Exception Handlers         */ 
@@ -66,7 +71,11 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
-
+	while(1)
+	{
+		wfDelay_ms(100);
+		HAL_GPIO_TogglePin(RUNLED_GPIO_Port,RUNLED_Pin);
+	}
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {
@@ -125,6 +134,20 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+* @brief This function handles TIM17 global interrupt.
+*/
+void TIM17_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM17_IRQn 0 */
+
+  /* USER CODE END TIM17_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim17);
+  /* USER CODE BEGIN TIM17_IRQn 1 */
+
+  /* USER CODE END TIM17_IRQn 1 */
+}
+
+/**
 * @brief This function handles USART3 to USART8 global interrupts / USART3 wake-up interrupt through EXTI line 28.
 */
 void USART3_8_IRQHandler(void)
@@ -133,7 +156,11 @@ void USART3_8_IRQHandler(void)
 
   /* USER CODE END USART3_8_IRQn 0 */
   HAL_UART_IRQHandler(&huart3);
+  HAL_UART_IRQHandler(&huart4);
+  HAL_UART_IRQHandler(&huart5);
   HAL_UART_IRQHandler(&huart6);
+  HAL_UART_IRQHandler(&huart7);
+  HAL_UART_IRQHandler(&huart8);
   /* USER CODE BEGIN USART3_8_IRQn 1 */
 
   /* USER CODE END USART3_8_IRQn 1 */

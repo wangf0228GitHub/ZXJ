@@ -14,14 +14,14 @@ using WFNetLib;
 namespace 地声数据监测
 {
     public partial class Form1 : Form
-    {
+    {        
         public Form1()
         {
             InitializeComponent();
         }
-        bool bPic=false;
-        WFNetLib.TCP.ClientContext PicClientContext;
-        IPEndPoint PicSocketIP;
+        public static bool bPic=false;
+        public static WFNetLib.TCP.ClientContext mcuClientContext;
+        public static IPEndPoint mcuSocketIP;
         TCPAsyncServer tcpAsyncServer = null;
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -32,7 +32,19 @@ namespace 地声数据监测
             tcpAsyncServer.DisconnectServerEvent += new TCPDisconnectEvent(tcpAsyncServer_DisconnectServer);
             tcpAsyncServer.ReceiveServerEvent += new TCPReceiveEvent(tcpAsyncServer_ReceiveServerEvent);
             tcpAsyncServer.TCPServerPort = 6000;
-            PicSocketIP = new IPEndPoint(new IPAddress(new byte[4]{192,168,1,201}), 5000);
+            if (Properties.Settings.Default.mcuIP == 0)
+            {
+                IPAddress mcuIP=new IPAddress(new byte[4]{192,168,1,201});
+                Properties.Settings.Default.mcuIP = mcuIP.Address;
+                Properties.Settings.Default.Save();
+            }
+            mcuSocketIP = new IPEndPoint(new IPAddress(Properties.Settings.Default.mcuIP), 5000);
+            toolStripButton1.Text = "停止";
+            tcpAsyncServer.Start();
+            NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
+            NetLog("服务器启动\r\n");
+            NetLog("\r\n");
+            listView1_Resize(null, null);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -62,74 +74,218 @@ namespace 地声数据监测
             textBox1.AppendText(str);
             WFNetLib.Log.TextLog.AddTextLog(str);
         }
+        public static double rioCur;
+        public static bool bPower1, bPower2;
+        public static byte[] bIO=new byte[6];
         private void tcpAsyncServer_ReceiveServerEvent(object sender, ReceiveServerEventArgs e)
         {
             IPEndPoint ip = (IPEndPoint)e.Client.ClientSocket.RemoteEndPoint;
-            if (ip.Address.Equals(PicSocketIP.Address))
+            //if (ip.Address.Equals(mcuSocketIP.Address))
+            if (e.Client == mcuClientContext)
             {
                 this.Invoke((EventHandler)(delegate
                 {
-                    CP1616_NoAddr_Packet rx = (CP1616_NoAddr_Packet)e.netPacket;                    
-                    double f;
-                    byte[] fb = new byte[4];
-                    int fbIndex;
-                    string str;
-                    //温度
-                    f=BytesOP.MakeShort(rx.Data[0],rx.Data[1]);
-                    f=f/100;
-                    listView1.Items[0].SubItems[1].Text = f.ToString("F2");
-                    //电子罗盘
-                    fbIndex=2;
-                    for (int i = 0; i < 4; i++)
+                    CP1616_NoAddr_Packet rx = (CP1616_NoAddr_Packet)e.netPacket;  
+                    if(rx.Header.Command==0x01)
                     {
-                        fb[i] = rx.Data[fbIndex + 3 - i];
-                    }
-                    f = BitConverter.ToSingle(fb,0);
-                    listView1.Items[1].SubItems[1].Text = f.ToString("F2");
+                        double f;
+                        byte[] fb = new byte[4];
+                        int fbIndex;
+                        string str;
+                        bool bSave = false;
+                        //温度
+                        f = BytesOP.MakeShort(rx.Data[0], rx.Data[1]);
+                        f = f / 100;
+                        listView1.Items[0].SubItems[1].Text = f.ToString("F2");
+                        //电子罗盘
+                        fbIndex = 2;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            fb[i] = rx.Data[fbIndex + 3 - i];
+                        }
+                        f = BitConverter.ToSingle(fb, 0);
+                        listView1.Items[1].SubItems[1].Text = f.ToString("F2");
 
-                    fbIndex = 6;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        fb[i] = rx.Data[fbIndex + 3 - i];
-                    }
-                    f = BitConverter.ToSingle(fb, 0);
-                    listView1.Items[2].SubItems[1].Text = f.ToString("F2");
+                        fbIndex = 6;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            fb[i] = rx.Data[fbIndex + 3 - i];
+                        }
+                        f = BitConverter.ToSingle(fb, 0);
+                        listView1.Items[2].SubItems[1].Text = f.ToString("F2");
 
-                    fbIndex = 10;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        fb[i] = rx.Data[fbIndex + 3 - i];
-                    }
-                    f = BitConverter.ToSingle(fb, 0);
-                    listView1.Items[3].SubItems[1].Text = f.ToString("F2");
+                        fbIndex = 10;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            fb[i] = rx.Data[fbIndex + 3 - i];
+                        }
+                        f = BitConverter.ToSingle(fb, 0);
+                        listView1.Items[3].SubItems[1].Text = f.ToString("F2");
 
-                    //授时
-                    str = Encoding.UTF8.GetString(rx.Data,14,10);
-                    listView1.Items[4].SubItems[1].Text = str;
+                        //授时
+                        str = Encoding.UTF8.GetString(rx.Data, 14, 10);
+                        listView1.Items[4].SubItems[1].Text = str;
 
-                    str = Encoding.UTF8.GetString(rx.Data, 24, 6);
-                    listView1.Items[5].SubItems[1].Text = str;
+                        str = Encoding.UTF8.GetString(rx.Data, 24, 6);
+                        listView1.Items[5].SubItems[1].Text = str;
 
-                    //MS8607
-                    f = BitConverter.ToSingle(rx.Data, 30);
-                    listView1.Items[6].SubItems[1].Text = f.ToString("F2");
+                        //MS8607
+                        f = BitConverter.ToSingle(rx.Data, 30);
+                        listView1.Items[6].SubItems[1].Text = f.ToString("F2");
 
-                    f = BitConverter.ToSingle(rx.Data, 34);
-                    listView1.Items[7].SubItems[1].Text = f.ToString("F2");
+                        f = BitConverter.ToSingle(rx.Data, 34);
+                        listView1.Items[7].SubItems[1].Text = f.ToString("F2");
 
-                    f = BitConverter.ToSingle(rx.Data, 38);
-                    listView1.Items[8].SubItems[1].Text = f.ToString("F2");
-                    if (rx.Data[42]>1)
-                    {
-                        NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
-                        NetLog("收到PIC采集板数据" + e.Client.clientEndPoint.ToString() + ":");
-                        NetLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(rx.Data, " "));
-                        NetLog("\r\n");
+                        f = BitConverter.ToSingle(rx.Data, 38);
+                        listView1.Items[8].SubItems[1].Text = f.ToString("F2");
+                        //光源
+                        f = BytesOP.MakeShort(rx.Data[44], rx.Data[45]);
+                        f = f / 10;
+                        rioCur = f;
+                        listView1.Items[14].SubItems[1].Text = f.ToString("F1");
+                        ushort rioStatus = BytesOP.MakeShort(rx.Data[42], rx.Data[43]);
+                        listView1.Items[15].SubItems[1].Text = rioStatus.ToString("X04");
+                        if (BytesOP.GetBit(rioStatus, 0))
+                        {
+                            listView1.Items[16].SubItems[1].Text = "是";
+                            listView1.Items[16].BackColor = Color.Lime;
+                        }
+                        else
+                        {
+                            listView1.Items[16].SubItems[1].Text = "否";
+                            listView1.Items[16].BackColor = Color.Red;
+                        }
+                        if (BytesOP.GetBit(rioStatus, 6))
+                        {
+                            listView1.Items[17].SubItems[1].Text = "是";
+                            listView1.Items[17].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            listView1.Items[17].SubItems[1].Text = "否";
+                            listView1.Items[17].BackColor = Color.Lime;
+                        }
+                        if (BytesOP.GetBit(rioStatus, 7))
+                        {
+                            listView1.Items[18].SubItems[1].Text = "是";
+                            listView1.Items[18].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            listView1.Items[18].SubItems[1].Text = "否";
+                            listView1.Items[18].BackColor = Color.Lime;
+                        }
+                        //通信错误帧统计
+                        listView1.Items[9].SubItems[1].Text = rx.Data[46].ToString();
+                        if (rx.Data[46] > 5)
+                        {
+                            bSave = true;
+                            listView1.Items[9].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            listView1.Items[9].BackColor = SystemColors.Window;
+                        }
+
+                        listView1.Items[10].SubItems[1].Text = rx.Data[47].ToString();
+                        if (rx.Data[47] > 5)
+                        {
+                            bSave = true;
+                            listView1.Items[10].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            listView1.Items[10].BackColor = SystemColors.Window;
+                        }
+
+                        listView1.Items[11].SubItems[1].Text = rx.Data[48].ToString();
+                        if (rx.Data[48] > 5)
+                        {
+                            bSave = true;
+                            listView1.Items[11].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            listView1.Items[11].BackColor = SystemColors.Window;
+                        }
+
+                        listView1.Items[12].SubItems[1].Text = rx.Data[49].ToString();
+                        if (rx.Data[49] > 5)
+                        {
+                            bSave = true;
+                            listView1.Items[12].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            listView1.Items[12].BackColor = SystemColors.Window;
+                        }
+
+                        listView1.Items[13].SubItems[1].Text = rx.Data[50].ToString();
+                        if (rx.Data[50] > 5)
+                        {
+                            bSave = true;
+                            listView1.Items[13].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            listView1.Items[13].BackColor = SystemColors.Window;
+                        }
+
+                        listView1.Items[19].SubItems[1].Text = rx.Data[51].ToString();//漏水1
+                        listView1.Items[20].SubItems[1].Text = rx.Data[52].ToString();//漏水2
+                        listView1.Items[21].SubItems[1].Text = rx.Data[53].ToString();//备用IO1
+                        listView1.Items[22].SubItems[1].Text = rx.Data[54].ToString();//备用IO1
+                        listView1.Items[23].SubItems[1].Text = rx.Data[55].ToString();//备用IO1
+                        listView1.Items[24].SubItems[1].Text = rx.Data[56].ToString();//备用IO1
+                        listView1.Items[25].SubItems[1].Text = rx.Data[57].ToString();//备用IO1
+                        listView1.Items[26].SubItems[1].Text = rx.Data[58].ToString();//备用IO1
+
+                        for (int i = 0; i < 6; i++)
+                        {
+                            bIO[i] = rx.Data[53 + i];
+                        }
+
+                        if (rx.Data[59] == 0)
+                        {
+                            listView1.Items[27].SubItems[1].Text = "打开";
+                            bPower1 = true;
+                        }
+                        else
+                        {
+                            listView1.Items[27].SubItems[1].Text = "关闭";
+                            bPower1 = false;
+                        }
+
+                        if (rx.Data[60] == 0)
+                        {
+                            listView1.Items[28].SubItems[1].Text = "打开";
+                            bPower2 = true;
+                        }
+                        else
+                        {
+                            listView1.Items[28].SubItems[1].Text = "关闭";
+                            bPower2 = false;
+                        }
+
+                        if (bSave)
+                        {
+                            NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
+                            NetLog("收到单片机采集板数据" + e.Client.clientEndPoint.ToString() + ":");
+                            NetLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(rx.Data, " "));
+                            NetLog("\r\n");
+                        }
+                        else
+                        {
+                            textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
+                            textBox1.AppendText("收到单片机采集板数据" + e.Client.clientEndPoint.ToString() + ":");
+                            textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(rx.Data, " "));
+                            textBox1.AppendText("\r\n");
+                        }
                     }
                     else
                     {
                         textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
-                        textBox1.AppendText("收到PIC采集板数据" + e.Client.clientEndPoint.ToString() + ":");
+                        textBox1.AppendText("收到单片机采集板数据" + e.Client.clientEndPoint.ToString() + ":");
                         textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(rx.Data, " "));
                         textBox1.AppendText("\r\n");
                     }
@@ -163,17 +319,18 @@ namespace 地声数据监测
 
             }));
             IPEndPoint ip = (IPEndPoint)e.Client.ClientSocket.RemoteEndPoint;
-            if (ip.Address.Equals(PicSocketIP.Address))
+            if (ip.Address.Equals(mcuSocketIP.Address))
             //if(ip.Address.Address==PicSocketIP.Address.Address)
             {                
                 bPic = true;
-                PicClientContext = e.Client;
-                PicSocketIP.Port = ip.Port;
+                mcuClientContext = e.Client;
+                mcuSocketIP.Port = ip.Port;
                 this.Invoke((EventHandler)(delegate
                 {
-                    timer1.Enabled = true;
+                    if(!bForm2)
+                        timer1.Enabled = true;
                     NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
-                    NetLog("PIC采集板接入");
+                    NetLog("单片机采集板接入");
                     NetLog("\r\n");
 
                 }));
@@ -183,16 +340,40 @@ namespace 地声数据监测
         private void tcpAsyncServer_DisconnectServer(object sender, DisconnectEventArgs e)
         {
             IPEndPoint ip = (IPEndPoint)e.Client.ClientSocket.RemoteEndPoint;
-            if (ip.Address.Equals(PicSocketIP.Address))
+            //if (ip.Address.Equals(mcuSocketIP.Address))
+            if(e.Client==mcuClientContext)
             {
-                if (ip.Port == PicSocketIP.Port)
+                //if (ip.Port == mcuSocketIP.Port)
+                //{
+                
+                this.Invoke((EventHandler)(delegate
                 {
                     bPic = false;
+                    timer1.Enabled = false;
+                    NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
+                    NetLog("单片机采集板断开");
+                    NetLog("\r\n");
+                }));
+                
+                //}
+                //else
+                //{
+                //    this.Invoke((EventHandler)(delegate
+                //    {
+                //        NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
+                //        NetLog("上一个单片机采集板IP断开");
+                //        NetLog("\r\n");
+                //    }));
+                //}
+            }            
+            else
+            {
+                if (ip.Address.Equals(mcuSocketIP.Address))
+                {
                     this.Invoke((EventHandler)(delegate
                     {
-                        timer1.Enabled = false;
                         NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
-                        NetLog("PIC采集板断开");
+                        NetLog("上一个单片机采集板IP断开");
                         NetLog("\r\n");
                     }));
                 }
@@ -200,21 +381,12 @@ namespace 地声数据监测
                 {
                     this.Invoke((EventHandler)(delegate
                     {
+                        //timer1.Enabled = false;
                         NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
-                        NetLog("上一个PIC采集板IP断开");
+                        NetLog("未知ip断开");
                         NetLog("\r\n");
                     }));
                 }
-            }            
-            else
-            {
-                this.Invoke((EventHandler)(delegate
-                {
-                    timer1.Enabled = false;
-                    NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
-                    NetLog("未知ip断开");
-                    NetLog("\r\n");
-                }));
             } 
         }
 
@@ -232,14 +404,34 @@ namespace 地声数据监测
                 this.Invoke((EventHandler)(delegate
                 {
                     textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
-                    textBox1.AppendText("发送到" + PicClientContext.clientEndPoint.ToString() + ":");
+                    textBox1.AppendText("发送到" + mcuClientContext.clientEndPoint.ToString() + ":");
                     textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx, " "));
                     textBox1.AppendText("\r\n");
                 }));
-                tcpAsyncServer.Send(PicClientContext, tx);
+                tcpAsyncServer.Send(mcuClientContext, tx);
             }
             else
                 timer1.Enabled = false;
+        }
+
+        private void listView1_Resize(object sender, EventArgs e)
+        {
+            listView1.Columns[2].Width = listView1.ClientSize.Width - listView1.Columns[0].Width - listView1.Columns[1].Width;
+        }
+        bool bForm2=false;
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            bForm2 = true;
+            Form2 f = new Form2(tcpAsyncServer);
+            f.ShowDialog();
+            timer1.Enabled = true;
+            bForm2 = false;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            tcpAsyncServer.Stop();
         }
     }
 }

@@ -4,7 +4,7 @@
 #include "main.h"
 #include "stdint.h"
 #include "usart.h"
-#define ModbusRTU_MasterUart huart6
+
 
 #define ModbusRTU_Master_UseTxList
 #define ModbusRTU_Master_TxDataBuf(len) HAL_UART_Transmit(&ModbusRTU_MasterUart,ModbusRTU_Master_TxList,len,1000);

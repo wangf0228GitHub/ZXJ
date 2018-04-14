@@ -22,5 +22,17 @@ namespace 地声数据监测.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long mcuIP {
+            get {
+                return ((long)(this["mcuIP"]));
+            }
+            set {
+                this["mcuIP"] = value;
+            }
+        }
     }
 }

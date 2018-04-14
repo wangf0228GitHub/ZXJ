@@ -47,8 +47,26 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define LouShui1_Pin GPIO_PIN_2
+#define LouShui1_GPIO_Port GPIOA
+#define LouShui2_Pin GPIO_PIN_3
+#define LouShui2_GPIO_Port GPIOA
+#define W5500Reset_Pin GPIO_PIN_7
+#define W5500Reset_GPIO_Port GPIOA
 #define RS485_DE_Pin GPIO_PIN_4
 #define RS485_DE_GPIO_Port GPIOC
+#define IOBak6_Pin GPIO_PIN_5
+#define IOBak6_GPIO_Port GPIOC
+#define IOBak5_Pin GPIO_PIN_0
+#define IOBak5_GPIO_Port GPIOB
+#define IOBak4_Pin GPIO_PIN_1
+#define IOBak4_GPIO_Port GPIOB
+#define IOBak3_Pin GPIO_PIN_2
+#define IOBak3_GPIO_Port GPIOB
+#define IOBak2_Pin GPIO_PIN_10
+#define IOBak2_GPIO_Port GPIOB
+#define IOBak1_Pin GPIO_PIN_11
+#define IOBak1_GPIO_Port GPIOB
 #define SPI_WSCS_Pin GPIO_PIN_12
 #define SPI_WSCS_GPIO_Port GPIOB
 #define SPI_CLK_Pin GPIO_PIN_13
@@ -59,6 +77,8 @@
 #define SPI_MOSI_GPIO_Port GPIOB
 #define SenserPower_Pin GPIO_PIN_15
 #define SenserPower_GPIO_Port GPIOA
+#define JTPower_Pin GPIO_PIN_6
+#define JTPower_GPIO_Port GPIOB
 #define RUNLED_Pin GPIO_PIN_7
 #define RUNLED_GPIO_Port GPIOB
 #define SimI2C_CLK_Pin GPIO_PIN_8
@@ -78,10 +98,18 @@
 #define Verify_CRC16
 #define MS8607_SimI2C
 #define MCU_STM32
+#define STM32_Flash4EEPROM
 #define wfGetTick() HAL_GetTick()
+#define wfEEPROM_INFO
+#define wfEEPROM_BASE_ADDR 0x0803f800
+
+
 
 #define SenserPower_ON() HAL_GPIO_WritePin(SenserPower_GPIO_Port,SenserPower_Pin,GPIO_PIN_RESET)
 #define SenserPower_OFF() HAL_GPIO_WritePin(SenserPower_GPIO_Port,SenserPower_Pin,GPIO_PIN_SET)
+
+#define JTPower_ON() HAL_GPIO_WritePin(JTPower_GPIO_Port,JTPower_Pin,GPIO_PIN_RESET)
+#define JTPower_OFF() HAL_GPIO_WritePin(JTPower_GPIO_Port,JTPower_Pin,GPIO_PIN_SET)
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

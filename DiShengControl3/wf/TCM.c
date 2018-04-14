@@ -62,8 +62,7 @@ void TCM_ProcRx(uint8_t rx)
 }
 void TCM_SendData( void )
 {
-	TCM_EndProcCommand();
-	TCMErr++;
+	TCM_EndProcCommand();	
 	uint8_t tx[5]={0x00,0x05,0x04,0xbf,0x71};
 	HAL_UART_Transmit(&TCMUart,tx,5,1000);
 }

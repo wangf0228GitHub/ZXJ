@@ -52,16 +52,27 @@
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart3;
+extern UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart5;
 extern UART_HandleTypeDef huart6;
+extern UART_HandleTypeDef huart7;
+extern UART_HandleTypeDef huart8;
 
 /* USER CODE BEGIN Private defines */
-
+#define TCMUart huart3
+#define ModbusRTU_MasterUart huart6
+#define RIOUart huart5
+#define GPRSUart huart7
 /* USER CODE END Private defines */
 
 extern void _Error_Handler(char *, int);
 
 void MX_USART3_UART_Init(void);
+void MX_USART4_UART_Init(void);
+void MX_USART5_UART_Init(void);
 void MX_USART6_UART_Init(void);
+void MX_USART7_UART_Init(void);
+void MX_USART8_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 

@@ -36,7 +36,7 @@ error:
 	$(error Invalid configuration, please check your inputs)
 endif
 
-SOURCEFILES := ../../../../WF_Device/CP1616_Client.c ../../../../WF_Device/GPS_GPRMC.c ../../../../WF_Device/ModbusRTU_Master.c ../../../../WF_Device/MS8607.c ../../../../WF_Device/SimI2C.c ../../../../WF_Device/SimSPI.c ../../../../WF_Device/stm32/wfSys.c ../../../../WF_Device/Verify.c ../../5500/Ethernet/socket.c ../../5500/Ethernet/W5500/w5500.c ../../5500/Ethernet/wizchip_conf.c ../../Src/gpio.c ../../Src/usart.c ../../Src/stm32f0xx_it.c ../../Src/stm32f0xx_hal_msp.c ../../Src/main.c ../../Drivers/CMSIS/Device/ST/STM32F0xx/Source/Templates/system_stm32f0xx.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c ../../wf/TCM.c ../../wf/Variables.c ../../wf/w5500_Conf.c $(BSP_ROOT)/STM32F0xxxx/StartupFiles/startup_stm32f091xc.c
+SOURCEFILES := ../../../../WF_Device/CP1616_Client.c ../../../../WF_Device/GPS_GPRMC.c ../../../../WF_Device/ModbusRTU_Master.c ../../../../WF_Device/MS8607.c ../../../../WF_Device/NMEA0183.c ../../../../WF_Device/SimI2C.c ../../../../WF_Device/SimSPI.c ../../../../WF_Device/stm32/wfEEPROM.c ../../../../WF_Device/stm32/wfSys.c ../../../../WF_Device/Verify.c ../../../../WF_Device/wfDefine.c ../../5500/Ethernet/socket.c ../../5500/Ethernet/W5500/w5500.c ../../5500/Ethernet/wizchip_conf.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_iwdg.c ../../Src/gpio.c ../../Src/iwdg.c ../../Src/tim.c ../../Src/usart.c ../../Src/stm32f0xx_it.c ../../Src/stm32f0xx_hal_msp.c ../../Src/main.c ../../Drivers/CMSIS/Device/ST/STM32F0xx/Source/Templates/system_stm32f0xx.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_rcc_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_flash_ex.c ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c ../../wf/RIO.c ../../wf/TCM.c ../../wf/Variables.c ../../wf/w5500_Conf.c $(BSP_ROOT)/STM32F0xxxx/StartupFiles/startup_stm32f091xc.c
 EXTERNAL_LIBS := 
 EXTERNAL_LIBS_COPIED := $(foreach lib, $(EXTERNAL_LIBS),$(BINARYDIR)/$(notdir $(lib)))
 
@@ -198,6 +198,10 @@ $(BINARYDIR)/MS8607.o : ../../../../WF_Device/MS8607.c $(all_make_files) |$(BINA
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 
+$(BINARYDIR)/NMEA0183.o : ../../../../WF_Device/NMEA0183.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
 $(BINARYDIR)/SimI2C.o : ../../../../WF_Device/SimI2C.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
@@ -206,11 +210,19 @@ $(BINARYDIR)/SimSPI.o : ../../../../WF_Device/SimSPI.c $(all_make_files) |$(BINA
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 
+$(BINARYDIR)/wfEEPROM.o : ../../../../WF_Device/stm32/wfEEPROM.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
 $(BINARYDIR)/wfSys.o : ../../../../WF_Device/stm32/wfSys.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 
 $(BINARYDIR)/Verify.o : ../../../../WF_Device/Verify.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/wfDefine.o : ../../../../WF_Device/wfDefine.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 
@@ -226,7 +238,19 @@ $(BINARYDIR)/wizchip_conf.o : ../../5500/Ethernet/wizchip_conf.c $(all_make_file
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 
+$(BINARYDIR)/stm32f0xx_hal_iwdg.o : ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_iwdg.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
 $(BINARYDIR)/gpio.o : ../../Src/gpio.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/iwdg.o : ../../Src/iwdg.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/tim.o : ../../Src/tim.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 
@@ -311,6 +335,10 @@ $(BINARYDIR)/stm32f0xx_hal_flash_ex.o : ../../Drivers/STM32F0xx_HAL_Driver/Src/s
 
 
 $(BINARYDIR)/stm32f0xx_hal_gpio.o : ../../Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/RIO.o : ../../wf/RIO.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 
 

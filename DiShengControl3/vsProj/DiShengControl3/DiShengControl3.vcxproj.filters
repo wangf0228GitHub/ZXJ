@@ -106,6 +106,12 @@
     <Filter Include="w5500">
       <UniqueIdentifier>{d4cb6573-79b5-4e3e-9258-22530c569505}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source files\STM32Cube HAL\IWDG">
+      <UniqueIdentifier>{fe8a3d88-d957-4ca1-a08a-9ae4496ee7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\STM32Cube HAL\IWDG">
+      <UniqueIdentifier>{5bd11e23-6d4b-4cdc-852a-c12a125af714}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />
@@ -324,6 +330,27 @@
     <ClCompile Include="..\..\..\..\WF_Device\ModbusRTU_Master.c">
       <Filter>wf\lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\wf\RIO.c">
+      <Filter>wf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\WF_Device\NMEA0183.c">
+      <Filter>wf\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\WF_Device\wfDefine.c">
+      <Filter>wf\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\iwdg.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_iwdg.c">
+      <Filter>Source files\STM32Cube HAL\IWDG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\WF_Device\stm32\wfEEPROM.c">
+      <Filter>wf\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\tim.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\WF_Device\stm32\wfSys.h">
@@ -382,6 +409,27 @@
     </ClInclude>
     <ClInclude Include="..\..\wf\ModbusRTU_Master_Conf.h">
       <Filter>wf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\wf\RIO.h">
+      <Filter>wf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\WF_Device\NMEA0183.h">
+      <Filter>wf\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\WF_Device\wfDefine.h">
+      <Filter>wf\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\iwdg.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_iwdg.h">
+      <Filter>Header files\STM32Cube HAL\IWDG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\WF_Device\stm32\wfEEPROM.h">
+      <Filter>wf\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\tim.h">
+      <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
