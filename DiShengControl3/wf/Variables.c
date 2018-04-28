@@ -1,6 +1,6 @@
 #include "Variables.h"
 #include "..\..\..\WF_Device\stm32\wfEEPROM.h"
-#include "w5500_Conf.h"
+#include "w5500_Work.h"
 
 u16_wf Temperature;
 uint8_t TCMData[12];

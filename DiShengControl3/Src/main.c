@@ -47,7 +47,7 @@
 /* USER CODE BEGIN Includes */
 #include "wfSys.h"
 #include "SimSPI.h"
-#include "w5500_Conf.h"
+#include "w5500_Work.h"
 #include "..\wf\TCM.h"
 #include "..\wf\Variables.h"
 #include "ModbusRTU_Master.h"

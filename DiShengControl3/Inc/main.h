@@ -94,6 +94,7 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
+#define WhoIam 0x01 //传感器采集板
 #define Verify_Sum
 #define Verify_CRC16
 #define MS8607_SimI2C

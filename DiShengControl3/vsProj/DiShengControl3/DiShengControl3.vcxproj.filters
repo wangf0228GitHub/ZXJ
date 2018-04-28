@@ -103,14 +103,14 @@
     <Filter Include="wf\lib">
       <UniqueIdentifier>{b317549b-8ad1-4dd8-a3a2-968199ba5bea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="w5500">
-      <UniqueIdentifier>{d4cb6573-79b5-4e3e-9258-22530c569505}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source files\STM32Cube HAL\IWDG">
       <UniqueIdentifier>{fe8a3d88-d957-4ca1-a08a-9ae4496ee7a7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header files\STM32Cube HAL\IWDG">
       <UniqueIdentifier>{5bd11e23-6d4b-4cdc-852a-c12a125af714}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wf\w5500">
+      <UniqueIdentifier>{c8e83833-092d-4715-87b8-38502c5f3009}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -291,19 +291,7 @@
     <ClCompile Include="..\..\..\..\WF_Device\stm32\wfSys.c">
       <Filter>wf\lib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\5500\Ethernet\socket.c">
-      <Filter>w5500</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\5500\Ethernet\wizchip_conf.c">
-      <Filter>w5500</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\5500\Ethernet\W5500\w5500.c">
-      <Filter>w5500</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\wf\Variables.c">
-      <Filter>wf</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\wf\w5500_Conf.c">
       <Filter>wf</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\WF_Device\SimSPI.c">
@@ -351,27 +339,27 @@
     <ClCompile Include="..\..\Src\tim.c">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\wf\w5500_Work.c">
+      <Filter>wf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\WF_Device\W5500\Ethernet\socket.c">
+      <Filter>wf\w5500</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\WF_Device\W5500\Ethernet\wizchip_conf.c">
+      <Filter>wf\w5500</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\WF_Device\W5500\Ethernet\W5500\w5500.c">
+      <Filter>wf\w5500</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\WF_Device\stm32\wfSys.h">
       <Filter>wf\lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\5500\Ethernet\socket.h">
-      <Filter>w5500</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\5500\Ethernet\wizchip_conf.h">
-      <Filter>w5500</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\5500\Ethernet\W5500\w5500.h">
-      <Filter>w5500</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\wf\SimSPI_Conf.h">
       <Filter>wf</Filter>
     </ClInclude>
     <ClInclude Include="..\..\wf\Variables.h">
-      <Filter>wf</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\wf\w5500_Conf.h">
       <Filter>wf</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\WF_Device\SimSPI.h">
@@ -430,6 +418,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Inc\tim.h">
       <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\wf\w5500_Work.h">
+      <Filter>wf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\WF_Device\W5500\Ethernet\socket.h">
+      <Filter>wf\w5500</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\WF_Device\W5500\Ethernet\wizchip_conf.h">
+      <Filter>wf\w5500</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\WF_Device\W5500\Ethernet\W5500\w5500.h">
+      <Filter>wf\w5500</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

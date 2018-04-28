@@ -84,10 +84,10 @@
     <ClCompile Include="..\..\..\..\WF_Device\stm32\wfEEPROM.c" />
     <ClCompile Include="..\..\..\..\WF_Device\stm32\wfSys.c" />
     <ClCompile Include="..\..\..\..\WF_Device\Verify.c" />
+    <ClCompile Include="..\..\..\..\WF_Device\W5500\Ethernet\socket.c" />
+    <ClCompile Include="..\..\..\..\WF_Device\W5500\Ethernet\W5500\w5500.c" />
+    <ClCompile Include="..\..\..\..\WF_Device\W5500\Ethernet\wizchip_conf.c" />
     <ClCompile Include="..\..\..\..\WF_Device\wfDefine.c" />
-    <ClCompile Include="..\..\5500\Ethernet\socket.c" />
-    <ClCompile Include="..\..\5500\Ethernet\W5500\w5500.c" />
-    <ClCompile Include="..\..\5500\Ethernet\wizchip_conf.c" />
     <ClCompile Include="..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_iwdg.c" />
     <ClCompile Include="..\..\Src\gpio.c" />
     <ClCompile Include="..\..\Src\iwdg.c" />
@@ -116,7 +116,7 @@
     <ClCompile Include="..\..\wf\RIO.c" />
     <ClCompile Include="..\..\wf\TCM.c" />
     <ClCompile Include="..\..\wf\Variables.c" />
-    <ClCompile Include="..\..\wf\w5500_Conf.c" />
+    <ClCompile Include="..\..\wf\w5500_Work.c" />
     <ClInclude Include="..\..\..\..\WF_Device\CP1616_Client.h" />
     <ClInclude Include="..\..\..\..\WF_Device\GPS_GPRMC.h" />
     <ClInclude Include="..\..\..\..\WF_Device\ModbusRTU_Master.h" />
@@ -127,6 +127,9 @@
     <ClInclude Include="..\..\..\..\WF_Device\stm32\wfEEPROM.h" />
     <ClInclude Include="..\..\..\..\WF_Device\TypeDefine.h" />
     <ClInclude Include="..\..\..\..\WF_Device\Verify.h" />
+    <ClInclude Include="..\..\..\..\WF_Device\W5500\Ethernet\socket.h" />
+    <ClInclude Include="..\..\..\..\WF_Device\W5500\Ethernet\W5500\w5500.h" />
+    <ClInclude Include="..\..\..\..\WF_Device\W5500\Ethernet\wizchip_conf.h" />
     <ClInclude Include="..\..\..\..\WF_Device\wfDefine.h" />
     <ClInclude Include="..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_iwdg.h" />
     <ClInclude Include="..\..\Inc\iwdg.h" />
@@ -138,13 +141,10 @@
     <ClInclude Include="..\..\wf\SimSPI_Conf.h" />
     <ClInclude Include="..\..\wf\TCM.h" />
     <ClInclude Include="..\..\wf\Variables.h" />
-    <ClInclude Include="..\..\wf\w5500_Conf.h" />
+    <ClInclude Include="..\..\wf\w5500_Work.h" />
     <None Include="stm32.mak" />
     <ClCompile Include="$(BSP_ROOT)\STM32F0xxxx\StartupFiles\startup_stm32f091xc.c" />
     <ClInclude Include="..\..\..\..\WF_Device\stm32\wfSys.h" />
-    <ClInclude Include="..\..\5500\Ethernet\socket.h" />
-    <ClInclude Include="..\..\5500\Ethernet\W5500\w5500.h" />
-    <ClInclude Include="..\..\5500\Ethernet\wizchip_conf.h" />
     <ClInclude Include="..\..\Inc\gpio.h" />
     <ClInclude Include="..\..\Inc\usart.h" />
     <ClInclude Include="..\..\Inc\stm32f0xx_it.h" />
