@@ -166,7 +166,7 @@ int main(void)
 		  ModbusErr++;
 		  MS8607Err++;
 		  RIOErr++;
-		  GPRSErr++;
+		  //GPRSErr++;
 		  TCM_SendData();
 		  ModbusRTU_Master_SendCommand03(0x0006,2);
 		  ModbusRTU_Master_preRxProcInit();	
