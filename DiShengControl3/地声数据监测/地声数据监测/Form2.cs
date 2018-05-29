@@ -27,48 +27,55 @@ namespace 地声数据监测
              tcpAsyncServer.ErrorServerEvent += new TCPErrorEvent(tcpAsyncServer_ErrorServer);
              tcpAsyncServer.ReceiveServerEvent += new TCPReceiveEvent(tcpAsyncServer_ReceiveServerEvent);
 
-             numericUpDown3.Value = (decimal)Form1.rioCur;
+			try
+			{
+				numericUpDown3.Value = (decimal)Form1.rioCur;
 
-             if (Form1.bPower1)
-                 rbp1on.Checked = true;
-             else
-                 rbp1off.Checked = true;
+				if (Form1.bPower1)
+					rbp1on.Checked = true;
+				else
+					rbp1off.Checked = true;
 
-             if (Form1.bPower2)
-                 rbp2on.Checked = true;
-             else
-                 rbp2off.Checked = true;
+				if (Form1.bPower2)
+					rbp2on.Checked = true;
+				else
+					rbp2off.Checked = true;
 
 
-             if (Form1.bIO[0] != 0)
-                 rb1h.Checked = true;
-             else
-                 rb1l.Checked = true;
+				if (Form1.bIO[0] != 0)
+					rb1h.Checked = true;
+				else
+					rb1l.Checked = true;
 
-             if (Form1.bIO[1] != 0)
-                 rb2h.Checked = true;
-             else
-                 rb2l.Checked = true;
+				if (Form1.bIO[1] != 0)
+					rb2h.Checked = true;
+				else
+					rb2l.Checked = true;
 
-             if (Form1.bIO[2] != 0)
-                 rb3h.Checked = true;
-             else
-                 rb3l.Checked = true;
+				if (Form1.bIO[2] != 0)
+					rb3h.Checked = true;
+				else
+					rb3l.Checked = true;
 
-             if (Form1.bIO[3] != 0)
-                 rb4h.Checked = true;
-             else
-                 rb4l.Checked = true;
+				if (Form1.bIO[3] != 0)
+					rb4h.Checked = true;
+				else
+					rb4l.Checked = true;
 
-             if (Form1.bIO[4] != 0)
-                 rb5h.Checked = true;
-             else
-                 rb5l.Checked = true;
+				if (Form1.bIO[4] != 0)
+					rb5h.Checked = true;
+				else
+					rb5l.Checked = true;
 
-             if (Form1.bIO[5] != 0)
-                 rb6h.Checked = true;
-             else
-                 rb6l.Checked = true;
+				if (Form1.bIO[5] != 0)
+					rb6h.Checked = true;
+				else
+					rb6l.Checked = true;
+			}
+			catch (System.Exception ex)
+			{
+				
+			}             
         }
         void NetLog(string str)
         {

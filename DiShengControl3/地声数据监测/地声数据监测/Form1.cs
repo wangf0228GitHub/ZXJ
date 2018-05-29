@@ -31,10 +31,14 @@ namespace 地声数据监测
             tcpAsyncServer.AcceptServerEvent += new TCPAcceptEvent(tcpAsyncServer_AcceptServer);
             tcpAsyncServer.DisconnectServerEvent += new TCPDisconnectEvent(tcpAsyncServer_DisconnectServer);
             tcpAsyncServer.ReceiveServerEvent += new TCPReceiveEvent(tcpAsyncServer_ReceiveServerEvent);
-            tcpAsyncServer.TCPServerPort = 6000;
+			
 
 			mcuClientContext = null;
-
+			if (!int.TryParse(tbPort.Text, out tcpAsyncServer.TCPServerPort))
+			{
+				MessageBox.Show("输入的端口号格式有问题!!");
+				return;
+			}
             toolStripButton1.Text = "停止";
             tcpAsyncServer.Start();
             NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -48,6 +52,11 @@ namespace 地声数据监测
         {
             if (toolStripButton1.Text == "开始")
             {
+				if (!int.TryParse(tbPort.Text, out tcpAsyncServer.TCPServerPort))
+				{
+					MessageBox.Show("输入的端口号格式有问题!!");
+					return;
+				}
                 toolStripButton1.Text = "停止";                
                 tcpAsyncServer.Start();
                 NetLog(DateTime.Now.ToLongTimeString() + "   :   ");
