@@ -7,7 +7,7 @@
     <Revision>3</Revision>
   </ToolchainVersion>
   <BspID>com.sysprogs.arm.stm32</BspID>
-  <BspVersion>4.6R2</BspVersion>
+  <BspVersion>4.6R3</BspVersion>
   <McuID>STM32F091RC</McuID>
   <MCUDefinitionFile>STM32F0xxxx/DeviceDefinitions/stm32f091xc.xml</MCUDefinitionFile>
   <MCUProperties>
