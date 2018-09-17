@@ -28,6 +28,7 @@ uint16_t myPort = 50000;
 uint8_t NetBuf[1024];
 unsigned char NetTxList[150];
 unsigned char NetTxCount;
+extern uint32_t bRIONewData;
 void TCPSend(void);
 void loopback_tcpc(void)
 {
@@ -109,12 +110,20 @@ void loopback_tcpc(void)
  							NetTxList[pCP1616_ClientData+38+i] = MS8607_RH.u8s[i];
  						}
 						//光源4个
-						//42						
+						//42	
 						NetTxList[pCP1616_ClientData+42] = RIO_0E[0];
 						NetTxList[pCP1616_ClientData+42+1] = RIO_0E[1];
 						NetTxList[pCP1616_ClientData+42+2] = HIGH_BYTE(RIOCur);
 						NetTxList[pCP1616_ClientData+42+3] = LOW_BYTE(RIOCur);
-						
+						//用于上位机判断是否存储用
+						if(bRIONewData!=0)//当前为新数据
+						{
+							NetTxList[pCP1616_ClientData+42] |= 0x80;
+						}
+						else//当前为旧数据
+						{
+							NetTxList[pCP1616_ClientData+42] &= 0xf7;
+						}
 						//错误统计5个
 						//46
 						NetTxList[pCP1616_ClientData+46]=(uint8_t)ModbusErr;
@@ -255,6 +264,36 @@ void loopback_tcpc(void)
 						NetTxCount=0;
 						NetTxList[3] = HIGH_BYTE(NetTxCount);
 						NetTxList[4] = LOW_BYTE(NetTxCount);
+						NetTxList[pCP1616_ClientData+NetTxCount] = GetVerify_Sum(NetTxList, pCP1616_ClientData+NetTxCount);
+						NetTxList[pCP1616_ClientData+NetTxCount + 1] = 0x0d;
+
+						TCPSend();
+						break;
+					case 0x08://读取光源状态
+						NetTxList[0] = 0x16;
+						NetTxList[1] = 0x16;
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];						
+						if(RIO_ReadCommand(0x0e)==1)
+						{
+// 							for(i=0;i<6;i++)
+// 							{
+// 								//RIO_0E[i]=RIO_RxList[pRIOData+i];								
+// 							}
+							NetTxCount=4;
+							NetTxList[3] = HIGH_BYTE(NetTxCount);
+							NetTxList[4] = LOW_BYTE(NetTxCount);
+							NetTxList[pCP1616_ClientData] = RIO_RxList[pRIOData+0];
+							NetTxList[pCP1616_ClientData+1] = RIO_RxList[pRIOData+1];
+							NetTxList[pCP1616_ClientData+2] = HIGH_BYTE(RIOCur);
+							NetTxList[pCP1616_ClientData+3] = LOW_BYTE(RIOCur);
+						}
+						else
+						{
+							NetTxCount=0;
+							NetTxList[3] = HIGH_BYTE(NetTxCount);
+							NetTxList[4] = LOW_BYTE(NetTxCount);
+							//NetTxList[pCP1616_ClientData] =1
+						}
 						NetTxList[pCP1616_ClientData+NetTxCount] = GetVerify_Sum(NetTxList, pCP1616_ClientData+NetTxCount);
 						NetTxList[pCP1616_ClientData+NetTxCount + 1] = 0x0d;
 

@@ -10,6 +10,7 @@ using WFNetLib.TCP;
 using WFNetLib.PacketProc;
 using System.Net;
 using WFNetLib;
+using WFNetLib.Log;
 
 namespace 地声数据监测
 {
@@ -23,6 +24,7 @@ namespace 地声数据监测
         public static WFNetLib.TCP.ClientContext mcuClientContext;
         //public static IPEndPoint mcuSocketIP;
         TCPAsyncServer tcpAsyncServer = null;
+        string filePT, fileMS, fileTC, fileLA;
         private void Form1_Load(object sender, EventArgs e)
         {
             tcpAsyncServer = new TCPAsyncServer();
@@ -46,6 +48,15 @@ namespace 地声数据监测
             NetLog("\r\n");
             listView1_Resize(null, null);
 			timer1.Enabled = true;
+            DateTime dt = DateTime.Now;
+            filePT=System.Windows.Forms.Application.StartupPath + "\\TextLog\\PT" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year,dt.Month,dt.Day,dt.Hour,dt.Minute,dt.Second) + ".txt";
+            TextLog.AddTextLog("实验开始时间:"+dt.ToString(),filePT,false);
+            fileMS = System.Windows.Forms.Application.StartupPath + "\\TextLog\\MS" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+            TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileMS, false);
+            fileTC = System.Windows.Forms.Application.StartupPath + "\\TextLog\\TC" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+            TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileTC, false);
+            fileLA = System.Windows.Forms.Application.StartupPath + "\\TextLog\\LA" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+            TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileLA, false);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -102,10 +113,12 @@ namespace 地声数据监测
                         int fbIndex;
                         string str;
                         bool bSave = false;
-                        //温度
+                        DateTime dt = DateTime.Now;
+                        //温度 
                         f = BytesOP.MakeShort(rx.Data[0], rx.Data[1]);
                         f = f / 100;
                         listView1.Items[0].SubItems[1].Text = f.ToString("F2");
+                        TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[0].SubItems[1].Text, filePT, false);
                         //电子罗盘
                         fbIndex = 2;
                         for (int i = 0; i < 4; i++)
@@ -131,6 +144,9 @@ namespace 地声数据监测
                         f = BitConverter.ToSingle(fb, 0);
                         listView1.Items[3].SubItems[1].Text = f.ToString("F2");
 
+                        TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[1].SubItems[1].Text 
+                            + "      " + listView1.Items[2].SubItems[1].Text 
+                            + "      " + listView1.Items[3].SubItems[1].Text, fileTC, false);
                         //授时
                         str = Encoding.UTF8.GetString(rx.Data, 14, 10);
                         listView1.Items[4].SubItems[1].Text = str;
@@ -147,6 +163,9 @@ namespace 地声数据监测
 
                         f = BitConverter.ToSingle(rx.Data, 38);
                         listView1.Items[8].SubItems[1].Text = f.ToString("F2");
+                        TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[6].SubItems[1].Text
+                            + "      " + listView1.Items[7].SubItems[1].Text
+                            + "      " + listView1.Items[8].SubItems[1].Text, fileMS, false);
                         //光源
                         f = BytesOP.MakeShort(rx.Data[44], rx.Data[45]);
                         f = f / 10;
@@ -183,6 +202,11 @@ namespace 地声数据监测
                         {
                             listView1.Items[18].SubItems[1].Text = "否";
                             listView1.Items[18].BackColor = Color.Lime;
+                        }
+                        if (BytesOP.GetBit(rioStatus, 11))//当前为新数据，需要存储
+                        {
+                            TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[14].SubItems[1].Text
+                            + "      " + listView1.Items[15].SubItems[1].Text, fileLA, false);
                         }
                         //通信错误帧统计
                         listView1.Items[9].SubItems[1].Text = rx.Data[46].ToString();
@@ -291,6 +315,60 @@ namespace 地声数据监测
                             textBox1.AppendText("\r\n");
                         }
                     }
+                    else if (rx.Header.Command == 0x08)//读取光源状态
+                    {
+                        if (rx.Header.Len == 0)//读取失败
+                        {
+                            MessageBox.Show("读取光源状态失败，请稍后重试！！");
+                         }
+                        else
+                        {
+                            //光源
+                            double f;
+                            f = BytesOP.MakeShort(rx.Data[44], rx.Data[45]);
+                            f = f / 10;
+                            rioCur = f;
+                            listView1.Items[14].SubItems[1].Text = f.ToString("F1");
+                            ushort rioStatus = BytesOP.MakeShort(rx.Data[42], rx.Data[43]);
+                            listView1.Items[15].SubItems[1].Text = rioStatus.ToString("X04");
+                            if (BytesOP.GetBit(rioStatus, 0))
+                            {
+                                listView1.Items[16].SubItems[1].Text = "是";
+                                listView1.Items[16].BackColor = Color.Lime;
+                            }
+                            else
+                            {
+                                listView1.Items[16].SubItems[1].Text = "否";
+                                listView1.Items[16].BackColor = Color.Red;
+                            }
+                            if (BytesOP.GetBit(rioStatus, 6))
+                            {
+                                listView1.Items[17].SubItems[1].Text = "是";
+                                listView1.Items[17].BackColor = Color.Red;
+                            }
+                            else
+                            {
+                                listView1.Items[17].SubItems[1].Text = "否";
+                                listView1.Items[17].BackColor = Color.Lime;
+                            }
+                            if (BytesOP.GetBit(rioStatus, 7))
+                            {
+                                listView1.Items[18].SubItems[1].Text = "是";
+                                listView1.Items[18].BackColor = Color.Red;
+                            }
+                            else
+                            {
+                                listView1.Items[18].SubItems[1].Text = "否";
+                                listView1.Items[18].BackColor = Color.Lime;
+                            }
+                            DateTime dt = DateTime.Now;
+                            TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[14].SubItems[1].Text
+                                + "      " + listView1.Items[15].SubItems[1].Text, fileLA, false);
+                        }
+                        timer2.Enabled = false;
+                        timer1.Enabled = true;
+                       
+                    }
                     else
                     {
                         textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -312,6 +390,8 @@ namespace 地声数据监测
 					{
 						if (rx.Data[0] == 0x01)//传感器采集板接入
 						{
+                            toolStripButton2.Enabled = true;
+                            toolStripButton3.Enabled = true;
 							mcuClientContext = e.Client;
 							//mcuSocketIP.Port = ip.Port;
 							this.Invoke((EventHandler)(delegate
@@ -439,6 +519,37 @@ namespace 地声数据监测
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             tcpAsyncServer.Stop();
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            //bForm2 = true;            
+            if (Form1.mcuClientContext != null)
+            {
+                timer2.Enabled = true;
+                toolStrip1.Enabled = false;
+                byte[] tx = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x08);
+                this.Invoke((EventHandler)(delegate
+                {
+                    textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
+                    textBox1.AppendText("发送到" + Form1.mcuClientContext.clientEndPoint.ToString() + ":");
+                    textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx, " "));
+                    textBox1.AppendText("\r\n");
+                }));
+                tcpAsyncServer.Send(Form1.mcuClientContext, tx);
+            }
+            else
+            {
+                MessageBox.Show("单片机采集板尚未接入，请稍后重试！！");
+                timer1.Enabled = true;
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("读取光源状态失败，请稍后重试！！");
+            timer1.Enabled = true;
         }
     }
 }

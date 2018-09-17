@@ -10,6 +10,7 @@ using WFNetLib.TCP;
 using WFNetLib;
 using WFNetLib.PacketProc;
 using System.Net;
+using WFNetLib.Log;
 
 namespace 水听器数据监测
 {
@@ -54,7 +55,7 @@ namespace 水听器数据监测
             textBox1.AppendText(str);
             WFNetLib.Log.TextLog.AddTextLog(str);
         }
-
+        string fileHY;
         private void Form1_Load(object sender, EventArgs e)
         {
 			CP1616_NoAddr_Packet.bVerify = false;
@@ -76,6 +77,9 @@ namespace 水听器数据监测
 			NetLog("服务器启动\r\n");
 			NetLog("\r\n");
 			timer1.Enabled = true;
+            DateTime dt = DateTime.Now;
+            fileHY = System.Windows.Forms.Application.StartupPath + "\\TextLog\\HY" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+            TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileHY, false);
         }
         private void tcpAsyncServer_ReceiveServerEvent(object sender, ReceiveServerEventArgs e)
         {
@@ -97,6 +101,7 @@ namespace 水听器数据监测
 						 {
 							 chart1.Series[0].Points.Clear();
 						 }
+                         StringBuilder sb = new StringBuilder();
 						 for (int i = 0; i < (rx.Data.Length - 2); i += 2)
 						 {
 							 ushort ad = BytesOP.MakeShort(rx.Data[i], rx.Data[i + 1]);
@@ -105,6 +110,7 @@ namespace 水听器数据监测
 							 v = v - 6.144;
 							 //chart1.Series[0].Points.Clear();
 							 chart1.Series[0].Points.AddY(v);
+                             sb.AppendLine(v.ToString());
 // 							 int max = 1024000;
 // 							 if (chart1.Series[0].Points.Count > max)
 // 							 {
@@ -114,7 +120,7 @@ namespace 水听器数据监测
 // 								 }
 // 							 }
 						 }
-						 
+                         TextLog.AddTextLog(sb.ToString(), fileHY, false);
 					 }
 				 }));
 			 }
