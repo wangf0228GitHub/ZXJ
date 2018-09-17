@@ -1376,12 +1376,12 @@
 //../../../../WF_Device/W5500/Ethernet
 //../../../../WF_Device/W5500/Ethernet/W5500
 //../../wf
+//../../Drivers/CMSIS/Include
 //..\..\Inc
 //..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include
 //..\..\Drivers\STM32F1xx_HAL_Driver\Inc
 //..\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy
 //..\..\Drivers\STM32F1xx_HAL_Driver\Src
-//../../Drivers/CMSIS/Include
 // --- Include directories end --- //
 
 
