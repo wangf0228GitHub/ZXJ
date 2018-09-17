@@ -118,7 +118,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -143,7 +143,7 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(620, 311);
@@ -156,9 +156,9 @@
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(612, 282);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "光源";
@@ -168,7 +168,7 @@
             // 
             this.numericUpDown3.DecimalPlaces = 1;
             this.numericUpDown3.Location = new System.Drawing.Point(144, 89);
-            this.numericUpDown3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDown3.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -192,7 +192,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(364, 70);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(165, 60);
             this.button3.TabIndex = 2;
@@ -227,9 +227,9 @@
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(612, 282);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "网络参数";
@@ -238,7 +238,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(447, 182);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(129, 65);
             this.button2.TabIndex = 4;
@@ -249,7 +249,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(308, 182);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(131, 65);
             this.button1.TabIndex = 4;
@@ -264,9 +264,9 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Location = new System.Drawing.Point(308, 20);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(268, 144);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
@@ -275,7 +275,7 @@
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(71, 36);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(144, 25);
             this.textBox5.TabIndex = 3;
@@ -283,7 +283,7 @@
             // numericUpDown2
             // 
             this.numericUpDown2.Location = new System.Drawing.Point(71, 86);
-            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -335,9 +335,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(21, 20);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(267, 228);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -346,7 +346,7 @@
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(103, 121);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(132, 25);
             this.textBox4.TabIndex = 3;
@@ -354,7 +354,7 @@
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(103, 78);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(132, 25);
             this.textBox3.TabIndex = 3;
@@ -362,7 +362,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(103, 36);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(132, 25);
             this.textBox2.TabIndex = 3;
@@ -370,7 +370,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(103, 178);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -437,9 +437,9 @@
             this.tabPage5.Controls.Add(this.groupBox11);
             this.tabPage5.Controls.Add(this.groupBox10);
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage5.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage5.Size = new System.Drawing.Size(612, 282);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "电源管理";
@@ -448,7 +448,7 @@
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(449, 109);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(116, 49);
             this.button6.TabIndex = 1;
@@ -461,9 +461,9 @@
             this.groupBox11.Controls.Add(this.rbp2off);
             this.groupBox11.Controls.Add(this.rbp2on);
             this.groupBox11.Location = new System.Drawing.Point(233, 32);
-            this.groupBox11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox11.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox11.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox11.Size = new System.Drawing.Size(145, 125);
             this.groupBox11.TabIndex = 0;
             this.groupBox11.TabStop = false;
@@ -473,7 +473,7 @@
             // 
             this.rbp2off.AutoSize = true;
             this.rbp2off.Location = new System.Drawing.Point(45, 78);
-            this.rbp2off.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbp2off.Margin = new System.Windows.Forms.Padding(4);
             this.rbp2off.Name = "rbp2off";
             this.rbp2off.Size = new System.Drawing.Size(58, 19);
             this.rbp2off.TabIndex = 0;
@@ -485,7 +485,7 @@
             // 
             this.rbp2on.AutoSize = true;
             this.rbp2on.Location = new System.Drawing.Point(45, 38);
-            this.rbp2on.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbp2on.Margin = new System.Windows.Forms.Padding(4);
             this.rbp2on.Name = "rbp2on";
             this.rbp2on.Size = new System.Drawing.Size(58, 19);
             this.rbp2on.TabIndex = 0;
@@ -498,9 +498,9 @@
             this.groupBox10.Controls.Add(this.rbp1off);
             this.groupBox10.Controls.Add(this.rbp1on);
             this.groupBox10.Location = new System.Drawing.Point(31, 32);
-            this.groupBox10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox10.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox10.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox10.Size = new System.Drawing.Size(145, 125);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
@@ -510,7 +510,7 @@
             // 
             this.rbp1off.AutoSize = true;
             this.rbp1off.Location = new System.Drawing.Point(45, 78);
-            this.rbp1off.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbp1off.Margin = new System.Windows.Forms.Padding(4);
             this.rbp1off.Name = "rbp1off";
             this.rbp1off.Size = new System.Drawing.Size(58, 19);
             this.rbp1off.TabIndex = 0;
@@ -522,7 +522,7 @@
             // 
             this.rbp1on.AutoSize = true;
             this.rbp1on.Location = new System.Drawing.Point(45, 38);
-            this.rbp1on.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbp1on.Margin = new System.Windows.Forms.Padding(4);
             this.rbp1on.Name = "rbp1on";
             this.rbp1on.Size = new System.Drawing.Size(58, 19);
             this.rbp1on.TabIndex = 0;
@@ -541,7 +541,7 @@
             this.tabPage3.Controls.Add(this.groupBox4);
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(612, 282);
             this.tabPage3.TabIndex = 2;
@@ -551,7 +551,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(484, 168);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(115, 89);
             this.button4.TabIndex = 1;
@@ -564,9 +564,9 @@
             this.groupBox9.Controls.Add(this.rb6l);
             this.groupBox9.Controls.Add(this.rb6h);
             this.groupBox9.Location = new System.Drawing.Point(321, 142);
-            this.groupBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox9.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox9.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox9.Size = new System.Drawing.Size(125, 114);
             this.groupBox9.TabIndex = 0;
             this.groupBox9.TabStop = false;
@@ -576,7 +576,7 @@
             // 
             this.rb6l.AutoSize = true;
             this.rb6l.Location = new System.Drawing.Point(31, 78);
-            this.rb6l.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb6l.Margin = new System.Windows.Forms.Padding(4);
             this.rb6l.Name = "rb6l";
             this.rb6l.Size = new System.Drawing.Size(73, 19);
             this.rb6l.TabIndex = 0;
@@ -588,7 +588,7 @@
             this.rb6h.AutoSize = true;
             this.rb6h.Checked = true;
             this.rb6h.Location = new System.Drawing.Point(31, 25);
-            this.rb6h.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb6h.Margin = new System.Windows.Forms.Padding(4);
             this.rb6h.Name = "rb6h";
             this.rb6h.Size = new System.Drawing.Size(73, 19);
             this.rb6h.TabIndex = 0;
@@ -601,9 +601,9 @@
             this.groupBox8.Controls.Add(this.radioButton11);
             this.groupBox8.Controls.Add(this.radioButton12);
             this.groupBox8.Location = new System.Drawing.Point(321, 142);
-            this.groupBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox8.Size = new System.Drawing.Size(125, 114);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
@@ -613,7 +613,7 @@
             // 
             this.radioButton11.AutoSize = true;
             this.radioButton11.Location = new System.Drawing.Point(31, 78);
-            this.radioButton11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton11.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton11.Name = "radioButton11";
             this.radioButton11.Size = new System.Drawing.Size(73, 19);
             this.radioButton11.TabIndex = 0;
@@ -625,7 +625,7 @@
             // 
             this.radioButton12.AutoSize = true;
             this.radioButton12.Location = new System.Drawing.Point(31, 25);
-            this.radioButton12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton12.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton12.Name = "radioButton12";
             this.radioButton12.Size = new System.Drawing.Size(73, 19);
             this.radioButton12.TabIndex = 0;
@@ -638,9 +638,9 @@
             this.groupBox7.Controls.Add(this.rb5l);
             this.groupBox7.Controls.Add(this.rb5h);
             this.groupBox7.Location = new System.Drawing.Point(175, 142);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox7.Size = new System.Drawing.Size(125, 114);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
@@ -650,7 +650,7 @@
             // 
             this.rb5l.AutoSize = true;
             this.rb5l.Location = new System.Drawing.Point(31, 78);
-            this.rb5l.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb5l.Margin = new System.Windows.Forms.Padding(4);
             this.rb5l.Name = "rb5l";
             this.rb5l.Size = new System.Drawing.Size(73, 19);
             this.rb5l.TabIndex = 0;
@@ -662,7 +662,7 @@
             this.rb5h.AutoSize = true;
             this.rb5h.Checked = true;
             this.rb5h.Location = new System.Drawing.Point(31, 25);
-            this.rb5h.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb5h.Margin = new System.Windows.Forms.Padding(4);
             this.rb5h.Name = "rb5h";
             this.rb5h.Size = new System.Drawing.Size(73, 19);
             this.rb5h.TabIndex = 0;
@@ -675,9 +675,9 @@
             this.groupBox6.Controls.Add(this.rb4l);
             this.groupBox6.Controls.Add(this.rb4h);
             this.groupBox6.Location = new System.Drawing.Point(24, 142);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox6.Size = new System.Drawing.Size(125, 114);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
@@ -687,7 +687,7 @@
             // 
             this.rb4l.AutoSize = true;
             this.rb4l.Location = new System.Drawing.Point(31, 78);
-            this.rb4l.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb4l.Margin = new System.Windows.Forms.Padding(4);
             this.rb4l.Name = "rb4l";
             this.rb4l.Size = new System.Drawing.Size(73, 19);
             this.rb4l.TabIndex = 0;
@@ -699,7 +699,7 @@
             this.rb4h.AutoSize = true;
             this.rb4h.Checked = true;
             this.rb4h.Location = new System.Drawing.Point(31, 25);
-            this.rb4h.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb4h.Margin = new System.Windows.Forms.Padding(4);
             this.rb4h.Name = "rb4h";
             this.rb4h.Size = new System.Drawing.Size(73, 19);
             this.rb4h.TabIndex = 0;
@@ -712,9 +712,9 @@
             this.groupBox5.Controls.Add(this.rb3l);
             this.groupBox5.Controls.Add(this.rb3h);
             this.groupBox5.Location = new System.Drawing.Point(321, 21);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(125, 114);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
@@ -724,7 +724,7 @@
             // 
             this.rb3l.AutoSize = true;
             this.rb3l.Location = new System.Drawing.Point(31, 78);
-            this.rb3l.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb3l.Margin = new System.Windows.Forms.Padding(4);
             this.rb3l.Name = "rb3l";
             this.rb3l.Size = new System.Drawing.Size(73, 19);
             this.rb3l.TabIndex = 0;
@@ -736,7 +736,7 @@
             this.rb3h.AutoSize = true;
             this.rb3h.Checked = true;
             this.rb3h.Location = new System.Drawing.Point(31, 25);
-            this.rb3h.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb3h.Margin = new System.Windows.Forms.Padding(4);
             this.rb3h.Name = "rb3h";
             this.rb3h.Size = new System.Drawing.Size(73, 19);
             this.rb3h.TabIndex = 0;
@@ -749,9 +749,9 @@
             this.groupBox4.Controls.Add(this.rb2l);
             this.groupBox4.Controls.Add(this.rb2h);
             this.groupBox4.Location = new System.Drawing.Point(175, 21);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(125, 114);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
@@ -761,7 +761,7 @@
             // 
             this.rb2l.AutoSize = true;
             this.rb2l.Location = new System.Drawing.Point(31, 78);
-            this.rb2l.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb2l.Margin = new System.Windows.Forms.Padding(4);
             this.rb2l.Name = "rb2l";
             this.rb2l.Size = new System.Drawing.Size(73, 19);
             this.rb2l.TabIndex = 0;
@@ -773,7 +773,7 @@
             this.rb2h.AutoSize = true;
             this.rb2h.Checked = true;
             this.rb2h.Location = new System.Drawing.Point(31, 25);
-            this.rb2h.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb2h.Margin = new System.Windows.Forms.Padding(4);
             this.rb2h.Name = "rb2h";
             this.rb2h.Size = new System.Drawing.Size(73, 19);
             this.rb2h.TabIndex = 0;
@@ -786,9 +786,9 @@
             this.groupBox3.Controls.Add(this.rb1h);
             this.groupBox3.Controls.Add(this.rb1l);
             this.groupBox3.Location = new System.Drawing.Point(24, 21);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(125, 114);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
@@ -799,7 +799,7 @@
             this.rb1h.AutoSize = true;
             this.rb1h.Checked = true;
             this.rb1h.Location = new System.Drawing.Point(31, 25);
-            this.rb1h.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb1h.Margin = new System.Windows.Forms.Padding(4);
             this.rb1h.Name = "rb1h";
             this.rb1h.Size = new System.Drawing.Size(73, 19);
             this.rb1h.TabIndex = 0;
@@ -811,7 +811,7 @@
             // 
             this.rb1l.AutoSize = true;
             this.rb1l.Location = new System.Drawing.Point(31, 78);
-            this.rb1l.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rb1l.Margin = new System.Windows.Forms.Padding(4);
             this.rb1l.Name = "rb1l";
             this.rb1l.Size = new System.Drawing.Size(73, 19);
             this.rb1l.TabIndex = 0;
@@ -822,9 +822,9 @@
             // 
             this.tabPage4.Controls.Add(this.button5);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage4.Size = new System.Drawing.Size(612, 282);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "设备重启";
@@ -833,7 +833,7 @@
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(89, 75);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(191, 80);
             this.button5.TabIndex = 0;
@@ -845,7 +845,7 @@
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -854,7 +854,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 10000;
+            this.timer1.Interval = 30000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form2
@@ -863,7 +863,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 420);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form2";
             this.Text = "系统设定";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);

@@ -118,7 +118,8 @@ void loopback_tcpc(void)
 						//用于上位机判断是否存储用
 						if(bRIONewData!=0)//当前为新数据
 						{
-							NetTxList[pCP1616_ClientData+42] |= 0x80;
+							NetTxList[pCP1616_ClientData+42] |= 0x08;
+							bRIONewData=0;
 						}
 						else//当前为旧数据
 						{
