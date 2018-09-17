@@ -2,6 +2,7 @@
 
 uint16_t oldLine[4];
 _SystemParam SystemParam;
+uint16_t oldI;
 const unsigned char *NumList[10]=
 {
 	gImage_Num0,

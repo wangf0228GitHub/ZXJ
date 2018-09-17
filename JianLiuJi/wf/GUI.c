@@ -13,12 +13,15 @@ void GUI_ShowGraphicsI(float I)
 	uint16_t x2,f;
 	int y2;
 	I=I+2.505;
-	I=I*10;
+	I=I*10;	
 	sIndex=I;
 	x2=ScalePoint[sIndex+1][2]-ScalePoint[sIndex][2];
 	y2=ScalePoint[sIndex+1][3]-ScalePoint[sIndex][3];
 	I=I*10;
 	f=I;
+	if(f==oldI)
+		return;
+	oldI=f;
 	f=f%10;
 	x2=x2*f;
 	x2=x2+5;
@@ -41,6 +44,7 @@ void GUI_ShowNumI(float I)
 	else
 	{
 		Gui_Drawbmp16(198,184,16,24,gImage_NumSign);
+		I=-I;
 	}
 	x[0]=I;
 	x[3]=x[0]/1000;
@@ -49,7 +53,7 @@ void GUI_ShowNumI(float I)
 	x[0]=x[0]%100;
 	x[1]=x[0]/10;
 	x[0]=x[0]%10;
-	Gui_Drawbmp16(198+16,184,16,24,NumList[x[3]]);
+	Gui_Drawbmp16(198+16,184,16,24,NumPList[x[3]]);
 	Gui_Drawbmp16(198+32,184,16,24,NumList[x[2]]);
 	Gui_Drawbmp16(198+48,184,16,24,NumList[x[1]]);
 	Gui_Drawbmp16(198+64,184,16,24,NumList[x[0]]);

@@ -19,6 +19,7 @@ typedef union
 
 extern _SystemParam SystemParam;
 extern uint16_t oldLine[4];
+extern uint16_t oldI;
 extern const uint16_t ScalePoint[][4];
 extern const uint16_t PX1[];
 extern const uint16_t PY1[];

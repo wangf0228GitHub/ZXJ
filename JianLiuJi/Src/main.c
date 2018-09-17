@@ -71,6 +71,8 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN 0 */
 uint32_t bShowNum;
+uint32_t adListIndex;
+uint32_t adList[1000];
 /* USER CODE END 0 */
 
 /**
@@ -82,9 +84,9 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	uint32_t i;
-	uint8_t h,m,l;
+	uint8_t h,m,l,ll;
 	uint32_t x,ad;
-	float V,I;
+	float V,I,absX;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -109,10 +111,13 @@ int main(void)
   wfDelay_init(72);	
   LCD_Init();
   ADS8689_CS_High();
+  ADS8689_Setting(0x10,0x0100);//0.625*4.096
   ADS8689_Setting(0x14,0x0004);//0.625*4.096
   //LCD_SetWindows(0,0,lcddev.width-1,lcddev.height-1);
   Gui_Drawbmp16(0, 0,480,160,gImage_pic);
   bShowNum=0;
+  oldI=0xffff;
+  adListIndex=0;
   wfEEPROM_ReadWords(0,SystemParam.all,SystemParamLen);
   if(SystemParam.sum!=0)
   {
@@ -133,6 +138,7 @@ int main(void)
 	  ad=0;
 	  for(i=0;i<2048;i++)//250ms
 	  {
+		  //HAL_Delay(10);
 		  while(1)
 		  {
 			  if(ADS8689_RVS_Read()==1)//rvs拉高后继续
@@ -148,18 +154,22 @@ int main(void)
 		  h=ADS8689_SPIProc(0xff);
 		  m=ADS8689_SPIProc(0xff);		  
 		  l=ADS8689_SPIProc(0xff);
-		  ADS8689_SPIProc(0xff);
+		  ll=ADS8689_SPIProc(0xff);
 		  ADS8689_CS_High();
 		  x=MAKE_SHORT(h,m);
 		  x=x<<2;
 		  l=l>>6;
 		  x=x+l;
-		  ad+=x;		  
+		  adList[adListIndex++]=x;
+		  if(adListIndex>100)
+			  adListIndex=0;
+		  ad+=x;	
+
 	  }	 
 	  ad=ad>>11;
 	  V=ad*5.12;
 	  V=V/262144;
-	  V=V-2.56;
+   	  V=V-2.56;
 	  if(HAL_GPIO_ReadPin(KEY_Clear_GPIO_Port,KEY_Clear_Pin)==GPIO_PIN_RESET)
 	  {
 		  HAL_Delay(20);
@@ -182,7 +192,11 @@ int main(void)
 	  I=I*1000000;
 	  if(bShowNum==0)//没显示数码管
 	  {
-		  if(abs(I)>2.4)//转换为数码管显示
+		  if(I<0)
+			  absX=-I;
+		  else
+			  absX=I;
+		  if(absX>2.4)//转换为数码管显示
 		  {
 			  if(I>0)
 			  {
@@ -203,7 +217,11 @@ int main(void)
 	  }
 	  else//当前为显示数码管状态
 	  {
-		  if(abs(I)<2)//转换为仪表显示方式
+		  if(I<0)
+			  absX=-I;
+		  else
+			  absX=I;
+		  if(absX<2)//转换为仪表显示方式
 		  {
 			  bShowNum=0;
 			  LCD_Fill(192,179,192+134,179+34,COLOR_BLACK);
@@ -216,14 +234,22 @@ int main(void)
 	  }
 	  if(HAL_GPIO_ReadPin(SwitchRange_GPIO_Port,SwitchRange_Pin)==GPIO_PIN_SET)//小量程
 	  {
-		  if(abs(V)>2.5)//切换到大量程
+		  if(V<0)
+			  absX=-V;
+		  else
+			  absX=V;
+		  if(absX>2.5)//切换到大量程
 		  {
 			  HAL_GPIO_WritePin(SwitchRange_GPIO_Port,SwitchRange_Pin,GPIO_PIN_RESET);
 		  }
 	  }
 	  else//大量程
 	  {
-		  if(abs(V)<0.12)//切换回小量程
+		  if(V<0)
+			  absX=-V;
+		  else
+			  absX=V;
+		  if(absX<0.12)//切换回小量程
 		  {
 			  HAL_GPIO_WritePin(SwitchRange_GPIO_Port,SwitchRange_Pin,GPIO_PIN_SET);
 		  }

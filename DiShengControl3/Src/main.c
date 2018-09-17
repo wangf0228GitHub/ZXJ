@@ -65,6 +65,8 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint32_t RunTick;
+uint32_t RIOSeconds;
+uint32_t bRIONewData;
 uint32_t ReadSensorTick;
 /* USER CODE END PV */
 
@@ -132,6 +134,8 @@ int main(void)
   HAL_UART_Receive_IT(&GPRSUart,&GPRSRx,1); 
   __HAL_TIM_CLEAR_IT(&htim17, TIM_IT_UPDATE);
   HAL_TIM_Base_Start_IT(&htim17);
+  RIOSeconds=3600;
+  bRIONewData=0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -165,7 +169,8 @@ int main(void)
 		  TCMErr++;
 		  ModbusErr++;
 		  MS8607Err++;
-		  RIOErr++;
+		  //RIOErr++;
+		  RIOSeconds++;
 		  //GPRSErr++;
 		  TCM_SendData();
 		  ModbusRTU_Master_SendCommand03(0x0006,2);
@@ -182,24 +187,33 @@ int main(void)
 			  if(MS8607_Init()!=0)
 				  MS8607Err=0;			 
 		  }
-		  if(bRIORead!=0)
-		  {
-			  if(RIO_ReadCommand(0x0e)==1)
-			  {
-				  for(i=0;i<6;i++)
-				  {
-					  RIO_0E[i]=RIO_RxList[pRIOData+i];
-				  }
-				  RIOErr=0;
-			  }
-		  }
-		  else
+		  if(bRIORead==0)//配置光功率时，暂停读光源状态,读取一次光源内部存储的光功率值
 		  {
 			  if(RIO_ReadCommand(0x26)==1)
 			  {
 				  RIOCur=MAKE_SHORT(RIO_RxList[pRIOData],RIO_RxList[pRIOData+1]);
 				  bRIORead=1;
 				  RIOErr=0;
+			  }			
+			  else
+				  RIOErr++;
+		  }
+		  else//正常按照时序读取光源状态
+		  {
+			  if(RIOSeconds>=3600)
+			  {
+				  RIOSeconds=0;
+				  if(RIO_ReadCommand(0x0e)==1)
+				  {
+					  bRIONewData=1;
+					  for(i=0;i<6;i++)
+					  {
+						  RIO_0E[i]=RIO_RxList[pRIOData+i];
+					  }
+					  RIOErr=0;
+				  }
+				  else
+					  RIOErr++;
 			  }
 		  }
 	  }
