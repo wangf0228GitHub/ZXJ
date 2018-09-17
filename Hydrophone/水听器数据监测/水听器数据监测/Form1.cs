@@ -37,6 +37,9 @@ namespace 水听器数据监测
                 NetLog("服务器启动\r\n");
                 NetLog("\r\n");
 				timer1.Enabled = true;
+                DateTime dt = DateTime.Now;
+                fileHY = System.Windows.Forms.Application.StartupPath + "\\TextLog\\HY" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileHY, false);
                 //this.Text = tcpAsyncServer.TCPServerName + ":" + tcpAsyncServer.TCPServerPort;
             }
             else
@@ -110,7 +113,7 @@ namespace 水听器数据监测
 							 v = v - 6.144;
 							 //chart1.Series[0].Points.Clear();
 							 chart1.Series[0].Points.AddY(v);
-                             sb.AppendLine(v.ToString());
+                             sb.AppendLine(v.ToString("F6"));
 // 							 int max = 1024000;
 // 							 if (chart1.Series[0].Points.Count > max)
 // 							 {

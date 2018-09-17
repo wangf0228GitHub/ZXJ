@@ -74,7 +74,15 @@ namespace 地声数据监测
                 NetLog("服务器启动\r\n");  
                 NetLog("\r\n");
 				timer1.Enabled = true;
-                //this.Text = tcpAsyncServer.TCPServerName + ":" + tcpAsyncServer.TCPServerPort;
+                DateTime dt = DateTime.Now;
+                filePT = System.Windows.Forms.Application.StartupPath + "\\TextLog\\PT" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                TextLog.AddTextLog("实验开始时间:" + dt.ToString(), filePT, false);
+                fileMS = System.Windows.Forms.Application.StartupPath + "\\TextLog\\MS" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileMS, false);
+                fileTC = System.Windows.Forms.Application.StartupPath + "\\TextLog\\TC" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileTC, false);
+                fileLA = System.Windows.Forms.Application.StartupPath + "\\TextLog\\LA" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileLA, false);
             }
             else
             {
@@ -317,19 +325,26 @@ namespace 地声数据监测
                     }
                     else if (rx.Header.Command == 0x08)//读取光源状态
                     {
+                        timer2.Enabled = false;
+                        toolStrip1.Enabled = true;                       
+                        timer1.Enabled = true;
+                        textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
+                        textBox1.AppendText("收到手动读取光源数据" + e.Client.clientEndPoint.ToString() + ":");
+                        textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(rx.Data, " "));
+                        textBox1.AppendText("\r\n");
                         if (rx.Header.Len == 0)//读取失败
                         {
                             MessageBox.Show("读取光源状态失败，请稍后重试！！");
                          }
                         else
-                        {
+                        {                          
                             //光源
                             double f;
-                            f = BytesOP.MakeShort(rx.Data[44], rx.Data[45]);
+                            f = BytesOP.MakeShort(rx.Data[2], rx.Data[3]);
                             f = f / 10;
                             rioCur = f;
                             listView1.Items[14].SubItems[1].Text = f.ToString("F1");
-                            ushort rioStatus = BytesOP.MakeShort(rx.Data[42], rx.Data[43]);
+                            ushort rioStatus = BytesOP.MakeShort(rx.Data[0], rx.Data[1]);
                             listView1.Items[15].SubItems[1].Text = rioStatus.ToString("X04");
                             if (BytesOP.GetBit(rioStatus, 0))
                             {
@@ -365,9 +380,6 @@ namespace 地声数据监测
                             TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[14].SubItems[1].Text
                                 + "      " + listView1.Items[15].SubItems[1].Text, fileLA, false);
                         }
-                        timer2.Enabled = false;
-                        timer1.Enabled = true;
-                       
                     }
                     else
                     {
@@ -530,14 +542,14 @@ namespace 地声数据监测
                 timer2.Enabled = true;
                 toolStrip1.Enabled = false;
                 byte[] tx = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x08);
+                tcpAsyncServer.Send(Form1.mcuClientContext, tx);
                 this.Invoke((EventHandler)(delegate
                 {
                     textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
                     textBox1.AppendText("发送到" + Form1.mcuClientContext.clientEndPoint.ToString() + ":");
                     textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx, " "));
                     textBox1.AppendText("\r\n");
-                }));
-                tcpAsyncServer.Send(Form1.mcuClientContext, tx);
+                }));                
             }
             else
             {
@@ -548,8 +560,10 @@ namespace 地声数据监测
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            MessageBox.Show("读取光源状态失败，请稍后重试！！");
             timer1.Enabled = true;
+            timer2.Enabled = false;
+            toolStrip1.Enabled = true;
+            MessageBox.Show("读取光源状态失败，请稍后重试！！");            
         }
     }
 }

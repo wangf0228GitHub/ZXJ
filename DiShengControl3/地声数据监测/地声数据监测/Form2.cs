@@ -209,6 +209,7 @@ namespace 地声数据监测
                 tabControl1.Enabled = false;
                 timer1.Enabled = true;
                 byte[] tx = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x02);
+                tcpAsyncServer.Send(Form1.mcuClientContext, tx);
                 this.Invoke((EventHandler)(delegate
                 {
                     textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -216,7 +217,7 @@ namespace 地声数据监测
                     textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx, " "));
                     textBox1.AppendText("\r\n");
                 }));
-                tcpAsyncServer.Send(Form1.mcuClientContext, tx);
+                
             }
             else
             {
@@ -300,6 +301,7 @@ namespace 地声数据监测
             tx[26] = 0;
             tx[27] = 0;
             byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x03,tx);
+            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
             this.Invoke((EventHandler)(delegate
             {
                 textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -307,7 +309,7 @@ namespace 地声数据监测
                 textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx03, " "));
                 textBox1.AppendText("\r\n");
             }));
-            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -318,6 +320,7 @@ namespace 地声数据监测
             tx[0] = BytesOP.GetHighByte((ushort)(numericUpDown3.Value*10));
             tx[1] = BytesOP.GetLowByte((ushort)(numericUpDown3.Value * 10));
             byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x04, tx);
+            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
             this.Invoke((EventHandler)(delegate
             {
                 textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -325,7 +328,7 @@ namespace 地声数据监测
                 textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx03, " "));
                 textBox1.AppendText("\r\n");
             }));
-            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -359,6 +362,7 @@ namespace 地声数据监测
                 tx[5] = 0x00;
 
             byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x05, tx);
+            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
             this.Invoke((EventHandler)(delegate
             {
                 textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -366,7 +370,7 @@ namespace 地声数据监测
                 textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx03, " "));
                 textBox1.AppendText("\r\n");
             }));
-            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
+            
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -374,6 +378,7 @@ namespace 地声数据监测
             tabControl1.Enabled = false;
             timer1.Enabled = true;
             byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x06);
+            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
             this.Invoke((EventHandler)(delegate
             {
                 textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -381,7 +386,7 @@ namespace 地声数据监测
                 textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx03, " "));
                 textBox1.AppendText("\r\n");
             }));
-            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
+            
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -399,6 +404,7 @@ namespace 地声数据监测
                 tx[1] = 0x00;            
 
             byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x07, tx);
+            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
             this.Invoke((EventHandler)(delegate
             {
                 textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -406,7 +412,7 @@ namespace 地声数据监测
                 textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx03, " "));
                 textBox1.AppendText("\r\n");
             }));
-            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)

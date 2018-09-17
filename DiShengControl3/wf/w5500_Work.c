@@ -275,10 +275,10 @@ void loopback_tcpc(void)
 						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];						
 						if(RIO_ReadCommand(0x0e)==1)
 						{
-// 							for(i=0;i<6;i++)
-// 							{
-// 								//RIO_0E[i]=RIO_RxList[pRIOData+i];								
-// 							}
+ 							for(i=0;i<6;i++)
+ 							{
+ 								RIO_0E[i]=RIO_RxList[pRIOData+i];								
+ 							}
 							NetTxCount=4;
 							NetTxList[3] = HIGH_BYTE(NetTxCount);
 							NetTxList[4] = LOW_BYTE(NetTxCount);

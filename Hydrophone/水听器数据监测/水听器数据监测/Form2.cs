@@ -160,6 +160,7 @@ namespace 水听器数据监测
 				tabControl1.Enabled = false;
 				timer1.Enabled = true;
 				byte[] tx = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x02);
+                tcpAsyncServer.Send(Form1.mcuClientContext, tx);
 				this.Invoke((EventHandler)(delegate
 				{
 					textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -167,7 +168,7 @@ namespace 水听器数据监测
 					textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx, " "));
 					textBox1.AppendText("\r\n");
 				}));
-				tcpAsyncServer.Send(Form1.mcuClientContext, tx);
+				
 			}
 			else
 			{
@@ -251,6 +252,7 @@ namespace 水听器数据监测
 			tx[26] = 0;
 			tx[27] = 0;
 			byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x03, tx);
+            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
 			this.Invoke((EventHandler)(delegate
 			{
 				textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -258,7 +260,7 @@ namespace 水听器数据监测
 				textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx03, " "));
 				textBox1.AppendText("\r\n");
 			}));
-			tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
+			
 		}		
 
 		
@@ -268,6 +270,7 @@ namespace 水听器数据监测
 			tabControl1.Enabled = false;
 			timer1.Enabled = true;
 			byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x06);
+            tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
 			this.Invoke((EventHandler)(delegate
 			{
 				textBox1.AppendText(DateTime.Now.ToLongTimeString() + "   :   ");
@@ -275,7 +278,7 @@ namespace 水听器数据监测
 				textBox1.AppendText(WFNetLib.StringFunc.StringsFunction.byteToHexStr(tx03, " "));
 				textBox1.AppendText("\r\n");
 			}));
-			tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
+			
 		}
 
 		
