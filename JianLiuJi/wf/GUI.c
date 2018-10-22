@@ -39,11 +39,11 @@ void GUI_ShowNumI(float I)
 	uint16_t x[4];
 	if(I>0)
 	{
-		Gui_Drawbmp16(198,184,16,24,gImage_NumNull);
+		Gui_Drawbmp16(184,185,23,33,gImage_NumNull);
 	}
 	else
 	{
-		Gui_Drawbmp16(198,184,16,24,gImage_NumSign);
+		Gui_Drawbmp16(184,185,23,33,gImage_NumSign);
 		I=-I;
 	}
 	x[0]=I;
@@ -53,10 +53,10 @@ void GUI_ShowNumI(float I)
 	x[0]=x[0]%100;
 	x[1]=x[0]/10;
 	x[0]=x[0]%10;
-	Gui_Drawbmp16(198+16,184,16,24,NumPList[x[3]]);
-	Gui_Drawbmp16(198+32,184,16,24,NumList[x[2]]);
-	Gui_Drawbmp16(198+48,184,16,24,NumList[x[1]]);
-	Gui_Drawbmp16(198+64,184,16,24,NumList[x[0]]);
+	Gui_Drawbmp16(184+23*1,185,23,33,NumPList[x[3]]);
+	Gui_Drawbmp16(184+23*2,185,23,33,NumList[x[2]]);
+	Gui_Drawbmp16(184+23*3,185,23,33,NumList[x[1]]);
+	Gui_Drawbmp16(184+23*4,185,23,33,NumList[x[0]]);
 }
 //******************************************************************
 //函数名：  GUI_DrawPoint
@@ -195,15 +195,15 @@ void LCD_DrawLine_GoBack(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 	{  
 		//LCD_DrawPoint(uRow,uCol);//画点 
 		LCD_SetCursor(uRow,uCol);//设置光标位置
-		if(uCol<160)
-		{
+// 		if(uCol<160)
+// 		{
 			index=uCol*960+uRow*2;			
 			color=MAKE_SHORT(gImage_pic[index+1],gImage_pic[index]);
-		}
-		else
-		{
-			color=COLOR_BLACK;
-		}
+// 		}
+// 		else
+// 		{
+// 			color=COLOR_BLACK;
+// 		}
 		LCD_WR_DATA(color); 
 		
 		xerr+=delta_x ; 

@@ -114,7 +114,7 @@ int main(void)
   ADS8689_Setting(0x10,0x0100);//0.625*4.096
   ADS8689_Setting(0x14,0x0004);//0.625*4.096
   //LCD_SetWindows(0,0,lcddev.width-1,lcddev.height-1);
-  Gui_Drawbmp16(0, 0,480,160,gImage_pic);
+  Gui_Drawbmp16(0, 0,480,320,gImage_pic);
   bShowNum=0;
   oldI=0xffff;
   adListIndex=0;
@@ -207,7 +207,7 @@ int main(void)
 				  GUI_ShowGraphicsI(-2.5);
 			  }
 			  bShowNum=1;
-			  Gui_Drawbmp16(192,179,134,34,gImage_TextBox);
+			  Gui_Drawbmp16(178,180,165,43,gImage_TextBox);
 			  GUI_ShowNumI(I);
 		  }
 		  else
@@ -224,12 +224,20 @@ int main(void)
 		  if(absX<2)//转换为仪表显示方式
 		  {
 			  bShowNum=0;
-			  LCD_Fill(192,179,192+134,179+34,COLOR_BLACK);
+			  LCD_Fill(178,180,178+165,180+43,COLOR_BLACK);
 			  GUI_ShowGraphicsI(I);
 		  }
 		  else
 		  {
-			  GUI_ShowNumI(I);
+			  if(absX<2500)
+			  {	
+				  GUI_ShowNumI(I);
+			  }
+			  else
+			  {
+				  //LCD_Fill(184,185,184+115,185+33,COLOR_BLACK);
+				  Gui_Drawbmp16(184,185,115,33,gImage_OverRange);
+			  }
 		  }
 	  }
 	  if(HAL_GPIO_ReadPin(SwitchRange_GPIO_Port,SwitchRange_Pin)==GPIO_PIN_SET)//小量程

@@ -57,7 +57,7 @@
     <DebugMethod>
       <ID>jlink-jtag</ID>
       <Configuration xsi:type="com.visualgdb.edp.segger.settings">
-        <CommandLine>-select USB -device "STM32F103RC (allow opt. bytes)" -speed auto -if SWD</CommandLine>
+        <CommandLine>-select USB -device "STM32F103RE (allow opt. bytes)" -speed auto -if SWD</CommandLine>
         <ProgramMode>Enabled</ProgramMode>
         <StartupCommands>
           <string>target remote :$$SYS:GDB_PORT$$</string>

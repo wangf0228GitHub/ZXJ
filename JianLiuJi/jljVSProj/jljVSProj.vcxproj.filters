@@ -315,6 +315,9 @@
     <ClCompile Include="..\..\..\WF_Device\stm32\wfEEPROM.c">
       <Filter>wf\lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\wf\Image\OverRange.c">
+      <Filter>wf\image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\WF_Device\ADS8689.h">

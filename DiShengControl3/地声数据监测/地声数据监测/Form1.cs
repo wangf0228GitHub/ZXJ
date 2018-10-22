@@ -167,6 +167,7 @@ namespace 地声数据监测
                         listView1.Items[6].SubItems[1].Text = f.ToString("F2");
 
                         f = BitConverter.ToSingle(rx.Data, 34);
+                        f = f -500;
                         listView1.Items[7].SubItems[1].Text = f.ToString("F2");
 
                         f = BitConverter.ToSingle(rx.Data, 38);

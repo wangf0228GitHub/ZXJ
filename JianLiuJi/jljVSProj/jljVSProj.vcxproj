@@ -128,6 +128,7 @@
     <ClCompile Include="..\wf\Image\NumP9.c" />
     <ClCompile Include="..\wf\Image\NumSign.c" />
     <ClCompile Include="..\wf\Image\Num_Null.c" />
+    <ClCompile Include="..\wf\Image\OverRange.c" />
     <ClCompile Include="..\wf\Image\pic.c" />
     <ClCompile Include="..\wf\Image\TextBox.c" />
     <ClCompile Include="..\wf\lcd.c" />

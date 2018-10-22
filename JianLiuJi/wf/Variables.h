@@ -34,32 +34,32 @@ extern const uint16_t NY2[];
 extern const unsigned char *NumList[10];
 extern const unsigned char *NumPList[10];
 
-extern const unsigned char gImage_NumNull[768];
-extern const unsigned char gImage_NumSign[768];
-extern const unsigned char gImage_TextBox[9112];
+extern const unsigned char gImage_NumNull[1518];
+extern const unsigned char gImage_NumSign[1518];
+extern const unsigned char gImage_TextBox[14190];
+extern const unsigned char gImage_OverRange[7590];
 
+extern const unsigned char gImage_Num0[1518];
+extern const unsigned char gImage_Num1[1518];
+extern const unsigned char gImage_Num2[1518];
+extern const unsigned char gImage_Num3[1518];
+extern const unsigned char gImage_Num4[1518];
+extern const unsigned char gImage_Num5[1518];
+extern const unsigned char gImage_Num6[1518];
+extern const unsigned char gImage_Num7[1518];
+extern const unsigned char gImage_Num8[1518];
+extern const unsigned char gImage_Num9[1518];
 
-extern const unsigned char gImage_Num0[768];
-extern const unsigned char gImage_Num1[768];
-extern const unsigned char gImage_Num2[768];
-extern const unsigned char gImage_Num3[768];
-extern const unsigned char gImage_Num4[768];
-extern const unsigned char gImage_Num5[768];
-extern const unsigned char gImage_Num6[768];
-extern const unsigned char gImage_Num7[768];
-extern const unsigned char gImage_Num8[768];
-extern const unsigned char gImage_Num9[768];
+extern const unsigned char gImage_NumP0[1518];
+extern const unsigned char gImage_NumP1[1518];
+extern const unsigned char gImage_NumP2[1518];
+extern const unsigned char gImage_NumP3[1518];
+extern const unsigned char gImage_NumP4[1518];
+extern const unsigned char gImage_NumP5[1518];
+extern const unsigned char gImage_NumP6[1518];
+extern const unsigned char gImage_NumP7[1518];
+extern const unsigned char gImage_NumP8[1518];
+extern const unsigned char gImage_NumP9[1518];
 
-extern const unsigned char gImage_NumP0[768];
-extern const unsigned char gImage_NumP1[768];
-extern const unsigned char gImage_NumP2[768];
-extern const unsigned char gImage_NumP3[768];
-extern const unsigned char gImage_NumP4[768];
-extern const unsigned char gImage_NumP5[768];
-extern const unsigned char gImage_NumP6[768];
-extern const unsigned char gImage_NumP7[768];
-extern const unsigned char gImage_NumP8[768];
-extern const unsigned char gImage_NumP9[768];
-
-extern const unsigned char gImage_pic[153600];
+extern const unsigned char gImage_pic[307200];
 #endif
