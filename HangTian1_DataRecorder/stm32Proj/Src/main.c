@@ -63,8 +63,8 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-//uint32_t testsram[1024] __attribute__((section ("IDT71V321")));
 IDT71V321_DATA char testsram[1024];
+uint8_t nIndex;
 /* USER CODE END 0 */
 
 /**
@@ -77,6 +77,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	uint32_t i;
 	uint8_t readx[1024];
+	GPIO_PinState gp;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -100,16 +101,17 @@ int main(void)
   MX_FSMC_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+	nIndex =1;
   for(i=0;i<1024;i++)
   {
-	testsram[i]=i;
-	readx[i]=0;
+	  testsram[i]=nIndex;
+	  readx[i]=0;
   }
   for(i=0;i<1024;i++)
   {
 	  readx[i]=*(uint8_t *)(0x60000000+i);
-	  if(readx[i]!=testsram[i])
-		  break;
+ 	  if(readx[i]!=testsram[i])
+ 		  break;
   }
   /* USER CODE END 2 */
 
@@ -117,9 +119,27 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-  /* USER CODE END WHILE */
-
+	  while (1)
+	  {
+		  gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
+		  if(gp==GPIO_PIN_SET)
+			  break;
+	  }
+	  HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_RESET);
+	  while (1)
+	  {
+		  gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
+		  if(gp==GPIO_PIN_RESET)
+			  break;
+	  }
+	  HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
+	  nIndex++;
+	  for(i=0;i<1024;i++)
+	  {
+		  testsram[i]=nIndex;
+	  }
+	/* USER CODE END WHILE */
+	
   /* USER CODE BEGIN 3 */
 
   }

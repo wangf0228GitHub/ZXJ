@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mcuDataRecorder", "stm32Proj\mcuDataRecorder\mcuDataRecorder.vcxproj", "{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Release|VisualGDB.Build.0 = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -51,7 +51,7 @@
       <ContainsBSS>true</ContainsBSS>
     </ExtraMemoryDefinition>
   </ExtraMemories>
-  <EditableLinkerScriptFile>STM32F407ZG_flash.lds</EditableLinkerScriptFile>
+  <EditableLinkerScriptFile>STM32F407ZE_flash.lds</EditableLinkerScriptFile>
   <TestFrameworkProperties>
     <Entries />
   </TestFrameworkProperties>
@@ -61,7 +61,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\PCI_E.gpdsc</RelativePath>
-        <Timestamp>131813040713159091</Timestamp>
+        <Timestamp>131854325196117717</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>

@@ -45,7 +45,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\JianLiuJi.gpdsc</RelativePath>
-        <Timestamp>131799923267370357</Timestamp>
+        <Timestamp>131849259272277011</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -87,6 +87,17 @@
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
                   <RelativePath>..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal.c</RelativePath>
+                </VirtualFileSnapshot>
+              </Files>
+            </VirtualDirectorySnapshot>
+            <VirtualDirectorySnapshot>
+              <Name>IWDG</Name>
+              <Files>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_iwdg.h</RelativePath>
+                </VirtualFileSnapshot>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_iwdg.c</RelativePath>
                 </VirtualFileSnapshot>
               </Files>
             </VirtualDirectorySnapshot>
@@ -203,6 +214,9 @@
           <RelativePath>..\Inc\gpio.h</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
+          <RelativePath>..\Inc\iwdg.h</RelativePath>
+        </VirtualFileSnapshot>
+        <VirtualFileSnapshot>
           <RelativePath>..\Inc\stm32f1xx_it.h</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
@@ -213,6 +227,9 @@
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
           <RelativePath>..\Src\gpio.c</RelativePath>
+        </VirtualFileSnapshot>
+        <VirtualFileSnapshot>
+          <RelativePath>..\Src\iwdg.c</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
           <RelativePath>..\Src\stm32f1xx_it.c</RelativePath>
@@ -229,11 +246,11 @@
       <ImportedConfiguration>
         <Settings>
           <IncludeDirectories>
-            <string>F:\work\ZXJ\JianLiuJi\Inc</string>
-            <string>F:\work\ZXJ\JianLiuJi\Drivers\CMSIS\Device\ST\STM32F1xx\Include</string>
-            <string>F:\work\ZXJ\JianLiuJi\Drivers\STM32F1xx_HAL_Driver\Inc</string>
-            <string>F:\work\ZXJ\JianLiuJi\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy</string>
-            <string>F:\work\ZXJ\JianLiuJi\Drivers\STM32F1xx_HAL_Driver\Src</string>
+            <string>F:\work\ZXJ\JianLiuJi\jljVSProj\..\Inc</string>
+            <string>F:\work\ZXJ\JianLiuJi\jljVSProj\..\Drivers\CMSIS\Device\ST\STM32F1xx\Include</string>
+            <string>F:\work\ZXJ\JianLiuJi\jljVSProj\..\Drivers\STM32F1xx_HAL_Driver\Inc</string>
+            <string>F:\work\ZXJ\JianLiuJi\jljVSProj\..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy</string>
+            <string>F:\work\ZXJ\JianLiuJi\jljVSProj\..\Drivers\STM32F1xx_HAL_Driver\Src</string>
           </IncludeDirectories>
           <PreprocessorMacros>
             <string>$$com.sysprogs.bspoptions.primary_memory$$_layout</string>

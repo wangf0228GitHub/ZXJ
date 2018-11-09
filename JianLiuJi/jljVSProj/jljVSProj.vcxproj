@@ -20,9 +20,11 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
     <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
+    <GenerateHexFile>true</GenerateHexFile>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
     <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
+    <GenerateHexFile>true</GenerateHexFile>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -41,29 +43,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\Inc;..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\Drivers\STM32F1xx_HAL_Driver\Inc;..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;..\Drivers\STM32F1xx_HAL_Driver\Src;../Drivers/CMSIS/Include;F:/work/WF_Device;F:/work/WF_Device/stm32;../wf;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>flash_layout;STM32F103xE;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>
-      </AdditionalOptions>
-      <CLanguageStandard>
-      </CLanguageStandard>
-      <CPPLanguageStandard>
-      </CPPLanguageStandard>
-    </ClCompile>
-    <Link>
-      <LibrarySearchDirectories>;%(Link.LibrarySearchDirectories)</LibrarySearchDirectories>
-      <AdditionalLibraryNames>;%(Link.AdditionalLibraryNames)</AdditionalLibraryNames>
-      <AdditionalLinkerInputs>;%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
-      <AdditionalOptions>
-      </AdditionalOptions>
-      <LinkerScript>
-      </LinkerScript>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>..\Inc;..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\Drivers\STM32F1xx_HAL_Driver\Inc;..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;..\Drivers\STM32F1xx_HAL_Driver\Src;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>flash_layout;STM32F103xE;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../Drivers/CMSIS/Include;F:/work/WF_Device;F:/work/WF_Device/stm32;../wf;..\Inc;..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\Drivers\STM32F1xx_HAL_Driver\Inc;..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;..\Drivers\STM32F1xx_HAL_Driver\Src;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG=1;flash_layout;STM32F103xE;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>
       </AdditionalOptions>
       <CLanguageStandard>
@@ -77,10 +58,31 @@
       <AdditionalLinkerInputs>%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
       <AdditionalOptions>
       </AdditionalOptions>
+      <LinkerScript>
+      </LinkerScript>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../Drivers/CMSIS/Include;F:/work/WF_Device;F:/work/WF_Device/stm32;../wf;..\Inc;..\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\Drivers\STM32F1xx_HAL_Driver\Inc;..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy;..\Drivers\STM32F1xx_HAL_Driver\Src;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG=1;RELEASE=1;flash_layout;STM32F103xE;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>
+      </AdditionalOptions>
+      <CLanguageStandard>
+      </CLanguageStandard>
+      <CPPLanguageStandard>
+      </CPPLanguageStandard>
+    </ClCompile>
+    <Link>
+      <LibrarySearchDirectories>%(Link.LibrarySearchDirectories)</LibrarySearchDirectories>
+      <AdditionalLibraryNames>%(Link.AdditionalLibraryNames)</AdditionalLibraryNames>
+      <AdditionalLinkerInputs>%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
+      <AdditionalOptions>
+      </AdditionalOptions>
+      <LinkerScript>
+      </LinkerScript>
+    </Link>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
@@ -89,7 +91,9 @@
     <ClCompile Include="..\..\..\WF_Device\SimSPI.c" />
     <ClCompile Include="..\..\..\WF_Device\stm32\wfEEPROM.c" />
     <ClCompile Include="..\..\..\WF_Device\stm32\wfSys.c" />
+    <ClCompile Include="..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_iwdg.c" />
     <ClCompile Include="..\Src\gpio.c" />
+    <ClCompile Include="..\Src\iwdg.c" />
     <ClCompile Include="..\Src\stm32f1xx_it.c" />
     <ClCompile Include="..\Src\stm32f1xx_hal_msp.c" />
     <ClCompile Include="..\Src\main.c" />
@@ -134,6 +138,8 @@
     <ClCompile Include="..\wf\lcd.c" />
     <ClCompile Include="..\wf\Variables.c" />
     <ClInclude Include="..\..\..\WF_Device\stm32\wfEEPROM.h" />
+    <ClInclude Include="..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_iwdg.h" />
+    <ClInclude Include="..\Inc\iwdg.h" />
     <ClInclude Include="..\wf\ADS8689_Conf.h" />
     <ClInclude Include="..\wf\GUI.h" />
     <ClInclude Include="..\wf\lcd.h" />

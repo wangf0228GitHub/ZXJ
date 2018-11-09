@@ -294,22 +294,24 @@
     <None Include="stm32.xml">
       <Filter>VisualGDB settings</Filter>
     </None>
-    <None Include="STM32F407ZG_flash.lds">
-      <Filter>Source files</Filter>
-    </None>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c">
+      <Filter>Source files\STM32Cube HAL\UART</Filter>
+    </ClCompile>
     <ClCompile Include="ExtraMemories.c">
       <Filter>Source files</Filter>
     </ClCompile>
     <ClInclude Include="ExtraMemories.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c">
-      <Filter>Source files\STM32Cube HAL\UART</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h">
       <Filter>Header files\STM32Cube HAL\UART</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="STM32F407ZE_flash.lds">
+      <Filter>Source files</Filter>
+    </None>
   </ItemGroup>
 </Project>

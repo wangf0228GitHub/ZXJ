@@ -56,6 +56,7 @@
       <AdditionalLinkerInputs>%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
       <AdditionalOptions>
       </AdditionalOptions>
+      <LinkerScript>STM32F407ZE_flash.lds</LinkerScript>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
@@ -141,7 +142,7 @@
     <None Include="mcuDataRecorder-Debug.vgdbsettings" />
     <None Include="mcuDataRecorder-Release.vgdbsettings" />
     <None Include="stm32.xml" />
-    <None Include="STM32F407ZG_flash.lds" />
+    <None Include="STM32F407ZE_flash.lds" />
     <ClCompile Include="ExtraMemories.c" />
     <ClInclude Include="ExtraMemories.h" />
   </ItemGroup>

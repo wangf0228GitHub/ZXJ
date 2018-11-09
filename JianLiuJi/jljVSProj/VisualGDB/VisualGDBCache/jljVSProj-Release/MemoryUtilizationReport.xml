@@ -3,23 +3,13 @@
   <Memories>
     <MemoryUtilization>
       <MemoryName>FLASH</MemoryName>
-      <Used>10184</Used>
+      <Used>377288</Used>
       <Total>524288</Total>
     </MemoryUtilization>
     <MemoryUtilization>
       <MemoryName>SRAM</MemoryName>
-      <Used>196</Used>
-      <Total>131072</Total>
-    </MemoryUtilization>
-    <MemoryUtilization>
-      <MemoryName>CCMRAM</MemoryName>
-      <Used>0</Used>
+      <Used>4256</Used>
       <Total>65536</Total>
-    </MemoryUtilization>
-    <MemoryUtilization>
-      <MemoryName>IDT71V321</MemoryName>
-      <Used>1024</Used>
-      <Total>2048</Total>
     </MemoryUtilization>
   </Memories>
 </MemoryUtilizationReport>

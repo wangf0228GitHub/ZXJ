@@ -15,12 +15,12 @@
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup>
 		<Link>
-			<LinkerScript Condition="'%(Link.LinkerScript)' == ''">STM32F407ZG_flash.lds</LinkerScript>
+			<LinkerScript Condition="'%(Link.LinkerScript)' == ''">STM32F407ZE_flash.lds</LinkerScript>
 			<AdditionalOptions>--specs=nano.specs --specs=nosys.specs %(Link.AdditionalOptions)</AdditionalOptions>
 		</Link>
 	</ItemDefinitionGroup>
 	<PropertyGroup>
-		<DefaultLinkerScript>STM32F407ZG_flash.lds</DefaultLinkerScript>
+		<DefaultLinkerScript>STM32F407ZE_flash.lds</DefaultLinkerScript>
 	</PropertyGroup>
 
 	<ItemDefinitionGroup>
