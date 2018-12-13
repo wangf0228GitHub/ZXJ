@@ -39,6 +39,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "dma.h"
+#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 #include "fsmc.h"
@@ -51,7 +53,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+uint8_t SPIRxHeader[7];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,8 +65,9 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-IDT71V321_DATA char testsram[1024];
+IDT71V321_DATA uint8_t ExRAM[2048];
 uint8_t nIndex;
+
 /* USER CODE END 0 */
 
 /**
@@ -98,48 +101,50 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_FSMC_Init();
   MX_USART2_UART_Init();
+  MX_SPI1_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-	nIndex =1;
-  for(i=0;i<1024;i++)
+  //等待pci准备好
+  HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
+  while (1)
   {
-	  testsram[i]=nIndex;
-	  readx[i]=0;
+	  gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
+	  if(gp==GPIO_PIN_SET)
+		  break;
   }
-  for(i=0;i<1024;i++)
-  {
-	  readx[i]=*(uint8_t *)(0x60000000+i);
- 	  if(readx[i]!=testsram[i])
- 		  break;
-  }
+  
+  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_9);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+//   for(i=0;i<1024;i++)
+//   {
+// 	  readx[i]=*(uint8_t *)(0x60000000+i);
+// 	  if(readx[i]!=ExRAM[i])
+// 		  break;
+//   }
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-	  while (1)
-	  {
-		  gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
-		  if(gp==GPIO_PIN_SET)
-			  break;
-	  }
-	  HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_RESET);
-	  while (1)
-	  {
-		  gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
-		  if(gp==GPIO_PIN_RESET)
-			  break;
-	  }
-	  HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
-	  nIndex++;
-	  for(i=0;i<1024;i++)
-	  {
-		  testsram[i]=nIndex;
-	  }
-	/* USER CODE END WHILE */
-	
+  {	  
+// 	  HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_RESET);
+// 	  while (1)
+// 	  {
+// 		  gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
+// 		  if(gp==GPIO_PIN_RESET)
+// 			  break;
+// 	  }
+// 	  HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
+// 	  nIndex++;
+// 	  for(i=0;i<1024;i++)
+// 	  {
+// 		  ExRAM[i]=nIndex;
+// 	  }
+  /* USER CODE END WHILE */
+
   /* USER CODE BEGIN 3 */
 
   }

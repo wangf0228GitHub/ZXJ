@@ -54,6 +54,11 @@
 #define CH368_SCS_GPIO_Port GPIOE
 #define CH368_INT_Pin GPIO_PIN_15
 #define CH368_INT_GPIO_Port GPIOE
+#define TX_RX_Pin GPIO_PIN_12
+#define TX_RX_GPIO_Port GPIOB
+#define QiFei_Pin GPIO_PIN_9
+#define QiFei_GPIO_Port GPIOG
+#define QiFei_EXTI_IRQn EXTI9_5_IRQn
 
 /* ########################## Assert Selection ############################## */
 /**

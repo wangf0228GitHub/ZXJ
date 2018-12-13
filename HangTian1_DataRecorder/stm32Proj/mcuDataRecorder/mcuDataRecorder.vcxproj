@@ -84,9 +84,12 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ItemGroup>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c" />
     <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c" />
+    <ClCompile Include="..\Src\dma.c" />
     <ClCompile Include="..\Src\gpio.c" />
     <ClCompile Include="..\Src\fsmc.c" />
+    <ClCompile Include="..\Src\spi.c" />
     <ClCompile Include="..\Src\usart.c" />
     <ClCompile Include="..\Src\stm32f4xx_it.c" />
     <ClCompile Include="..\Src\stm32f4xx_hal_msp.c" />
@@ -110,9 +113,12 @@
     <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c" />
     <None Include="stm32.props" />
     <ClCompile Include="$(BSP_ROOT)\STM32F4xxxx\StartupFiles\startup_stm32f407xx.c" />
+    <ClInclude Include="..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h" />
     <ClInclude Include="..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h" />
+    <ClInclude Include="..\Inc\dma.h" />
     <ClInclude Include="..\Inc\gpio.h" />
     <ClInclude Include="..\Inc\fsmc.h" />
+    <ClInclude Include="..\Inc\spi.h" />
     <ClInclude Include="..\Inc\usart.h" />
     <ClInclude Include="..\Inc\stm32f4xx_it.h" />
     <ClInclude Include="..\Inc\stm32f4xx_hal_conf.h" />

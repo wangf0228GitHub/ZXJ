@@ -40,7 +40,45 @@
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
 /* USER CODE BEGIN 0 */
-
+#include "..\Inc\spi.h"
+#include "..\mcuDataRecorder\ExtraMemories.h"
+uint8_t rxIndex;
+extern IDT71V321_DATA uint8_t ExRAM[2048];
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	GPIO_PinState gp;
+	if(GPIO_Pin==GPIO_PIN_9)
+	{
+		if(HAL_GPIO_ReadPin(QiFei_GPIO_Port,QiFei_Pin))//上升沿，帧结束
+		{
+			HAL_SPI_DMAStop(&hspi1);
+			//pci卡处理			
+			if(ExRAM[0]==0xfa && ExRAM[1]==0xf3 && ExRAM[2]==0x30)
+			{
+				rxIndex=ExRAM[4];
+				while (1)
+				{
+					gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
+					if(gp==GPIO_PIN_SET)
+						break;
+				}
+				HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_RESET);
+				while (1)
+				{
+					gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
+					if(gp==GPIO_PIN_RESET)
+						break;
+				}
+				HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
+				
+			}
+		}
+		else//下降沿，帧开始
+		{
+			HAL_SPI_Receive_DMA(&hspi1,ExRAM,1024);
+		}
+	}
+}
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/
@@ -68,10 +106,14 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(TX_RX_GPIO_Port, TX_RX_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = CH368_SCS_Pin;
@@ -85,6 +127,23 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(CH368_INT_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = TX_RX_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(TX_RX_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = QiFei_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(QiFei_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 7, 1);
+  HAL_NVIC_DisableIRQ(EXTI9_5_IRQn);
 
 }
 
