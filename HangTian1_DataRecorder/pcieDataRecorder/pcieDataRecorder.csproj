@@ -85,6 +85,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\WFLib\WFNetLib\WFNetLib40.csproj">
+      <Project>{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}</Project>
+      <Name>WFNetLib40</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

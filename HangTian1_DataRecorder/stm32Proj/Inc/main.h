@@ -56,6 +56,8 @@
 #define CH368_INT_GPIO_Port GPIOE
 #define TX_RX_Pin GPIO_PIN_12
 #define TX_RX_GPIO_Port GPIOB
+#define ZhT_Pin GPIO_PIN_8
+#define ZhT_GPIO_Port GPIOA
 #define QiFei_Pin GPIO_PIN_9
 #define QiFei_GPIO_Port GPIOG
 #define QiFei_EXTI_IRQn EXTI9_5_IRQn

@@ -7,7 +7,7 @@
     <Revision>3</Revision>
   </ToolchainVersion>
   <BspID>com.sysprogs.arm.stm32</BspID>
-  <BspVersion>4.7</BspVersion>
+  <BspVersion>2018.08</BspVersion>
   <McuID>STM32F407ZE</McuID>
   <MCUDefinitionFile>STM32F4xxxx/DeviceDefinitions/stm32f407xx.xml</MCUDefinitionFile>
   <MCUProperties>
@@ -61,7 +61,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\PCI_E.gpdsc</RelativePath>
-        <Timestamp>131886431099055656</Timestamp>
+        <Timestamp>131893996860000000</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>

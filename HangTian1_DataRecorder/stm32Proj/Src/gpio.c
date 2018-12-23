@@ -42,20 +42,27 @@
 /* USER CODE BEGIN 0 */
 #include "..\Inc\spi.h"
 #include "..\mcuDataRecorder\ExtraMemories.h"
-uint8_t rxIndex;
+uint32_t rxIndex;
 extern IDT71V321_DATA uint8_t ExRAM[2048];
+uint8_t tmp[64];
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	GPIO_PinState gp;
+	uint8_t i;
 	if(GPIO_Pin==GPIO_PIN_9)
 	{
 		if(HAL_GPIO_ReadPin(QiFei_GPIO_Port,QiFei_Pin))//上升沿，帧结束
 		{
 			HAL_SPI_DMAStop(&hspi1);
+			rxIndex++;
+			for(i=0;i<64;i++)
+			{
+				tmp[i]=ExRAM[i];
+			}
 			//pci卡处理			
 			if(ExRAM[0]==0xfa && ExRAM[1]==0xf3 && ExRAM[2]==0x30)
 			{
-				rxIndex=ExRAM[4];
+				//rxIndex=ExRAM[4];
 				while (1)
 				{
 					gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
@@ -70,11 +77,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 						break;
 				}
 				HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
-				
+
 			}
 		}
 		else//下降沿，帧开始
 		{
+			for(i=0;i<64;i++)
+				tmp[i]=0;
 			HAL_SPI_Receive_DMA(&hspi1,ExRAM,1024);
 		}
 	}
@@ -115,6 +124,9 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(TX_RX_GPIO_Port, TX_RX_Pin, GPIO_PIN_SET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(ZhT_GPIO_Port, ZhT_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = CH368_SCS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -136,6 +148,13 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(TX_RX_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = ZhT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(ZhT_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = QiFei_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -143,7 +162,7 @@ void MX_GPIO_Init(void)
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI9_5_IRQn, 7, 1);
-  HAL_NVIC_DisableIRQ(EXTI9_5_IRQn);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 
 }
 

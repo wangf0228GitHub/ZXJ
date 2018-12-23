@@ -63,11 +63,14 @@
 // // 	HAL_SPI_Receive_IT(&hspi2, (uint8_t *)&spi2RecvBuff[0],1);
 // // 	printf("\r\nspi2RecvNum: %d", spi2RecvNum);
 // }
-// void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
-// {
-// 	while((HAL_SPI_Init(&hspi1) != HAL_OK));
-// 	HAL_SPI_Receive_IT(&hspi1,SPIRxHeader,7);
-// }
+ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
+ {
+	 HAL_NVIC_DisableIRQ(EXTI9_5_IRQn);
+ 	while((HAL_SPI_Init(&hspi1) != HAL_OK));
+	__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_9);
+	HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+ 	//HAL_SPI_Receive_IT(&hspi1,SPIRxHeader,7);
+ }
 /* USER CODE END 0 */
 
 SPI_HandleTypeDef hspi1;
@@ -82,7 +85,7 @@ void MX_SPI1_Init(void)
   hspi1.Init.Direction = SPI_DIRECTION_1LINE;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
