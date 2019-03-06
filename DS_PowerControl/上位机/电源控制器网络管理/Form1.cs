@@ -54,11 +54,15 @@ namespace 电源控制器网络管理
         }
         private void tcpAsyncServer_ErrorServer(object sender, ErrorServerEventArgs e)
         {
-            this.Invoke((EventHandler)(delegate
+            try
             {
-                NetLog(e.Error.Message + "\r\n");
+                this.Invoke((EventHandler)(delegate
+                            {
+                                NetLog(e.Error.Message + "\r\n");
 
-            }));
+                            }));
+            }
+            catch { }
         }
         private void tcpAsyncServer_AcceptServer(object sender, AcceptServerEventArgs e)
         {

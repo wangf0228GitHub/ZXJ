@@ -49,6 +49,7 @@ namespace 电源控制器网络管理
                     {
                         tabControl1.Enabled = true;
                         timer1.Enabled = false;
+                        textBox6.Text = WFNetLib.StringFunc.StringsFunction.byteToHexStr(rx.Data, 0, 6, " ");
                         byte[] bIP = new byte[4];
                         for (int i = 0; i < 4; i++)
                         {
@@ -174,6 +175,12 @@ namespace 电源控制器网络管理
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            byte[] mac = WFNetLib.StringFunc.StringsFunction.strToHexByte(textBox6.Text, " ");
+            if (mac == null || mac.Length!=6)
+            {
+                MessageBox.Show("mac地址输入有误");
+                return;
+            }
             IPAddress mcuIP = CheckIPInput(textBox2.Text);
             if (mcuIP == null)
             {
@@ -200,22 +207,26 @@ namespace 电源控制器网络管理
             }
             tabControl1.Enabled = false;
             timer1.Enabled = true;
-            byte[] tx = new byte[28];
+            byte[] tx = new byte[36];
+            for (int i = 0; i < 6; i++)
+            {
+                tx[i] = mac[i];
+            }
             for (int i = 0; i < 4; i++)
             {
-                tx[i] = mcuIP.GetAddressBytes()[i];
-                tx[4 + i] = mcuSN.GetAddressBytes()[i];
-                tx[8 + i] = mcuGW.GetAddressBytes()[i];
-                tx[16 + i] = pcIP.GetAddressBytes()[i];
+                tx[i+8] = mcuIP.GetAddressBytes()[i];
+                tx[4 + i + 8] = mcuSN.GetAddressBytes()[i];
+                tx[8 + i + 8] = mcuGW.GetAddressBytes()[i];
+                tx[16 + i + 8] = pcIP.GetAddressBytes()[i];
             }
-            tx[20] = BytesOP.GetLowByte((ushort)numericUpDown2.Value);
-            tx[21] = BytesOP.GetHighByte((ushort)numericUpDown2.Value);
-            tx[22] = 0;
-            tx[23] = 0;
-            tx[24] = BytesOP.GetLowByte((ushort)numericUpDown1.Value);
-            tx[25] = BytesOP.GetHighByte((ushort)numericUpDown1.Value);
-            tx[26] = 0;
-            tx[27] = 0;
+            tx[20 + 8] = BytesOP.GetLowByte((ushort)numericUpDown2.Value);
+            tx[21 + 8] = BytesOP.GetHighByte((ushort)numericUpDown2.Value);
+            tx[22 + 8] = 0;
+            tx[23 + 8] = 0;
+            tx[24 + 8] = BytesOP.GetLowByte((ushort)numericUpDown1.Value);
+            tx[25 + 8] = BytesOP.GetHighByte((ushort)numericUpDown1.Value);
+            tx[26 + 8] = 0;
+            tx[27 + 8] = 0;
             byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x03, tx);
             tcpAsyncServer.Send(clientContext, tx03);
             this.Invoke((EventHandler)(delegate
