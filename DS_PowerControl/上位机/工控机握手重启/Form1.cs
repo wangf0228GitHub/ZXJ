@@ -25,7 +25,11 @@ namespace 工控机握手重启
             CP1616PacketHead.Addr_SIZE = 1;
             CP1616PacketHead.DataLen_SIZE = 1;
             CP1616PacketHead.CalcHeaderLen();
-            while (!WFGlobal.OpenSerialPort(ref serialPort1, "工控机握手监测"));            
+            if (!WFGlobal.OpenSerialPort(ref serialPort1, "工控机握手监测"))
+            {
+                this.Close();
+                return;
+            }
             RxCount = 0;
             TxCount = 0;
             HandWork();
@@ -43,7 +47,7 @@ namespace 工控机握手重启
             else
             {
                 TxCount++;
-
+                WFNetLib.Log.TextLog.AddTextLog(TxCount.ToString(),true);
             }
             this.Invoke((EventHandler)(delegate
             {

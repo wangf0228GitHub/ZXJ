@@ -57,10 +57,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		bResetAdvantech=0;
 		MissAdvantech=0;
 	}
-	else if(htim->Instance==htim17.Instance)//ÍøÂç¶Ï¿ª¼ÆÊ±
-	{
-		MissServer++;
-	}
 }
 /* USER CODE END 0 */
 

@@ -79,11 +79,11 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, IOBak5_Pin|IOBak4_Pin|IOBak3_Pin|IOBak2_Pin 
-                          |PowerControl_Pin|SPI_CLK_Pin|SPI_MOSI_Pin|RUNLED_Pin 
+                          |SPI_CLK_Pin|SPI_MOSI_Pin|RUNLED_Pin 
                           |SimI2C_CLK_Pin|SimI2C_DATA_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, SPI_WSCS_Pin|JTPower_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOB, SPI_WSCS_Pin|JTPower_Pin|PowerControl_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : PAPin PAPin */
   GPIO_InitStruct.Pin = LouShui1_Pin|LouShui2_Pin;

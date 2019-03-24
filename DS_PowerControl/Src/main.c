@@ -138,9 +138,6 @@ int main(void)
   MS8607_Init();
   HAL_UART_Receive_IT(&huart5,&Uart3Rx,1);
 
-  __HAL_TIM_CLEAR_IT(&htim17, TIM_IT_UPDATE);
-  HAL_TIM_Base_Start_IT(&htim17);
-
   __HAL_TIM_CLEAR_IT(&htim7, TIM_IT_UPDATE);
   HAL_TIM_Base_Start_IT(&htim7);
   /* USER CODE END 2 */
@@ -174,22 +171,23 @@ int main(void)
 		  if(MissAdvantech>60)//300s
 		  {
 			  Power_OFF();
+			  __HAL_TIM_SET_COUNTER(&htim14,0);
 			  __HAL_TIM_CLEAR_IT(&htim14, TIM_IT_UPDATE);
 			  HAL_TIM_Base_Start_IT(&htim14);
 			  bResetAdvantech=1;
 		  }
 	  }
-	  if(w5500Retry>10)
-	  {
-		  NVIC_SystemReset();
-	  }
-	  if(MissServer>10)
-	  {
-		  Reset_W5500();
-		  w5500LibInit(); 
-		  MissServer=0;
-		  w5500Retry++;
-	  }
+// 	  if(w5500Retry>10)
+// 	  {
+// 		  NVIC_SystemReset();
+// 	  }
+// 	  if(MissServer>10)
+// 	  {
+// 		  Reset_W5500();
+// 		  w5500LibInit(); 
+// 		  MissServer=0;
+// 		  w5500Retry++;
+// 	  }
 	  if(GetDeltaTick(RunTick)>1000)
 	  {
 		  RunTick=HAL_GetTick();

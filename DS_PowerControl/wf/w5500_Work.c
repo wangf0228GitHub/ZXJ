@@ -53,9 +53,6 @@ void loopback_tcpc(void)
 				size = DATA_BUF_SIZE; 			
 			// DATA_BUF_SIZE means user defined buffer size (array)
  			ret = recv(UseSocket, NetBuf, size); // Data Receive process (H/W Rx socket buffer -> User's buffer)
-			MissServer=0;
-			htim17.Instance->EGR = TIM_EGR_UG;
-			w5500Retry=0;
  			if(ret <= 0) // If the received data length <= 0, receive failed and process end
  			{
  				bW5500Net=0;

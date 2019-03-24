@@ -2,8 +2,8 @@
 #include "..\..\..\WF_Device\stm32\wfEEPROM.h"
 #include "w5500_Work.h"
 
-uint32_t MissServer;
-uint32_t w5500Retry;
+// uint32_t MissServer;
+// uint32_t w5500Retry;
 uint8_t Uart3Rx;
 _SystemParam SystemParam;
 
@@ -46,10 +46,10 @@ void InitSystemParam(void)
 	}
 	else
 	{
-// 		for(i=0;i<6;i++)
-// 		{
-// 			gWIZNETINFO.mac[i]=SystemParam.mac[i];
-// 		}
+ 		for(i=0;i<6;i++)
+ 		{
+ 			gWIZNETINFO.mac[i]=SystemParam.mac[i];
+ 		}
 		for(i=0;i<4;i++)
 		{
 			gWIZNETINFO.ip[i]=SystemParam.ip[i];

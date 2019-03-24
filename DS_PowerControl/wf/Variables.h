@@ -28,8 +28,8 @@ typedef union
 
 
 extern _SystemParam SystemParam;
-extern uint32_t MissServer;
-extern uint32_t w5500Retry;
+// extern uint32_t MissServer;
+// extern uint32_t w5500Retry;
 extern uint8_t Uart3Rx;
 
 extern uint32_t MS8607Err;
