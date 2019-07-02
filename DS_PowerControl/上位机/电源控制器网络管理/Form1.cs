@@ -143,6 +143,7 @@ namespace 电源控制器网络管理
                         NetLog("\r\n");
                         return;
                     }
+                    string strLog = e.Client.ClientSocket.RemoteEndPoint.ToString()+":";
                     //MS8607
                     if (rx.Data[12] > 10)
                     {
@@ -154,22 +155,24 @@ namespace 电源控制器网络管理
                     {
                         f = BitConverter.ToSingle(rx.Data, 0);
                         listView1.Items[indexLi].SubItems[2].Text = f.ToString("F2");
-
+                        strLog += f.ToString("F2") + ",";
                         f = BitConverter.ToSingle(rx.Data, 4);
                         //f = f;
                         listView1.Items[indexLi].SubItems[3].Text = f.ToString("F2");
-
+                        strLog += f.ToString("F2") + ",";
                         f = BitConverter.ToSingle(rx.Data, 8);
                         listView1.Items[indexLi].SubItems[4].Text = f.ToString("F2");
+                        strLog += f.ToString("F2") + ",";
                     }
                     if (rx.Data[13] == 0)
                     {
-                        listView1.Items[indexLi].SubItems[5].Text = "漏水";
+                        listView1.Items[indexLi].SubItems[5].Text = "漏水";                        
                     }
                     else
                     {
                         listView1.Items[indexLi].SubItems[5].Text = "正常";
                     }
+                    strLog += listView1.Items[indexLi].SubItems[5].Text + ",";
                     if (rx.Data[14] == 0)
                     {
                         listView1.Items[indexLi].SubItems[6].Text = "漏水";
@@ -178,7 +181,7 @@ namespace 电源控制器网络管理
                     {
                         listView1.Items[indexLi].SubItems[6].Text = "正常";
                     }
-
+                    strLog += listView1.Items[indexLi].SubItems[5].Text + ",";
                     if (rx.Data[15] == 0)
                     {
                         listView1.Items[indexLi].SubItems[7].Text = "断电";
@@ -187,7 +190,10 @@ namespace 电源控制器网络管理
                     {
                         listView1.Items[indexLi].SubItems[7].Text = "供电";
                     }
-                    
+                    strLog += listView1.Items[indexLi].SubItems[5].Text;
+                    NetLog(DateTime.Now.ToLongTimeString() + ":");
+                    NetLog(strLog);
+                    NetLog("\r\n");
                 }
                 else
                 {

@@ -1,0 +1,791 @@
+
+
+HI-TECH Software PIC PRO Macro Assembler V9.71a build 6446 
+                                                                                               Wed May 22 11:35:06 2019
+
+HI-TECH Software Omniscient Code Generator (PRO mode) build 6446
+     1                           	processor	16F886
+     2                           	opt	pw 120
+     3                           	opt	pm
+     4                           	psect	config,global,class=CONFIG,delta=2
+     5                           	psect	strings,global,class=STRING,delta=2
+     6                           	psect	cinit,global,class=CODE,delta=2
+     7                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1
+     8                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1
+     9                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1
+    10                           	psect	maintext,global,class=CODE,delta=2
+    11                           	psect	text130,local,class=CODE,delta=2
+    12                           	psect	text131,local,class=CODE,delta=2
+    13                           	psect	text133,local,class=CODE,delta=2
+    14                           	psect	intentry,global,class=CODE,delta=2
+    15                           	psect	text134,local,class=CODE,delta=2
+    16                           	psect	pa_nodes,global,class=CODE,delta=2
+    17                           	dabs	1,0x7E,2
+    18  000A                     	;#
+    19                           
+    20                           	psect	config
+    21  2007  2FAA               	dw	12202	;#
+    22                           
+    23                           	psect	strings
+    24  0013                     __pstrings:	
+    25  0013                     stringtab:	
+    26                           ;	global	stringdir,stringtab,__stringbase
+    27                           
+    28  0013                     stringcode:	
+    29                           ;	String table - string pointers are 1 byte each
+    30                           
+    31  0013                     stringdir:	
+    32  0013  3000               	movlw	high stringdir
+    33  0014  008A               	movwf	10
+    34  0015  0804               	movf	4,w
+    35  0016  0A84               	incf	4,f
+    36  0017  0782               	addwf	2,f
+    37  0018                     __stringbase:	
+    38  0018  3400               	retlw	0
+    39  0019                     _WORKTIME:	
+    40  0019  342A               	retlw	42
+    41  001A  34DE               	retlw	222
+    42  001B  340C               	retlw	12
+    43  001C  34E3               	retlw	227
+    44  001D  34EE               	retlw	238
+    45  001E  34E7               	retlw	231
+    46  001F  34D0               	retlw	208
+    47  0020  34EC               	retlw	236
+    48  0021  34B2               	retlw	178
+    49  0022  34F1               	retlw	241
+    50  0023  3494               	retlw	148
+    51  0024  34F6               	retlw	246
+    52  0025  3476               	retlw	118
+    53  0026  34FB               	retlw	251
+    54  0006                     _PORTB	set	6
+    55  0010                     _T1CON	set	16
+    56  000F                     _TMR1H	set	15
+    57  000E                     _TMR1L	set	14
+    58  005F                     _GIE	set	95
+    59  005E                     _PEIE	set	94
+    60  005B                     _RBIE	set	91
+    61  0058                     _RBIF	set	88
+    62  0039                     _RC1	set	57
+    63  0060                     _TMR1IF	set	96
+    64  0080                     _TMR1ON	set	128
+    65  0096                     _IOCB	set	150
+    66  0081                     _OPTION	set	129
+    67  0086                     _TRISB	set	134
+    68  0460                     _TMR1IE	set	1120
+    69  0439                     _TRISC1	set	1081
+    70  0188                     _ANSEL	set	392
+    71  0189                     _ANSELH	set	393
+    72                           
+    73                           	psect	cinit
+    74  00D2                     start_initialization:	
+    75                           
+    76                           ; Clear objects allocated to BANK0
+    77  00D2  01A0               	clrf	__pbssBANK0& (0+127)
+    78  00D3  01A1               	clrf	(__pbssBANK0+1)& (0+127)
+    79  00D4                     end_of_initialization:	
+    80                           ;End of C runtime variable initialization code
+    81                           
+    82  00D4  0183               	clrf	3
+    83  00D5  120A  118A  28C6   	ljmp	_main	;jump to C main() function
+    84                           
+    85                           	psect	bssBANK0
+    86  0020                     __pbssBANK0:	
+    87  0020                     _WorkIndex:	
+    88  0020                     	ds	1
+    89  0021                     _gFlags:	
+    90  0021                     	ds	1
+    91                           
+    92                           	psect	cstackCOMMON
+    93  0070                     __pcstackCOMMON:	
+    94  0070                     ?_InitMCU:	
+    95  0070                     ?_InitSystem:	
+    96                           ; 0 bytes @ 0x0
+    97                           
+    98  0070                     ?_KeyProc:	
+    99                           ; 0 bytes @ 0x0
+   100                           
+   101  0070                     ?_main:	
+   102                           ; 0 bytes @ 0x0
+   103                           
+   104  0070                     ?_lowISR:	
+   105                           ; 0 bytes @ 0x0
+   106                           
+   107  0070                     ??_lowISR:	
+   108                           ; 0 bytes @ 0x0
+   109                           
+   110                           
+   111                           ; 0 bytes @ 0x0
+   112  0070                     	ds	6
+   113  0076                     ??_InitMCU:	
+   114  0076                     ??_InitSystem:	
+   115                           ; 0 bytes @ 0x6
+   116                           
+   117  0076                     ??_KeyProc:	
+   118                           ; 0 bytes @ 0x6
+   119                           
+   120                           
+   121                           ; 0 bytes @ 0x6
+   122  0076                     	ds	2
+   123  0078                     ??_main:	
+   124                           
+   125                           	psect	cstackBANK0
+   126  0022                     __pcstackBANK0:	
+   127                           ; 0 bytes @ 0x8
+   128                           
+   129  0022                     KeyProc@x:	
+   130                           
+   131                           ; 1 bytes @ 0x0
+   132  0022                     	ds	1
+   133  0023                     KeyProc@key:	
+   134                           
+   135                           ; 1 bytes @ 0x1
+   136  0023                     	ds	1
+   137                           
+   138                           	psect	maintext
+   139  00C6                     __pmaintext:	
+   140 ;;Data sizes: Strings 0, constant 14, data 0, bss 2, persistent 0 stack 0
+   141 ;;Auto spaces:   Size  Autos    Used
+   142 ;; COMMON          14      8       8
+   143 ;; BANK0           80      2       4
+   144 ;; BANK1           80      0       0
+   145 ;; BANK3           96      0       0
+   146 ;; BANK2           96      0       0
+   147 ;;
+   148 ;; Pointer list with targets:
+   149 ;;
+   150 ;; Critical Paths under _main in COMMON
+   151 ;;
+   152 ;;   _main->_KeyProc
+   153 ;;
+   154 ;; Critical Paths under _lowISR in COMMON
+   155 ;;
+   156 ;;   None.
+   157 ;;
+   158 ;; Critical Paths under _main in BANK0
+   159 ;;
+   160 ;;   _main->_KeyProc
+   161 ;;
+   162 ;; Critical Paths under _lowISR in BANK0
+   163 ;;
+   164 ;;   None.
+   165 ;;
+   166 ;; Critical Paths under _main in BANK1
+   167 ;;
+   168 ;;   None.
+   169 ;;
+   170 ;; Critical Paths under _lowISR in BANK1
+   171 ;;
+   172 ;;   None.
+   173 ;;
+   174 ;; Critical Paths under _main in BANK3
+   175 ;;
+   176 ;;   None.
+   177 ;;
+   178 ;; Critical Paths under _lowISR in BANK3
+   179 ;;
+   180 ;;   None.
+   181 ;;
+   182 ;; Critical Paths under _main in BANK2
+   183 ;;
+   184 ;;   None.
+   185 ;;
+   186 ;; Critical Paths under _lowISR in BANK2
+   187 ;;
+   188 ;;   None.
+   189 ;;
+   190 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   191 ;;
+   192 ;;
+   193 ;;Call Graph Tables:
+   194 ;;
+   195 ;; ---------------------------------------------------------------------------------
+   196 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   197 ;; ---------------------------------------------------------------------------------
+   198 ;; (0) _main                                                 0     0      0     158
+   199 ;;                         _InitSystem
+   200 ;;                            _KeyProc
+   201 ;; ---------------------------------------------------------------------------------
+   202 ;; (1) _KeyProc                                              4     4      0     158
+   203 ;;                                              6 COMMON     2     2      0
+   204 ;;                                              0 BANK0      2     2      0
+   205 ;; ---------------------------------------------------------------------------------
+   206 ;; (1) _InitSystem                                           0     0      0       0
+   207 ;;                            _InitMCU
+   208 ;; ---------------------------------------------------------------------------------
+   209 ;; (2) _InitMCU                                              0     0      0       0
+   210 ;; ---------------------------------------------------------------------------------
+   211 ;; Estimated maximum stack depth 2
+   212 ;; ---------------------------------------------------------------------------------
+   213 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   214 ;; ---------------------------------------------------------------------------------
+   215 ;; (4) _lowISR                                               7     7      0       0
+   216 ;;                                              0 COMMON     6     6      0
+   217 ;; ---------------------------------------------------------------------------------
+   218 ;; Estimated maximum stack depth 4
+   219 ;; ---------------------------------------------------------------------------------
+   220 ;; Call Graph Graphs:
+   221 ;; _main (ROOT)
+   222 ;;   _InitSystem
+   223 ;;     _InitMCU
+   224 ;;   _KeyProc
+   225 ;;
+   226 ;; _lowISR (ROOT)
+   227 ;;
+   228 ;; Address spaces:
+   229 ;;Name               Size   Autos  Total    Cost      Usage
+   230 ;;BITCOMMON            E      0       0       0        0.0%
+   231 ;;EEDATA             100      0       0       0        0.0%
+   232 ;;NULL                 0      0       0       0        0.0%
+   233 ;;CODE                 0      0       0       0        0.0%
+   234 ;;COMMON               E      8       8       1       57.1%
+   235 ;;BITSFR0              0      0       0       1        0.0%
+   236 ;;SFR0                 0      0       0       1        0.0%
+   237 ;;BITSFR1              0      0       0       2        0.0%
+   238 ;;SFR1                 0      0       0       2        0.0%
+   239 ;;STACK                0      0       2       2        0.0%
+   240 ;;ABS                  0      0       C       3        0.0%
+   241 ;;BITBANK0            50      0       0       4        0.0%
+   242 ;;BITSFR3              0      0       0       4        0.0%
+   243 ;;SFR3                 0      0       0       4        0.0%
+   244 ;;BANK0               50      2       4       5        5.0%
+   245 ;;BITSFR2              0      0       0       5        0.0%
+   246 ;;SFR2                 0      0       0       5        0.0%
+   247 ;;BITBANK1            50      0       0       6        0.0%
+   248 ;;BANK1               50      0       0       7        0.0%
+   249 ;;BITBANK3            60      0       0       8        0.0%
+   250 ;;BANK3               60      0       0       9        0.0%
+   251 ;;BITBANK2            60      0       0      10        0.0%
+   252 ;;BANK2               60      0       0      11        0.0%
+   253 ;;DATA                 0      0       E      12        0.0%
+   254                           
+   255                           
+   256 ;; *************** function _main *****************
+   257 ;; Defined at:
+   258 ;;		line 9 in file "F:\work\ZXJ\kkgxwjkz\Main.c"
+   259 ;; Parameters:    Size  Location     Type
+   260 ;;		None
+   261 ;; Auto vars:     Size  Location     Type
+   262 ;;		None
+   263 ;; Return value:  Size  Location     Type
+   264 ;;		None               void
+   265 ;; Registers used:
+   266 ;;		wreg, status,2, status,0, pclath, cstack
+   267 ;; Tracked objects:
+   268 ;;		On entry : 17F/0
+   269 ;;		On exit  : 60/0
+   270 ;;		Unchanged: 0/0
+   271 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   272 ;;      Params:         0       0       0       0       0
+   273 ;;      Locals:         0       0       0       0       0
+   274 ;;      Temps:          0       0       0       0       0
+   275 ;;      Totals:         0       0       0       0       0
+   276 ;;Total ram usage:        0 bytes
+   277 ;; Hardware stack levels required when called:    4
+   278 ;; This function calls:
+   279 ;;		_InitSystem
+   280 ;;		_KeyProc
+   281 ;; This function is called by:
+   282 ;;		Startup code after reset
+   283 ;; This function uses a non-reentrant model
+   284 ;;
+   285  00C6                     _main:	
+   286                           
+   287                           ;Main.c: 10: InitSystem();
+   288                           
+   289                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   290  00C6  120A  118A  20AB   	fcall	_InitSystem
+      +       120A  118A         
+   291  00CB                     l2922:	
+   292  00CB  0064               	clrwdt	;#
+   293                           
+   294                           ;Main.c: 14: KeyProc();
+   295  00CC  120A  118A  206B   	fcall	_KeyProc
+      +       120A  118A         
+   296  00D1  28CB               	goto	l2922
+   297  00D2                     __end_of_main:	
+   298                           
+   299                           	psect	text130
+   300  006B                     __ptext130:	
+   301 ;; =============== function _main ends ============
+   302                           
+   303                           
+   304 ;; *************** function _KeyProc *****************
+   305 ;; Defined at:
+   306 ;;		line 8 in file "F:\work\ZXJ\kkgxwjkz\Key.c"
+   307 ;; Parameters:    Size  Location     Type
+   308 ;;		None
+   309 ;; Auto vars:     Size  Location     Type
+   310 ;;  key             1    1[BANK0 ] unsigned char 
+   311 ;;  x               1    0[BANK0 ] unsigned char 
+   312 ;; Return value:  Size  Location     Type
+   313 ;;		None               void
+   314 ;; Registers used:
+   315 ;;		wreg, status,2, status,0
+   316 ;; Tracked objects:
+   317 ;;		On entry : 40/20
+   318 ;;		On exit  : 60/0
+   319 ;;		Unchanged: 0/0
+   320 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   321 ;;      Params:         0       0       0       0       0
+   322 ;;      Locals:         0       2       0       0       0
+   323 ;;      Temps:          2       0       0       0       0
+   324 ;;      Totals:         2       2       0       0       0
+   325 ;;Total ram usage:        4 bytes
+   326 ;; Hardware stack levels used:    1
+   327 ;; Hardware stack levels required when called:    2
+   328 ;; This function calls:
+   329 ;;		Nothing
+   330 ;; This function is called by:
+   331 ;;		_main
+   332 ;; This function uses a non-reentrant model
+   333 ;;
+   334  006B                     _KeyProc:	
+   335                           
+   336                           ;Key.c: 9: unsigned char key,x;
+   337                           ;Key.c: 10: key=PORTB&0x06;
+   338                           
+   339                           ; Regs used in _KeyProc: [wreg+status,2+status,0]
+   340  006B  1283               	bcf	3,5	;RP0=0, select bank0
+   341  006C  0806               	movf	6,w
+   342  006D  00A3               	movwf	KeyProc@key
+   343  006E  3006               	movlw	6
+   344  006F  05A3               	andwf	KeyProc@key,f
+   345                           
+   346                           ;Key.c: 11: if(key==0x06)
+   347  0070  0823               	movf	KeyProc@key,w
+   348  0071  3A06               	xorlw	6
+   349  0072  1D03               	skipz
+   350  0073  2876               	goto	l2892
+   351  0074                     l2890:	
+   352                           
+   353                           ;Key.c: 12: {
+   354                           ;Key.c: 13: gFlags.Bits.bKey=0;
+   355  0074  10A1               	bcf	_gFlags,1
+   356                           
+   357                           ;Key.c: 14: return;
+   358  0075  0008               	return
+   359  0076                     l2892:	
+   360                           
+   361                           ;Key.c: 15: }
+   362                           ;Key.c: 16: _delay((unsigned long)((20)*(4000000/4000.0)));
+   363  0076  301A               	movlw	26
+   364  0077  00F7               	movwf	??_KeyProc+1
+   365  0078  30F8               	movlw	248
+   366  0079  00F6               	movwf	??_KeyProc
+   367  007A                     u317:	
+   368  007A  0BF6               	decfsz	??_KeyProc,f
+   369  007B  287A               	goto	u317
+   370  007C  0BF7               	decfsz	??_KeyProc+1,f
+   371  007D  287A               	goto	u317
+   372  007E  0064               	clrwdt
+   373                           
+   374                           ;Key.c: 17: x=PORTB&0x06;
+   375  007F  1283               	bcf	3,5	;RP0=0, select bank0
+   376  0080  1303               	bcf	3,6	;RP1=0, select bank0
+   377  0081  0806               	movf	6,w
+   378  0082  00A2               	movwf	KeyProc@x
+   379  0083  3006               	movlw	6
+   380  0084  05A2               	andwf	KeyProc@x,f
+   381                           
+   382                           ;Key.c: 18: if(x==0x06)
+   383  0085  0822               	movf	KeyProc@x,w
+   384  0086  3A06               	xorlw	6
+   385  0087  1903               	btfsc	3,2
+   386  0088  2874               	goto	l2890
+   387                           
+   388                           ;Key.c: 23: else if(gFlags.Bits.bKey || (x!=key))
+   389  0089  18A1               	btfsc	_gFlags,1
+   390  008A  0008               	return
+   391  008B  0822               	movf	KeyProc@x,w
+   392  008C  0623               	xorwf	KeyProc@key,w
+   393  008D  1D03               	btfss	3,2
+   394  008E  0008               	return
+   395                           
+   396                           ;Key.c: 26: }
+   397                           ;Key.c: 27: gFlags.Bits.bKey=1;
+   398                           
+   399                           ;Key.c: 24: {
+   400                           ;Key.c: 25: return;
+   401  008F  14A1               	bsf	_gFlags,1
+   402                           
+   403                           ;Key.c: 28: if(gFlags.Bits.bWork)
+   404  0090  1C21               	btfss	_gFlags,0
+   405  0091  28A3               	goto	l2916
+   406                           
+   407                           ;Key.c: 29: {
+   408                           ;Key.c: 30: if(key==0x04)
+   409  0092  0823               	movf	KeyProc@key,w
+   410  0093  3A04               	xorlw	4
+   411  0094  1D03               	skipz
+   412  0095  289B               	goto	l2910
+   413                           
+   414                           ;Key.c: 31: {
+   415                           ;Key.c: 32: if(WorkIndex<7)
+   416  0096  3007               	movlw	7
+   417  0097  0220               	subwf	_WorkIndex,w
+   418  0098  1C03               	btfss	3,0
+   419                           
+   420                           ;Key.c: 33: WorkIndex++;
+   421  0099  0AA0               	incf	_WorkIndex,f
+   422  009A  0008               	return
+   423  009B                     l2910:	
+   424                           
+   425                           ;Key.c: 35: else if(key==0x02)
+   426  009B  0823               	movf	KeyProc@key,w
+   427  009C  3A02               	xorlw	2
+   428  009D  1D03               	skipz
+   429  009E  0008               	return
+   430                           
+   431                           ;Key.c: 36: {
+   432                           ;Key.c: 37: if(WorkIndex>0)
+   433  009F  0820               	movf	_WorkIndex,w
+   434  00A0  1D03               	skipz
+   435                           
+   436                           ;Key.c: 38: WorkIndex--;
+   437  00A1  03A0               	decf	_WorkIndex,f
+   438  00A2  0008               	return
+   439  00A3                     l2916:	
+   440                           
+   441                           ;Key.c: 41: else
+   442                           ;Key.c: 42: {
+   443                           ;Key.c: 43: if(key==0x04)
+   444  00A3  0823               	movf	KeyProc@key,w
+   445  00A4  3A04               	xorlw	4
+   446  00A5  1D03               	skipz
+   447  00A6  0008               	return
+   448                           
+   449                           ;Key.c: 44: {
+   450                           ;Key.c: 45: gFlags.Bits.bWork=1;
+   451  00A7  1421               	bsf	_gFlags,0
+   452                           
+   453                           ;Key.c: 46: RBIF=0;
+   454  00A8  100B               	bcf	11,0
+   455                           
+   456                           ;Key.c: 47: RBIE=1;
+   457  00A9  158B               	bsf	11,3
+   458  00AA  0008               	return
+   459  00AB                     __end_of_KeyProc:	
+   460                           
+   461                           	psect	text131
+   462  00AB                     __ptext131:	
+   463 ;; =============== function _KeyProc ends ============
+   464                           
+   465                           
+   466 ;; *************** function _InitSystem *****************
+   467 ;; Defined at:
+   468 ;;		line 39 in file "F:\work\ZXJ\kkgxwjkz\Init.c"
+   469 ;; Parameters:    Size  Location     Type
+   470 ;;		None
+   471 ;; Auto vars:     Size  Location     Type
+   472 ;;		None
+   473 ;; Return value:  Size  Location     Type
+   474 ;;		None               void
+   475 ;; Registers used:
+   476 ;;		wreg, status,2, status,0, pclath, cstack
+   477 ;; Tracked objects:
+   478 ;;		On entry : 17F/0
+   479 ;;		On exit  : 17F/20
+   480 ;;		Unchanged: FFE80/0
+   481 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   482 ;;      Params:         0       0       0       0       0
+   483 ;;      Locals:         0       0       0       0       0
+   484 ;;      Temps:          0       0       0       0       0
+   485 ;;      Totals:         0       0       0       0       0
+   486 ;;Total ram usage:        0 bytes
+   487 ;; Hardware stack levels used:    1
+   488 ;; Hardware stack levels required when called:    3
+   489 ;; This function calls:
+   490 ;;		_InitMCU
+   491 ;; This function is called by:
+   492 ;;		_main
+   493 ;; This function uses a non-reentrant model
+   494 ;;
+   495  00AB                     _InitSystem:	
+   496                           
+   497                           ;Init.c: 40: InitMCU();
+   498                           
+   499                           ; Regs used in _InitSystem: [wreg+status,2+status,0+pclath+cstack]
+   500  00AB  28AC               	ljmp	l2768
+   501  00AC                     __end_of_InitSystem:	
+   502  00AC                     __ptext132:	
+   503 ;; =============== function _InitSystem ends ============
+   504                           
+   505                           
+   506 ;; *************** function _InitMCU *****************
+   507 ;; Defined at:
+   508 ;;		line 3 in file "F:\work\ZXJ\kkgxwjkz\Init.c"
+   509 ;; Parameters:    Size  Location     Type
+   510 ;;		None
+   511 ;; Auto vars:     Size  Location     Type
+   512 ;;		None
+   513 ;; Return value:  Size  Location     Type
+   514 ;;		None               void
+   515 ;; Registers used:
+   516 ;;		wreg, status,2
+   517 ;; Tracked objects:
+   518 ;;		On entry : 17F/0
+   519 ;;		On exit  : 17F/20
+   520 ;;		Unchanged: FFE80/0
+   521 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   522 ;;      Params:         0       0       0       0       0
+   523 ;;      Locals:         0       0       0       0       0
+   524 ;;      Temps:          0       0       0       0       0
+   525 ;;      Totals:         0       0       0       0       0
+   526 ;;Total ram usage:        0 bytes
+   527 ;; Hardware stack levels used:    1
+   528 ;; Hardware stack levels required when called:    2
+   529 ;; This function calls:
+   530 ;;		Nothing
+   531 ;; This function is called by:
+   532 ;;		_InitSystem
+   533 ;; This function uses a non-reentrant model
+   534 ;;
+   535  00AC                     _InitMCU:	
+   536  00AC                     l2768:	
+   537                           ; Regs used in _InitMCU: [wreg+status,2]
+   538                           
+   539                           
+   540                           ;Init.c: 5: ANSEL=0;
+   541  00AC  1683               	bsf	3,5	;RP0=1, select bank3
+   542  00AD  1703               	bsf	3,6	;RP1=1, select bank3
+   543  00AE  0188               	clrf	8	;volatile
+   544                           
+   545                           ;Init.c: 6: ANSELH=0;
+   546  00AF  0189               	clrf	9	;volatile
+   547                           
+   548                           ;Init.c: 10: OPTION=0b00001111;
+   549  00B0  300F               	movlw	15
+   550  00B1  1303               	bcf	3,6	;RP1=0, select bank1
+   551  00B2  0081               	movwf	1	;volatile
+   552                           
+   553                           ;Init.c: 14: TRISB=0x07;
+   554  00B3  3007               	movlw	7
+   555  00B4  0086               	movwf	6	;volatile
+   556                           
+   557                           ;Init.c: 15: RC1=1;
+   558  00B5  1283               	bcf	3,5	;RP0=0, select bank0
+   559  00B6  1487               	bsf	7,1
+   560                           
+   561                           ;Init.c: 16: TRISC1=0;
+   562  00B7  1683               	bsf	3,5	;RP0=1, select bank1
+   563  00B8  1087               	bcf	7,1
+   564                           
+   565                           ;Init.c: 20: T1CON=0b00000000;
+   566  00B9  1283               	bcf	3,5	;RP0=0, select bank0
+   567  00BA  0190               	clrf	16	;volatile
+   568                           
+   569                           ;Init.c: 21: TMR1ON=0;
+   570  00BB  1010               	bcf	16,0
+   571                           
+   572                           ;Init.c: 22: TMR1IE=1;
+   573  00BC  1683               	bsf	3,5	;RP0=1, select bank1
+   574  00BD  140C               	bsf	12,0
+   575                           
+   576                           ;Init.c: 23: TMR1IF=0;
+   577  00BE  1283               	bcf	3,5	;RP0=0, select bank0
+   578  00BF  100C               	bcf	12,0
+   579                           
+   580                           ;Init.c: 27: IOCB=0x01;
+   581  00C0  3001               	movlw	1
+   582  00C1  1683               	bsf	3,5	;RP0=1, select bank1
+   583  00C2  0096               	movwf	22	;volatile
+   584                           
+   585                           ;Init.c: 30: PEIE=1;
+   586  00C3  170B               	bsf	11,6
+   587                           
+   588                           ;Init.c: 31: GIE=1;
+   589  00C4  178B               	bsf	11,7
+   590  00C5  0008               	return
+   591  00C6                     __end_of_InitMCU:	
+   592                           
+   593                           	psect	text133
+   594  0027                     __ptext133:	
+   595 ;; =============== function _InitMCU ends ============
+   596                           
+   597                           
+   598 ;; *************** function _lowISR *****************
+   599 ;; Defined at:
+   600 ;;		line 18 in file "F:\work\ZXJ\kkgxwjkz\Main.c"
+   601 ;; Parameters:    Size  Location     Type
+   602 ;;		None
+   603 ;; Auto vars:     Size  Location     Type
+   604 ;;  x               1    0        unsigned char 
+   605 ;; Return value:  Size  Location     Type
+   606 ;;		None               void
+   607 ;; Registers used:
+   608 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath
+   609 ;; Tracked objects:
+   610 ;;		On entry : 0/0
+   611 ;;		On exit  : 40/0
+   612 ;;		Unchanged: 0/0
+   613 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   614 ;;      Params:         0       0       0       0       0
+   615 ;;      Locals:         0       0       0       0       0
+   616 ;;      Temps:          6       0       0       0       0
+   617 ;;      Totals:         6       0       0       0       0
+   618 ;;Total ram usage:        6 bytes
+   619 ;; Hardware stack levels used:    2
+   620 ;; This function calls:
+   621 ;;		Nothing
+   622 ;; This function is called by:
+   623 ;;		Interrupt level 1
+   624 ;; This function uses a non-reentrant model
+   625 ;;
+   626  0027                     _lowISR:	
+   627                           
+   628                           ;Main.c: 19: unsigned char x;
+   629                           ;Main.c: 20: if(TMR1IE&&TMR1IF)
+   630  0027  1683               	bsf	3,5	;RP0=1, select bank1
+   631  0028  1303               	bcf	3,6	;RP1=0, select bank1
+   632  0029  1C0C               	btfss	12,0
+   633  002A  2839               	goto	i1l2868
+   634  002B  1283               	bcf	3,5	;RP0=0, select bank0
+   635  002C  1C0C               	btfss	12,0
+   636  002D  2839               	goto	i1l2868
+   637                           
+   638                           ;Main.c: 21: {
+   639                           ;Main.c: 22: TMR1IF=0;
+   640  002E  100C               	bcf	12,0
+   641                           
+   642                           ;Main.c: 23: TMR1ON=0;
+   643  002F  1010               	bcf	16,0
+   644                           
+   645                           ;Main.c: 24: RC1=0;
+   646  0030  1087               	bcf	7,1
+   647                           
+   648                           ;Main.c: 25: _delay((unsigned long)((500)*(4000000/4000000.0)));
+   649  0031  30A6               	movlw	166
+   650  0032  00F0               	movwf	??_lowISR
+   651  0033                     u32_27:	
+   652  0033  0BF0               	decfsz	??_lowISR,f
+   653  0034  2833               	goto	u32_27
+   654  0035  0064               	clrwdt
+   655                           
+   656                           ;Main.c: 26: RC1=1;
+   657  0036  1283               	bcf	3,5	;RP0=0, select bank0
+   658  0037  1303               	bcf	3,6	;RP1=0, select bank0
+   659  0038  1487               	bsf	7,1
+   660  0039                     i1l2868:	
+   661                           
+   662                           ;Main.c: 27: }
+   663                           ;Main.c: 28: if(RBIE&&RBIF)
+   664  0039  198B               	btfsc	11,3
+   665  003A  1C0B               	btfss	11,0
+   666  003B  2860               	goto	i1l2399
+   667                           
+   668                           ;Main.c: 29: {
+   669                           ;Main.c: 30: x=PORTB;
+   670  003C  1283               	bcf	3,5	;RP0=0, select bank0
+   671  003D  0806               	movf	6,w	;volatile
+   672                           
+   673                           ;Main.c: 31: RBIF=0;
+   674  003E  100B               	bcf	11,0
+   675                           
+   676                           ;Main.c: 32: if(WorkIndex>6)
+   677  003F  3007               	movlw	7
+   678  0040  0220               	subwf	_WorkIndex,w
+   679  0041  1C03               	skipc
+   680  0042  2845               	goto	L1
+   681                           
+   682                           ;Main.c: 33: {
+   683                           ;Main.c: 34: RC1=0;
+   684  0043  1087               	bcf	7,1
+   685                           
+   686                           ;Main.c: 35: }
+   687  0044  2860               	goto	i1l2399
+   688  0045                     L1:	
+   689                           ;Main.c: 36: else
+   690                           ;Main.c: 37: {
+   691                           ;Main.c: 38: ((void)(TMR1H=((WORKTIME[WorkIndex])>>8),TMR1L=((WORKTIME[WorkIndex])&0xFF)
+      +                          ));
+   692                           
+   693  0045  0D20               	rlf	_WorkIndex,w
+   694  0046  3E01               	addlw	low (_WORKTIME-__stringbase)
+   695  0047  0084               	movwf	4
+   696  0048  120A  118A  2013   	fcall	stringdir
+      +       120A  118A         
+   697  004D  00F0               	movwf	??_lowISR
+   698  004E  120A  118A  2013   	fcall	stringdir
+      +       120A  118A         
+   699  0053  00F1               	movwf	??_lowISR+1
+   700  0054  008F               	movwf	15	;volatile
+   701  0055  1003               	clrc
+   702  0056  0D20               	rlf	_WorkIndex,w
+   703  0057  3E01               	addlw	low (_WORKTIME-__stringbase)
+   704  0058  0084               	movwf	4
+   705  0059  120A  118A  2013   	fcall	stringdir
+      +       120A  118A         
+   706  005E  008E               	movwf	14	;volatile
+   707                           
+   708                           ;Main.c: 39: TMR1ON=1;
+   709  005F  1410               	bsf	16,0
+   710  0060                     i1l2399:	
+   711  0060  0875               	movf	??_lowISR+5,w
+   712  0061  00FF               	movwf	127
+   713  0062  0874               	movf	??_lowISR+4,w
+   714  0063  008A               	movwf	10
+   715  0064  0873               	movf	??_lowISR+3,w
+   716  0065  0084               	movwf	4
+   717  0066  0872               	movf	??_lowISR+2,w
+   718  0067  0083               	movwf	3
+   719  0068  0EFE               	swapf	126,f
+   720  0069  0E7E               	swapf	126,w
+   721  006A  0009               	retfie
+   722  006B                     __end_of_lowISR:	
+   723                           
+   724                           	psect	intentry
+   725  0004                     __pintentry:	
+   726                           ; Regs used in _lowISR: [wreg-fsr0h+status,2+status,0+btemp+1+pclath]
+   727                           
+   728  0004                     interrupt_function:	
+   729  007E                     saved_w	set	btemp
+   730  0004  00FE               	movwf	btemp
+   731  0005  0803               	movf	3,w
+   732  0006  00F2               	movwf	??_lowISR+2
+   733  0007  0804               	movf	4,w
+   734  0008  00F3               	movwf	??_lowISR+3
+   735  0009  080A               	movf	10,w
+   736  000A  00F4               	movwf	??_lowISR+4
+   737  000B  087F               	movf	btemp+1,w
+   738  000C  00F5               	movwf	??_lowISR+5
+   739  000D  120A  118A  2827   	ljmp	_lowISR
+   740                           
+   741                           	psect	text134
+   742  0000                     __ptext134:	
+   743 ;; =============== function _lowISR ends ============
+   744                           
+   745  007E                     btemp	set	126	;btemp
+   746  007E                     wtemp0	set	126
+
+
+HI-TECH Software PICC Macro Assembler V9.71a build 6446 
+Symbol Table                                                                                   Wed May 22 11:35:06 2019
+
+                   pc 0002                    fsr 0004                   l793 0000                   l787 0000  
+                 _GIE 005F                   _RC1 0039                   u317 007A                   fsr0 0004  
+          KeyProc@key 0023                  l2910 009B                  l2816 0000                  l2920 0000  
+                l2770 0000                  l2914 0000                  l2922 00CB                  l2780 0000  
+                l2772 0000                  l2916 00A3                  l2782 0000                  l2774 0000  
+                l2784 0000                  l2776 0000                  l2768 00AC                  l2786 0000  
+                l2778 0000                  l2890 0074                  l2788 0000                  l2892 0076  
+                l2884 0000                  l2894 0000                  l2886 0000                  l2896 0000  
+                l2888 0000                  _IOCB 0096                  _PEIE 005E                  _RBIE 005B  
+                _RBIF 0058                  _main 00C6                  btemp 007E                  start 0010  
+     __end_of_InitMCU 00C6       __end_of_KeyProc 00AB                 ?_main 0070                 _ANSEL 0188  
+               _T1CON 0010                 u32_27 0033                 _TMR1H 000F                 _TMR1L 000E  
+               _PORTB 0006                 _TRISB 0086                 pclath 000A                 status 0003  
+               wtemp0 007E          __end_of_main 00D2            _InitSystem 00AB                ??_main 0078  
+              _ANSELH 0189                i1l2399 0060                i1l2880 0000                i1l2864 0000  
+              i1l2882 0000                i1l2874 0000                i1l2866 0000                i1l2858 0000  
+              i1l2868 0039                _TMR1IE 0460                _TMR1IF 0060                _OPTION 0081  
+              _TMR1ON 0080                _TRISC1 0439             ??_InitMCU 0076             ??_KeyProc 0076  
+              _gFlags 0021                _lowISR 0027                saved_w 007E        __pcstackCOMMON 0070  
+         ?_InitSystem 0070            __pbssBANK0 0020            __pmaintext 00C6            __pintentry 0004  
+             ?_lowISR 0070   __size_of_InitSystem 0001               _InitMCU 00AC               _KeyProc 006B  
+     __size_of_lowISR 0044  end_of_initialization 00D4          ??_InitSystem 0076        __end_of_lowISR 006B  
+ start_initialization 00D2    __end_of_InitSystem 00AC              ??_lowISR 0070             _WorkIndex 0020  
+       __pcstackBANK0 0022              ?_InitMCU 0070              ?_KeyProc 0070             __ptext130 006B  
+           __ptext131 00AB             __ptext132 00AC             __ptext133 0027             __ptext134 0000  
+           __pstrings 0013     interrupt_function 0004           __stringbase 0018              _WORKTIME 0019  
+            KeyProc@x 0022      __size_of_InitMCU 001A      __size_of_KeyProc 0040         __size_of_main 000C  
+            intlevel1 0000             stringcode 0013              stringdir 0013              stringtab 0013  

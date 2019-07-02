@@ -1,0 +1,6 @@
+_KeyProc: CODE, 107 0 64
+_main: CODE, 198 0 12
+_InitMCU: CODE, 172 0 26
+_lowISR: CODE, 39 0 68
+_InitSystem: CODE, 171 0 1
+Total: 171
