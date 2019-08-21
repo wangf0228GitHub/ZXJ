@@ -159,9 +159,6 @@
     <ClCompile Include="..\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio.c">
       <Filter>Source files\STM32Cube HAL\GPIO</Filter>
     </ClCompile>
-    <None Include="stm32.mak">
-      <Filter>Source files\Device-specific files</Filter>
-    </None>
     <ClCompile Include="$(BSP_ROOT)\STM32F1xxxx\StartupFiles\startup_stm32f103xb.c">
       <Filter>Source files\Device-specific files</Filter>
     </ClCompile>
@@ -288,6 +285,9 @@
     <ClCompile Include="..\..\..\..\WF_Device\stm32\wfEEPROM.c">
       <Filter>wf\lib</Filter>
     </ClCompile>
+    <None Include="stm32.props">
+      <Filter>Source files\Device-specific files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\WF_Device\stm32\wfSys.h">
@@ -307,12 +307,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\WF_Device\W5500\Ethernet\W5500\w5500.h">
       <Filter>wf\w5500</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\wf\ADS8689_Conf.h">
-      <Filter>wf</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\wf\SimSPI_Conf.h">
-      <Filter>wf</Filter>
     </ClInclude>
     <ClInclude Include="..\..\wf\w5500_Work.h">
       <Filter>wf</Filter>
@@ -343,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\WF_Device\stm32\wfEEPROM.h">
       <Filter>wf\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\wf\HardwareProfile.h">
+      <Filter>wf</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

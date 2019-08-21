@@ -104,7 +104,7 @@ int main(void)
   SimSPI2_Init();
   InitSystemParam();
   Reset_W5500();
-  ADS8689_Setting(0x14,0x0002);//0~5.12V 1011//0010 -10~10
+  ADS8689_Setting(0x14,0x0004);//0~5.12V 1011//0010 -10~10
   HAL_TIM_Base_Start_IT(&htim4);
   w5500LibInit();
   MissServerTick=HAL_GetTick();

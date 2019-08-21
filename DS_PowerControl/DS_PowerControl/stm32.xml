@@ -7,7 +7,7 @@
     <Revision>3</Revision>
   </ToolchainVersion>
   <BspID>com.sysprogs.arm.stm32</BspID>
-  <BspVersion>2018.12R2</BspVersion>
+  <BspVersion>2019.06</BspVersion>
   <McuID>STM32F091RC</McuID>
   <MCUDefinitionFile>STM32F0xxxx/DeviceDefinitions/stm32f091xc.xml</MCUDefinitionFile>
   <MCUProperties>
@@ -41,7 +41,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\DS_PowerControl.gpdsc</RelativePath>
-        <Timestamp>131960777018640152</Timestamp>
+        <Timestamp>132082809855768187</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>

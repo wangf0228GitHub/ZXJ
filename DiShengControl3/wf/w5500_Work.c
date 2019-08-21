@@ -68,13 +68,13 @@ void loopback_tcpc(void)
 				CP1616_Client_ProcRx(NetBuf[j]);
  				if(CP1616_Client_Flags.Bits.bRx)
  				{
- 					switch(CP1616_Client_RxList[pCP1616_CommandIndex])
+ 					switch(CP1616_Client_RxList[pCP1616_Client_CommandIndex])
  					{
  						//16 16 01 00 00 2d 0d
  					case 0x01:
  						NetTxList[0] = 0x16;
  						NetTxList[1] = 0x16;
- 						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];
+ 						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];
  						NetTxCount=2+12+10+6+4+4+4+4+5+8+2;
  						NetTxList[3] = HIGH_BYTE(NetTxCount);
  						NetTxList[4] = LOW_BYTE(NetTxCount);
@@ -159,7 +159,7 @@ void loopback_tcpc(void)
 					case 0x02://读取网络参数
 						NetTxList[0] = 0x16;
 						NetTxList[1] = 0x16;
-						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];
 						NetTxCount=36;
 						NetTxList[3] = HIGH_BYTE(NetTxCount);
 						NetTxList[4] = LOW_BYTE(NetTxCount);
@@ -186,7 +186,7 @@ void loopback_tcpc(void)
 						STMFLASH_Write(wfEEPROM_BASE_ADDR,SystemParam.all,SystemParamLen);
 						NetTxList[0] = 0x16;
 						NetTxList[1] = 0x16;
-						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];
 						NetTxCount=0;
 						NetTxList[3] = HIGH_BYTE(NetTxCount);
 						NetTxList[4] = LOW_BYTE(NetTxCount);
@@ -200,7 +200,7 @@ void loopback_tcpc(void)
 						rioCur=MAKE_SHORT(CP1616_Client_RxList[pCP1616_ClientData],CP1616_Client_RxList[pCP1616_ClientData+1]);
 						NetTxList[0] = 0x16;
 						NetTxList[1] = 0x16;
-						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];
 						NetTxCount=1;
 						NetTxList[3] = HIGH_BYTE(NetTxCount);
 						NetTxList[4] = LOW_BYTE(NetTxCount);
@@ -227,7 +227,7 @@ void loopback_tcpc(void)
 
 						NetTxList[0] = 0x16;
 						NetTxList[1] = 0x16;
-						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];
 						NetTxCount=0;
 						NetTxList[3] = HIGH_BYTE(NetTxCount);
 						NetTxList[4] = LOW_BYTE(NetTxCount);
@@ -239,7 +239,7 @@ void loopback_tcpc(void)
 					case 0x06://软重启
 						NetTxList[0] = 0x16;
 						NetTxList[1] = 0x16;
-						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];
 						NetTxCount=0;
 						NetTxList[3] = HIGH_BYTE(NetTxCount);
 						NetTxList[4] = LOW_BYTE(NetTxCount);
@@ -261,7 +261,7 @@ void loopback_tcpc(void)
 
 						NetTxList[0] = 0x16;
 						NetTxList[1] = 0x16;
-						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];
 						NetTxCount=0;
 						NetTxList[3] = HIGH_BYTE(NetTxCount);
 						NetTxList[4] = LOW_BYTE(NetTxCount);
@@ -273,7 +273,7 @@ void loopback_tcpc(void)
 					case 0x08://读取光源状态
 						NetTxList[0] = 0x16;
 						NetTxList[1] = 0x16;
-						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];						
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];						
 						if(RIO_ReadCommand(0x0e)==1)
 						{
  							for(i=0;i<6;i++)
@@ -303,7 +303,7 @@ void loopback_tcpc(void)
 					case 0xf0://模块类型，即板子为何
 						NetTxList[0] = 0x16;
 						NetTxList[1] = 0x16;
-						NetTxList[2] = CP1616_Client_RxList[pCP1616_CommandIndex];
+						NetTxList[2] = CP1616_Client_RxList[pCP1616_Client_CommandIndex];
 						NetTxCount=1;
 						NetTxList[3] = HIGH_BYTE(NetTxCount);
 						NetTxList[4] = LOW_BYTE(NetTxCount);

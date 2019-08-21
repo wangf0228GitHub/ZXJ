@@ -25,7 +25,7 @@
 
 #define CP1717_Client
 
-#define CP1717_AddrLen 1
+#define CP1717_Client_AddrLen 1
 #define CP1717_DataBufLen 1
 
 #define SetRx_CP1717_Client()

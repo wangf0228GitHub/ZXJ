@@ -371,19 +371,13 @@
     <ClInclude Include="..\..\..\WF_Device\W5500\Ethernet\W5500\w5500.h">
       <Filter>wf\w5500</Filter>
     </ClInclude>
-    <ClInclude Include="..\wf\CP1616_Client_Conf.h">
-      <Filter>wf</Filter>
-    </ClInclude>
-    <ClInclude Include="..\wf\SimI2C_Conf.h">
-      <Filter>wf</Filter>
-    </ClInclude>
-    <ClInclude Include="..\wf\SimSPI_Conf.h">
-      <Filter>wf</Filter>
-    </ClInclude>
     <ClInclude Include="..\wf\Variables.h">
       <Filter>wf</Filter>
     </ClInclude>
     <ClInclude Include="..\wf\w5500_Work.h">
+      <Filter>wf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\wf\HardwareProfile.h">
       <Filter>wf</Filter>
     </ClInclude>
   </ItemGroup>

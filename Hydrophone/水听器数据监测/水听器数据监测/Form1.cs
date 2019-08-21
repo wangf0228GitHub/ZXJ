@@ -109,8 +109,8 @@ namespace 水听器数据监测
 						 {
 							 ushort ad = BytesOP.MakeShort(rx.Data[i], rx.Data[i + 1]);
 							 double v = (double)ad;
-							 v = v * 0.000185;
-							 v = v - 6.144;
+                             v = v * 0.000078125;
+                             v = v - 2.56;
 							 //chart1.Series[0].Points.Clear();
 							 chart1.Series[0].Points.AddY(v);
                              sb.AppendLine(v.ToString("F6"));
