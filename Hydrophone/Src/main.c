@@ -102,6 +102,8 @@ int main(void)
   wfDelay_init(72);
   SimSPI_Init();
   SimSPI2_Init();
+
+
   InitSystemParam();
   Reset_W5500();
   ADS8689_Setting(0x14,0x0004);//0~5.12V 1011//0010 -10~10

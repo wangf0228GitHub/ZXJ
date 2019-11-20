@@ -12,7 +12,7 @@ wiz_NetInfo gWIZNETINFO = {
 	.mac = {0x00, 0x08, 0xdc,0x00, 0xab, 0xcd},
 	.ip = {192, 168, 1, 201},
 	.sn = {255,255,255,0},
-	.gw = {192, 168, 1, 1},
+	.gw = {192, 168,1, 1},
 	.dns = {0,0,0,0},
 	.dhcp = NETINFO_STATIC 
 };
@@ -83,9 +83,9 @@ void loopback_tcpc(void)
 						TCPSend();
 						break;
 					case 0x03://设定网络参数
-						for(x=0;x<28;x++)
+						for(x=0;x<36;x++)
 						{
-							SystemParam.allByte[x+12]=CP1616_Client_RxList[pCP1616_ClientData+x];
+							SystemParam.allByte[x+4]=CP1616_Client_RxList[pCP1616_ClientData+x];
 						}
 						sum=0;
 						for(x=1;x<SystemParamLen;x++)

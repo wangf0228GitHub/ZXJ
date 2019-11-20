@@ -13,9 +13,23 @@ namespace 水听器数据监测
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            bool createNew;
+            using (System.Threading.Mutex mutex = new System.Threading.Mutex(true, Application.ProductName, out createNew))
+            {
+                if (createNew)
+                {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new Form1());
+
+                }
+                else
+                {
+                    MessageBox.Show("Application is running...");
+                    System.Threading.Thread.Sleep(1000);
+                    System.Environment.Exit(1);
+                }
+            }
         }
     }
 }

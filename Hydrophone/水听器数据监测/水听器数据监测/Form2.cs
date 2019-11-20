@@ -10,6 +10,7 @@ using WFNetLib.TCP;
 using System.Net;
 using WFNetLib.PacketProc;
 using WFNetLib;
+using WFNetLib.StringFunc;
 
 namespace 水听器数据监测
 {
@@ -46,6 +47,7 @@ namespace 水听器数据监测
 					{
 						tabControl1.Enabled = true;
 						timer1.Enabled = false;
+                        textBox6.Text = StringsFunction.byteToHexStr(rx.Data, 0, 8, " ");
 						byte[] bIP = new byte[4];
 						for (int i = 0; i < 4; i++)
 						{
@@ -233,24 +235,34 @@ namespace 水听器数据监测
 				MessageBox.Show("服务器端ip输入有误");
 				return;
 			}
+            byte[] mac = StringsFunction.strToHexByte(textBox6.Text, " ");
+            if (mac.Length != 8)
+            {
+                MessageBox.Show("MAC输入有误");
+                return;
+            }
 			tabControl1.Enabled = false;
 			timer1.Enabled = true;
-			byte[] tx = new byte[28];
-			for (int i = 0; i < 4; i++)
-			{
-				tx[i] = mcuIP.GetAddressBytes()[i];
-				tx[4 + i] = mcuSN.GetAddressBytes()[i];
-				tx[8 + i] = mcuGW.GetAddressBytes()[i];
-				tx[16 + i] = pcIP.GetAddressBytes()[i];
-			}
-			tx[20] = BytesOP.GetLowByte((ushort)numericUpDown2.Value);
-			tx[21] = BytesOP.GetHighByte((ushort)numericUpDown2.Value);
-			tx[22] = 0;
-			tx[23] = 0;
-			tx[24] = BytesOP.GetLowByte((ushort)numericUpDown1.Value);
-			tx[25] = BytesOP.GetHighByte((ushort)numericUpDown1.Value);
-			tx[26] = 0;
-			tx[27] = 0;
+			byte[] tx = new byte[36];
+            for (int i = 0; i < 8; i++)
+            {
+                tx[i] = mac[i];
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                tx[8 + i] = mcuIP.GetAddressBytes()[i];
+                tx[8 + 4 + i] = mcuSN.GetAddressBytes()[i];
+                tx[8 + 8 + i] = mcuGW.GetAddressBytes()[i];
+                tx[8 + 16 + i] = pcIP.GetAddressBytes()[i];
+            }
+            tx[28] = BytesOP.GetLowByte((ushort)numericUpDown2.Value);
+            tx[29] = BytesOP.GetHighByte((ushort)numericUpDown2.Value);
+            tx[30] = 0;
+            tx[31] = 0;
+            tx[32] = BytesOP.GetLowByte((ushort)numericUpDown1.Value);
+            tx[33] = BytesOP.GetHighByte((ushort)numericUpDown1.Value);
+            tx[34] = 0;
+            tx[35] = 0;
 			byte[] tx03 = CP1616_NoAddr_Packet.MakeCP1616_NoAddr_Packet(0x03, tx);
             tcpAsyncServer.Send(Form1.mcuClientContext, tx03);
 			this.Invoke((EventHandler)(delegate
