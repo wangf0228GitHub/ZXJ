@@ -23,8 +23,7 @@ namespace 地声数据监测
         //public static bool bPic=false;
         public static WFNetLib.TCP.ClientContext mcuClientContext;
         //public static IPEndPoint mcuSocketIP;
-        TCPAsyncServer tcpAsyncServer = null;
-        string filePT, fileMS, fileTC, fileLA;
+        TCPAsyncServer tcpAsyncServer = null;        
         private void Form1_Load(object sender, EventArgs e)
         {
             tcpAsyncServer = new TCPAsyncServer();
@@ -49,13 +48,14 @@ namespace 地声数据监测
             listView1_Resize(null, null);
 			timer1.Enabled = true;
             DateTime dt = DateTime.Now;
-            filePT=System.Windows.Forms.Application.StartupPath + "\\TextLog\\PT" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year,dt.Month,dt.Day,dt.Hour,dt.Minute,dt.Second) + ".txt";
+            string filePT, fileMS, fileTC, fileLA;
+            filePT=System.Windows.Forms.Application.StartupPath + "\\TextLog\\PT" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year,dt.Month,dt.Day) + ".txt";
             TextLog.AddTextLog("实验开始时间:"+dt.ToString(),filePT,false);
-            fileMS = System.Windows.Forms.Application.StartupPath + "\\TextLog\\MS" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+            fileMS = System.Windows.Forms.Application.StartupPath + "\\TextLog\\MS" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
             TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileMS, false);
-            fileTC = System.Windows.Forms.Application.StartupPath + "\\TextLog\\TC" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+            fileTC = System.Windows.Forms.Application.StartupPath + "\\TextLog\\TC" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
             TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileTC, false);
-            fileLA = System.Windows.Forms.Application.StartupPath + "\\TextLog\\LA" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+            fileLA = System.Windows.Forms.Application.StartupPath + "\\TextLog\\LA" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
             TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileLA, false);
         }
 
@@ -75,13 +75,14 @@ namespace 地声数据监测
                 NetLog("\r\n");
 				timer1.Enabled = true;
                 DateTime dt = DateTime.Now;
-                filePT = System.Windows.Forms.Application.StartupPath + "\\TextLog\\PT" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                string filePT, fileMS, fileTC, fileLA;
+                filePT = System.Windows.Forms.Application.StartupPath + "\\TextLog\\PT" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
                 TextLog.AddTextLog("实验开始时间:" + dt.ToString(), filePT, false);
-                fileMS = System.Windows.Forms.Application.StartupPath + "\\TextLog\\MS" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                fileMS = System.Windows.Forms.Application.StartupPath + "\\TextLog\\MS" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
                 TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileMS, false);
-                fileTC = System.Windows.Forms.Application.StartupPath + "\\TextLog\\TC" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                fileTC = System.Windows.Forms.Application.StartupPath + "\\TextLog\\TC" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
                 TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileTC, false);
-                fileLA = System.Windows.Forms.Application.StartupPath + "\\TextLog\\LA" + String.Format("{0:D4}{1:D2}{2:D2}{3:D2}{4:D2}{5:D2}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second) + ".txt";
+                fileLA = System.Windows.Forms.Application.StartupPath + "\\TextLog\\LA" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
                 TextLog.AddTextLog("实验开始时间:" + dt.ToString(), fileLA, false);
             }
             else
@@ -126,6 +127,8 @@ namespace 地声数据监测
                         f = BytesOP.MakeShort(rx.Data[0], rx.Data[1]);
                         f = f / 100;
                         listView1.Items[0].SubItems[1].Text = f.ToString("F2");
+                        string filePT;
+                        filePT = System.Windows.Forms.Application.StartupPath + "\\TextLog\\PT" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
                         TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[0].SubItems[1].Text, filePT, false);
                         //电子罗盘
                         fbIndex = 2;
@@ -151,7 +154,8 @@ namespace 地声数据监测
                         }
                         f = BitConverter.ToSingle(fb, 0);
                         listView1.Items[3].SubItems[1].Text = f.ToString("F2");
-
+                        string fileTC;
+                        fileTC = System.Windows.Forms.Application.StartupPath + "\\TextLog\\TC" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
                         TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[1].SubItems[1].Text 
                             + "      " + listView1.Items[2].SubItems[1].Text 
                             + "      " + listView1.Items[3].SubItems[1].Text, fileTC, false);
@@ -166,12 +170,13 @@ namespace 地声数据监测
                         f = BitConverter.ToSingle(rx.Data, 30);
                         listView1.Items[6].SubItems[1].Text = f.ToString("F2");
 
-                        f = BitConverter.ToSingle(rx.Data, 34);
-                        f = f -500;
+                        f = BitConverter.ToSingle(rx.Data, 34);                        
                         listView1.Items[7].SubItems[1].Text = f.ToString("F2");
 
                         f = BitConverter.ToSingle(rx.Data, 38);
                         listView1.Items[8].SubItems[1].Text = f.ToString("F2");
+                        string fileMS;
+                        fileMS = System.Windows.Forms.Application.StartupPath + "\\TextLog\\MS" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
                         TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[6].SubItems[1].Text
                             + "      " + listView1.Items[7].SubItems[1].Text
                             + "      " + listView1.Items[8].SubItems[1].Text, fileMS, false);
@@ -214,6 +219,8 @@ namespace 地声数据监测
                         }
                         if (BytesOP.GetBit(rioStatus, 11))//当前为新数据，需要存储
                         {
+                            string fileLA;                            
+                            fileLA = System.Windows.Forms.Application.StartupPath + "\\TextLog\\LA" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";                            
                             TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[14].SubItems[1].Text
                             + "      " + listView1.Items[15].SubItems[1].Text, fileLA, false);
                         }
@@ -378,6 +385,8 @@ namespace 地声数据监测
                                 listView1.Items[18].BackColor = Color.Lime;
                             }
                             DateTime dt = DateTime.Now;
+                            string fileLA;
+                            fileLA = System.Windows.Forms.Application.StartupPath + "\\TextLog\\LA" + String.Format("{0:D4}{1:D2}{2:D2}", dt.Year, dt.Month, dt.Day) + ".txt";
                             TextLog.AddTextLog(dt.ToString() + "      " + listView1.Items[14].SubItems[1].Text
                                 + "      " + listView1.Items[15].SubItems[1].Text, fileLA, false);
                         }

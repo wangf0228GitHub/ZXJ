@@ -120,6 +120,9 @@ int main(void)
   TIM17->CR1 |= TIM_CR1_URS;  
   wfDelay_init(48);
   Reset_W5500();
+
+  //ResetSystemParam();
+
   InitSystemParam();
   SimSPI_Init();
   w5500LibInit(); 
@@ -149,7 +152,9 @@ int main(void)
 	  HAL_IWDG_Refresh(&hiwdg);
 	  if(w5500Retry>10)
 	  {
-		  NVIC_SystemReset();
+		  w5500Retry=0;
+		  MissServer=0;
+		  //NVIC_SystemReset();
 	  }
 	  if(MissServer>10)
 	  {

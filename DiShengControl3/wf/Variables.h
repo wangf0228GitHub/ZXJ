@@ -42,4 +42,5 @@ extern uint32_t w5500Retry;
 
 void InitSystemParam(void);
 void STMFLASH_Write(uint32_t WriteAddr,uint32_t *pBuffer,uint32_t NumToWrite);
+void ResetSystemParam(void);
 #endif

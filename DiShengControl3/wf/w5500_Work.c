@@ -12,7 +12,7 @@
 
 
 wiz_NetInfo gWIZNETINFO = { 
-	.mac = {0x00, 0x08, 0xdc,0x00, 0xab, 0xce},
+	.mac = {0x00, 0x08, 0xdc,0x00, 0xab, 0xc0},
 	.ip = {192, 168, 1, 190},
 	.sn = {255,255,255,0},
 	.gw = {192, 168, 1, 1},
@@ -173,9 +173,9 @@ void loopback_tcpc(void)
 						TCPSend();
 						break;
 					case 0x03://设定网络参数
-						for(x=0;x<28;x++)
+						for(x=0;x<36;x++)
 						{
-							SystemParam.allByte[x+12]=CP1616_Client_RxList[pCP1616_ClientData+x];
+							SystemParam.allByte[x+4]=CP1616_Client_RxList[pCP1616_ClientData+x];
 						}
 						sum=0;
 						for(x=1;x<SystemParamLen;x++)
@@ -324,23 +324,25 @@ void loopback_tcpc(void)
 	case SOCK_CLOSE_WAIT :
  		if((ret=disconnect(UseSocket)) != SOCK_OK) 
  		{
- 			bW5500Net=0;
+ 			//bW5500Net=0;
  			//return ret;
  		}
+		bW5500Net=0;
 		break;
 	case SOCK_INIT :
  		if( (ret = connect(UseSocket, pc_ip, DESPORT)) != SOCK_OK) 
  		{
  			bW5500Net=0;
  		}//return ret;	//	Try to TCP connect to the TCP server (destination)
+		//bW5500Net=0;
 		break;
 
 	case SOCK_CLOSED:
  		close(UseSocket);
- 		if((ret=socket(UseSocket, Sn_MR_TCP, myPort, 0x00)) != UseSocket) 
- 		{
- 			bW5500Net=0;
- 		}//return ret; // TCP socket open with 'any_port' port number
+		if((ret=socket(UseSocket, Sn_MR_TCP, myPort, 0x00)) != UseSocket) 
+		{
+			bW5500Net=0;
+		}//return ret; // TCP socket open with 'any_port' port number
 		break;
 	default:
 		break;
@@ -374,6 +376,7 @@ void w5500LibInit( void )
 {
 	uint8_t tmp;
 	uint8_t memsize[2][8] = {{16,0,0,0,0,0,0,0},{16,0,0,0,0,0,0,0}};
+	wiz_NetTimeout nt;
 	reg_wizchip_cris_cbfunc(SPI_CrisEnter, SPI_CrisExit);	//注册临界区函数
 	reg_wizchip_cs_cbfunc(SPI_CS_Select, SPI_CS_Deselect);//注册SPI片选信号函数
 	reg_wizchip_spi_cbfunc(SPI_ReadByte, SPI_WriteByte);	//注册读写函数
@@ -382,12 +385,14 @@ void w5500LibInit( void )
 	{
 		bW5500Net=0;
 		return;
-	}
+	}	
 	if(ctlwizchip(CW_GET_PHYLINK, (void*)&tmp) == -1)
 	{
 		bW5500Net=0;
 		return;
 	}
+	ctlnetwork(CN_GET_TIMEOUT, (void*)&nt);
+	//nt.retry_cnt=18;
 	ctlnetwork(CN_SET_NETINFO, (void*)&gWIZNETINFO);
 	bW5500Net=1;
 }

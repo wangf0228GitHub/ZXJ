@@ -15,6 +15,32 @@ uint32_t MissServer;
 uint32_t w5500Retry;
 _SystemParam SystemParam;
 
+void ResetSystemParam(void)
+{
+	uint32_t i,sum;
+	for(i=0;i<6;i++)
+	{
+		SystemParam.mac[i]=gWIZNETINFO.mac[i];
+	}
+	for(i=0;i<4;i++)
+	{
+		SystemParam.ip[i]=gWIZNETINFO.ip[i];
+		SystemParam.sn[i]=gWIZNETINFO.sn[i];
+		SystemParam.gw[i]=gWIZNETINFO.gw[i];
+		SystemParam.dns[i]=gWIZNETINFO.dns[i];
+		SystemParam.pc_ip[i]=pc_ip[i];
+	}
+	SystemParam.DESPORT=DESPORT;
+	SystemParam.myPort=myPort;
+	sum=0;
+	for(i=1;i<SystemParamLen;i++)
+	{
+		sum+=SystemParam.all[i];
+	}
+	SystemParam.sum=sum;
+	STMFLASH_Write(wfEEPROM_BASE_ADDR,SystemParam.all,SystemParamLen);
+}
+
 
 void InitSystemParam(void)
 {
@@ -51,10 +77,10 @@ void InitSystemParam(void)
 	}
 	else
 	{
-// 		for(i=0;i<6;i++)
-// 		{
-// 			gWIZNETINFO.mac[i]=SystemParam.mac[i];
-// 		}
+		for(i=0;i<6;i++)
+		{
+			gWIZNETINFO.mac[i]=SystemParam.mac[i];
+		}
 		for(i=0;i<4;i++)
 		{
 			gWIZNETINFO.ip[i]=SystemParam.ip[i];

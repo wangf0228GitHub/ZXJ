@@ -7,7 +7,7 @@
     <Revision>3</Revision>
   </ToolchainVersion>
   <BspID>com.sysprogs.arm.stm32</BspID>
-  <BspVersion>2019.06</BspVersion>
+  <BspVersion>2018.12R2</BspVersion>
   <McuID>STM32F091RC</McuID>
   <MCUDefinitionFile>STM32F0xxxx/DeviceDefinitions/stm32f091xc.xml</MCUDefinitionFile>
   <MCUProperties>
@@ -41,7 +41,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\..\DiShengControl3.gpdsc</RelativePath>
-        <Timestamp>132082809784228415</Timestamp>
+        <Timestamp>131681637401036393</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
