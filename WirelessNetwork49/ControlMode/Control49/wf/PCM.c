@@ -1,0 +1,5 @@
+#include "PCM.h"
+#include "Variables.h"
+#include "..\..\..\A7128\A7128reg.h"
+#include "..\..\..\A7128\A7128.h"
+#include "..\Inc\tim.h"

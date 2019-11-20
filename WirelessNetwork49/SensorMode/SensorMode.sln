@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VSSensor", "Sensor49\VSSensor\VSSensor.vcxproj", "{79EDA70A-B895-44E2-8F2A-537D5F15576C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79EDA70A-B895-44E2-8F2A-537D5F15576C}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{79EDA70A-B895-44E2-8F2A-537D5F15576C}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{79EDA70A-B895-44E2-8F2A-537D5F15576C}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{79EDA70A-B895-44E2-8F2A-537D5F15576C}.Release|VisualGDB.Build.0 = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

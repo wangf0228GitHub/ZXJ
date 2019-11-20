@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VSControl", "VSControl\VSControl.vcxproj", "{B39E255D-02A9-429E-A78C-365668FED3C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B39E255D-02A9-429E-A78C-365668FED3C7}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{B39E255D-02A9-429E-A78C-365668FED3C7}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{B39E255D-02A9-429E-A78C-365668FED3C7}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{B39E255D-02A9-429E-A78C-365668FED3C7}.Release|VisualGDB.Build.0 = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
