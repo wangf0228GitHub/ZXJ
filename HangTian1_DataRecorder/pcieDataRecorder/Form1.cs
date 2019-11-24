@@ -52,25 +52,25 @@ namespace pcieDataRecorder
                 return;
             }
             //读7个字节,判断是否为有效帧
-            CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr, readList, 64);
-            this.Invoke((EventHandler)(delegate { textBox1.Text = StringsFunction.byteToHexStr(readList, 0, (int)64, " "); }));
+//             CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr, readList, 64);
+//             this.Invoke((EventHandler)(delegate { textBox1.Text = StringsFunction.byteToHexStr(readList, 0, (int)64, " "); }));
             //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, (int)9, " "));
-//             if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr, readList, 7) == 0)
-//             {
-//                 MessageBox.Show("2");
-//                 return;
-//             }
-//             if (readList[0] == 0xfa && readList[1] == 0xf3 && readList[2] == 0x30)
-//             {
-//                 //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, 7, " "));
-//                 uint len = readList[6];
-//                 if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr+7, readList, len) == 0)
-//                 {
-//                     MessageBox.Show("3");
-//                     return;
-//                 }
-//                 //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, (int)len, " "));
-//             }            
+            if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr, readList, 7) == 0)
+            {
+                MessageBox.Show("2");
+                return;
+            }
+            if (readList[0] == 0xfa && readList[1] == 0xf3 && readList[2] == 0x30)
+            {
+                Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, 7, " "));
+                uint len = BytesOP.MakeShort(readList[5],readList[6]);
+                if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr + 7, readList, len) == 0)
+                {
+                    MessageBox.Show("3");
+                    return;
+                }
+                Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, (int)len, " "));
+            }            
             
             //拉高片选 
             if (CH368.CH367mWriteIoByte(CH368Index, mBaseAddr + 0xf8, 0xb1) == 0)

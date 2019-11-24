@@ -70,7 +70,7 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
-
+#define GetDeltaTick(a) (HAL_GetTick() - a)
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

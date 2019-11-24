@@ -109,7 +109,7 @@ int main(void)
   //tx[3]=0xfa;
   tx[4]=index;
   tx[5]=0x00;
-  tx[6]=36;
+  tx[6]=3*12+3*8;
   while (1)
   {
 	  tx[3]=0xe0;
@@ -123,13 +123,19 @@ int main(void)
 		  tx[7+i*3]=0xa0+i;
 		  tx[7+i*3+1]=x++;
 		  tx[7+i*3+2]=x++;
-	  }	  
+	  }	 
+	  for(i=0;i<8;i++)
+	  {
+		  tx[7+36+i*3]=0xc0+i;
+		  tx[7+36+i*3+1]=x++;
+		  tx[7+36+i*3+2]=x++;
+	  }	
 	  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_RESET);
 	  HAL_Delay(1);
-	  HAL_SPI_Transmit(&hspi2,tx,43,1000);
+	  HAL_SPI_Transmit(&hspi2,tx,7+36+24,1000);
 	  HAL_Delay(1);
 	  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_SET);
-	  HAL_Delay(1000);
+	  HAL_Delay(100);
   }
   /* USER CODE END 3 */
 

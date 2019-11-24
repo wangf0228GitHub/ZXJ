@@ -67,7 +67,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 IDT71V321_DATA uint8_t ExRAM[2048];
 uint8_t nIndex;
-
+uint32_t waitTick;
 /* USER CODE END 0 */
 
 /**
@@ -108,22 +108,25 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  while (1)
-  {
-	  tx485[0]=0x55;
-	  HAL_UART_Transmit(&huart1,tx485,1,1000);
-	  HAL_Delay(10);
-	  HAL_GPIO_TogglePin(ZhT_GPIO_Port,ZhT_Pin);
-  }
+//   while (1)
+//   {
+// 	  tx485[0]=0x55;
+// 	  HAL_UART_Transmit(&huart1,tx485,1,1000);
+// 	  HAL_Delay(10);
+// 	  HAL_GPIO_TogglePin(ZhT_GPIO_Port,ZhT_Pin);
+//   }
 
 
 
   //等待pci准备好
   HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
+  waitTick=HAL_GetTick();
   while (1)
   {
 	  gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
 	  if(gp==GPIO_PIN_SET)
+		  break;
+	  if(GetDeltaTick(waitTick)>1000)
 		  break;
   }
   
@@ -139,19 +142,19 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  tx485[0]=0x16;
-  tx485[13]=0x0d;
-  x=0;
-  for(i=0;i<12;i++)
-	  tx485[i]=x;
+//   tx485[0]=0x16;
+//   tx485[13]=0x0d;
+//   x=0;
+//   for(i=0;i<12;i++)
+// 	  tx485[i]=x;
   while (1)
   {	  
-	  x++;
-	  for(i=0;i<12;i++)
-		  tx485[i]=x;
-	  HAL_UART_Transmit(&huart1,tx485,14,1000);
-	  HAL_Delay(1000);
-	  HAL_GPIO_TogglePin(ZhT_GPIO_Port,ZhT_Pin);
+// 	  x++;
+// 	  for(i=0;i<12;i++)
+// 		  tx485[i]=x;
+// 	  HAL_UART_Transmit(&huart1,tx485,14,1000);
+// 	  HAL_Delay(1000);
+//	  HAL_GPIO_TogglePin(ZhT_GPIO_Port,ZhT_Pin);
 // 	  HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_RESET);
 // 	  while (1)
 // 	  {
