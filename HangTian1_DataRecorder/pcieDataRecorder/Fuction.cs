@@ -47,10 +47,10 @@ namespace pcieDataRecorder
                         e0.A9 = adc;
                         break;
                     case 0xaa:
-                        e0.A10 = adc;
+                        e0.AA = adc;
                         break;
                     case 0xab:
-                        e0.A11 = adc;
+                        e0.AB = adc;
                         break;
                     case 0xc0:
                         e0.C0 = adc;
@@ -94,28 +94,28 @@ namespace pcieDataRecorder
                         i = i + 1 + 9;
                         break;
                     case 0xba:
-                        e1.B10 = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
+                        e1.BA = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
                         i = i + 1 + 9;
                         break;
                     case 0xbb:
-                        e1.B11 = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
+                        e1.BB = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
                         i = i + 1 + 9;
                         break;
 
                     case 0xbc:
-                        e1.B12 = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        e1.BC = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
                         i = i + 1 + 8;
                         break;
                     case 0xbd:
-                        e1.B13 = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        e1.BD = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
                         i = i + 1 + 8;
                         break;
                     case 0xbe:
-                        e1.B14 = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        e1.BE = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
                         i = i + 1 + 8;
                         break;
                     case 0xbf:
-                        e1.B15 = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        e1.BF = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
                         i = i + 1 + 8;
                         break;
 
@@ -162,20 +162,20 @@ namespace pcieDataRecorder
                         i = i + 1 + 9;
                         break;
                     case 0xca:
-                        e1.C10 = StringsFunction.byteToHexStr(data, (int)(i + 1), 10, "");
+                        e1.CA = StringsFunction.byteToHexStr(data, (int)(i + 1), 10, "");
                         i = i + 1 + 10;
                         break;
                     case 0xcb:
-                        e1.C11 = StringsFunction.byteToHexStr(data, (int)(i + 1), 10, "");
+                        e1.CB = StringsFunction.byteToHexStr(data, (int)(i + 1), 10, "");
                         i = i + 1 + 10;
                         break;
 
                     case 0xcc:
-                        e1.C12 = StringsFunction.byteToHexStr(data, (int)(i + 1), 3, "");
+                        e1.CC = StringsFunction.byteToHexStr(data, (int)(i + 1), 3, "");
                         i = i + 1 + 3;
                         break;
                     case 0xcd:
-                        e1.C13 = StringsFunction.byteToHexStr(data, (int)(i + 1), 3, "");
+                        e1.CD = StringsFunction.byteToHexStr(data, (int)(i + 1), 3, "");
                         i = i + 1 + 3;
                         break;
                 }

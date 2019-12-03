@@ -83,8 +83,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		}
 		else//ÏÂ½µÑØ£¬Ö¡¿ªÊ¼
 		{
- 			for(i=0;i<testLen;i++)
- 				tmp[i]=0;
 			HAL_SPI_Receive_DMA(&hspi1,ExRAM,1024);
 		}
 	}
