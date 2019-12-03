@@ -48,6 +48,7 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 /************************************************************************/
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 {	
+	uint32_t i;
 	ADC_ChannelConfTypeDef sConfig = {0};
 	if(hspi->Instance==A7128SPI.Instance)
 	{
@@ -60,20 +61,28 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 		__HAL_TIM_SET_COUNTER(&htim6,0);//A7128动作重置休眠计时器
 		if(A7128_RxFIFO[pCommandIndex]==SetIDCommand)//设定地址指令
 		{
-			NetWorkType=Net_TxComData;
-			A7128_TxFIFO[pTargetIDIndex]=MasterAddr;
-			A7128_TxFIFO[pSourceIDIndex]=SensorAddr;		
-			A7128_TxFIFO[pCommandIndex]=SetIDCommand;
-			A7128_TxFIFO[pLenIndex]=3;	//数据区长度
-			A7128_TxFIFO[pDataIndex]=SensorAddr;
-			A7128_TxFIFO[pDataIndex+1]=0x02;
-			A7128_TxFIFO[pDataIndex+2]=A7128_RxFIFO[pDataIndex];
-			EEData.u16[0]=0x6677;
-			EEData.u8[2]=A7128_RxFIFO[pDataIndex];
-			wfEEPROM_WriteWord(0,EEData.u32);
-			SensorAddr=A7128_RxFIFO[pDataIndex];
-			A7128_WriteFIFO_DMA();
-			return;
+			if(A7128_RxFIFO[pTargetIDIndex]==BroadcastAddr || A7128_RxFIFO[pTargetIDIndex]==SensorAddr)//广播地址设定
+			{
+				NetWorkType=Net_TxComData;
+				A7128_TxFIFO[pTargetIDIndex]=MasterAddr;
+				A7128_TxFIFO[pSourceIDIndex]=SensorAddr;		
+				A7128_TxFIFO[pCommandIndex]=SetIDCommand;
+				A7128_TxFIFO[pLenIndex]=3;	//数据区长度
+				A7128_TxFIFO[pDataIndex]=SensorAddr;
+				A7128_TxFIFO[pDataIndex+1]=0x02;
+				A7128_TxFIFO[pDataIndex+2]=A7128_RxFIFO[pDataIndex];
+				SensorIDData.u16[0]=0x6677;
+				SensorIDData.u8[2]=A7128_RxFIFO[pDataIndex];
+				wfEEPROM_WriteWord(0,SensorIDData.u32);
+				SensorAddr=A7128_RxFIFO[pDataIndex];
+				A7128_WriteFIFO_DMA();
+				return;
+			}
+			else
+			{
+				A7128_SetRx();
+				return;
+			}
 		}
 		if(SensorAddr==0)//未设定地址的
 		{
@@ -138,6 +147,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 			__HAL_TIM_CLEAR_IT(&htim7,TIM_IT_UPDATE);
 			HAL_TIM_Base_Start_IT(&htim7);
 			A7128_SetRx();
+			bCalibrationNet=A7128_RxFIFO[pDataIndex];
 			if(WF_CHECK_FLAG(htim2.Instance->CR1,TIM_CR1_CEN)==0)//开始采集数据,双通道
 			{
 				HAL_ADC_Stop(&hadc);
@@ -180,6 +190,37 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 			A7128_TxFIFO[pFrameNumIndex]=A7128_RxFIFO[pDataIndex];	//数据帧号
 			TxADCDataProc(A7128_RxFIFO[pDataIndex]);
 			//A7128_WriteFIFO_DMA_ADC((uint8_t*)(&ADCData4[A7128_RxFIFO[pDataIndex]*60]));
+			break;
+		case SetCalibrationCommand:
+			NetWorkType=Net_TxComData;
+			A7128_TxFIFO[pTargetIDIndex]=MasterAddr;
+			A7128_TxFIFO[pSourceIDIndex]=SensorAddr;		
+			A7128_TxFIFO[pCommandIndex]=SetCalibrationCommand;
+			A7128_TxFIFO[pLenIndex]=0;	//数据区长度
+			for(i=0;i<4;i++)
+			{
+				Linear_k.u8[i]=A7128_TxFIFO[pDataIndex+i];
+				Linear_b.u8[i]=A7128_TxFIFO[pDataIndex+i+4];
+				SensorGain.u8[i]=A7128_TxFIFO[pDataIndex+i+8];
+			}
+			wfEEPROM_WriteWord(4,Linear_k.u32);
+			wfEEPROM_WriteWord(8,Linear_b.u32);
+			wfEEPROM_WriteWord(12,SensorGain.u32);
+			A7128_WriteFIFO_DMA();
+			break;
+		case GetCalibrationCommand:
+			NetWorkType=Net_TxComData;
+			A7128_TxFIFO[pTargetIDIndex]=MasterAddr;
+			A7128_TxFIFO[pSourceIDIndex]=SensorAddr;		
+			A7128_TxFIFO[pCommandIndex]=GetCalibrationCommand;
+			A7128_TxFIFO[pLenIndex]=12;	//数据区长度
+			for(i=0;i<4;i++)
+			{
+				A7128_TxFIFO[pDataIndex+i]=Linear_k.u8[i];
+				A7128_TxFIFO[pDataIndex+i+4]=Linear_b.u8[i];
+				A7128_TxFIFO[pDataIndex+i+8]=SensorGain.u8[i];
+			}
+			A7128_WriteFIFO_DMA();
 			break;
 		default:
 			A7128_SetRx();

@@ -36,6 +36,8 @@
 #define ADCDataSendCommand_BAT 0x21 //无线节点最后一帧数据上传，帧号可由地址规律计算出，帧号区（数据区长度字节）为电池电量，数据区长度固定为60个字节
 //特殊指令
 #define SetIDCommand 0xf0 //设定节点ID
+#define SetCalibrationCommand 0xf1 //设定标定参数
+#define GetCalibrationCommand 0xf2 //获得标定参数
 
 // #define A7128_SCK_Low() HAL_GPIO_WritePin(A7128_SCK_GPIO_Port,A7128_SCK_Pin,GPIO_PIN_RESET)
 // #define A7128_SCK_High() HAL_GPIO_WritePin(A7128_SCK_GPIO_Port,A7128_SCK_Pin,GPIO_PIN_SET)

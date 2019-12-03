@@ -45,9 +45,19 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			{
 				ADCData4TxStart=ADCData4TxEnd-ADCDataLen[SensorType];
 			}
+			if(SensorAddr!=1)//地址1无需先休眠
+			{
+				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+				A7128_StrobeCmd(CMD_SLEEP);
+			}
 		}
 		else
-			TimeIndex++;
+			TimeIndex++;		
+		if(TimeIndex==758 && SensorAddr!=100)//异常处理前2ms，进入接收状态
+		{
+			A7128_SetRx();
+			NetWorkType=Net_RxData;	
+		}
 		/************************************************************************/
 		/*  根据时隙处理主机状态                                                */
 		/************************************************************************/
@@ -85,8 +95,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 			HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
 			A7128_StrobeCmd(CMD_STBY);//为省电
-			A7128_SetRx();
-			NetWorkType=Net_RxData;		
+			if(SensorAddr==100)
+			{
+				A7128_SetRx();
+				NetWorkType=Net_RxData;	
+			}	
 		}
 	}
 	if(htim->Instance==TIM6)//10以上A7128未有动作，休眠

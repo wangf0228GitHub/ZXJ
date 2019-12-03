@@ -38,9 +38,13 @@ typedef union
 	uint8_t	u8[4];
 	uint16_t	u16[2];
 	uint32_t	u32;
+	float f;
 }_EEData;
 
-extern _EEData EEData;
+extern _EEData SensorIDData;
+extern _EEData Linear_k;
+extern _EEData Linear_b;
+extern _EEData SensorGain;
 extern volatile uint32_t TimeIndex;
 
 
@@ -50,6 +54,9 @@ extern volatile uint8_t ADCData4[7680+7680];
 extern volatile uint32_t ADCData4TxEnd;
 extern volatile uint32_t ADCData4TxStart;
 extern uint32_t ADCBATData;
+
+extern volatile uint32_t bCalibrationNet;
+
 
 extern uint32_t TxStartTimeIndex;
 extern uint32_t TxEndTimeIndex;

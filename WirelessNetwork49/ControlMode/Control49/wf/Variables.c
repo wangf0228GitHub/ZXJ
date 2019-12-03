@@ -12,6 +12,8 @@ _ADCData ADCData4TX2;
 _ADCData* ADCData4TXBuf;
 _ADCData* ADCData4SaveBuf;
 
+volatile uint32_t bCalibrationNet;
+
 _ADCDataTag ADCDataTag;
 
 _SensorBAT SensorBAT;

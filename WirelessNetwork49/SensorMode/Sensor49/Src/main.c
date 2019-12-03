@@ -93,6 +93,8 @@ int main(void)
 	uint32_t i;
 	uint32_t x;
 	uint8_t ux;
+	float fx;
+	uint16_t u16x;
 	ADC_ChannelConfTypeDef sConfig = {0};
   /* USER CODE END 1 */
   
@@ -115,10 +117,14 @@ int main(void)
   //EEData.u8[2]=5;
   //wfEEPROM_WriteWord(0,EEData.u32);
   //EEData.u32=0;
-  EEData.u32=wfEEPROM_ReadWord(0);
-  if(EEData.u16[0]==0x6677)//地址验证正确
+  SensorIDData.u16[0]=0x6677;
+  SensorIDData.u8[2]=10;
+  wfEEPROM_WriteWord(0,SensorIDData.u32);
+  SensorIDData.u32=0;
+  SensorIDData.u32=wfEEPROM_ReadWord(0);
+  if(SensorIDData.u16[0]==0x6677)//地址验证正确
   {
-	  SensorAddr=EEData.u8[2];
+	  SensorAddr=SensorIDData.u8[2];
   }
   else
   {
@@ -126,6 +132,9 @@ int main(void)
   }
   //SensorAddr=15;
   InitTimeIndex();
+  Linear_k.u32=wfEEPROM_ReadWord(4);
+  Linear_b.u32=wfEEPROM_ReadWord(8);
+  SensorGain.u32=wfEEPROM_ReadWord(12);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -154,6 +163,13 @@ int main(void)
   /*                                                                      */
   /************************************************************************/
   YLED_ON(); 
+  u16x=100;
+  Linear_k.f=1.26584;
+  RLED_Toggle();
+  fx=Linear_k.f*x+Linear_b.f;
+  fx=fx*SensorGain.f;
+  u16x=(uint16_t)fx;
+  RLED_Toggle();
 //   bNewFrame=0;
 //   TimeIndex=999;
 //   HAL_TIM_Base_Stop_IT(&htim7);

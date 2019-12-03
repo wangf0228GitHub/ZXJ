@@ -224,20 +224,22 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(NetWorkMode==Net_Start)
+	  if(NetWorkMode!=Net_Stop)
 	  {
 		  RLED_Toggle();
 		  Networking_WakeUp(4);		
-		  Networking_SignIn();
-		  if(ADCDataLen==0)//腎利大
-		  {
-			  Uart_SignInProc();
-			  NetWorkMode=Net_Stop;
-			  continue;
-		  }
+		  Networking_SignIn();		  
 		  if(Uart_SignInProc()==0)
 		  {
 			  NetWorkMode=Net_Stop;
+			  HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
+			  continue;
+		  }
+		  if(ADCDataLen==0)//腎利大
+		  {
+			  //Uart_SignInProc();
+			  NetWorkMode=Net_Stop;
+			  HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
 			  continue;
 		  }
 		  Networking_StartNet();

@@ -20,6 +20,7 @@ typedef enum //用于处理A7128_GIO1的下降沿中断
 {
  	Net_Start,//主机要求启动网络
  	Net_Stop,//主机要求停止网络
+	Net_Start_Calibration//当前为标定网络
 }_NetWorkMode;
 extern volatile _NetWorkMode NetWorkMode;
 
@@ -49,6 +50,8 @@ extern _ADCData ADCData4TX1;//7680*4+480*6+60*90
 extern _ADCData ADCData4TX2;
 extern _ADCData* ADCData4TXBuf;
 extern _ADCData* ADCData4SaveBuf;
+
+extern volatile uint32_t bCalibrationNet;
 
 typedef union
 {	

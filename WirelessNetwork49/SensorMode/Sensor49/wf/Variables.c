@@ -12,7 +12,13 @@ volatile uint8_t ADCData4[7680+7680];
 volatile uint32_t ADCData4TxEnd;
 volatile uint32_t ADCData4TxStart;
 
-_EEData EEData;
+volatile uint32_t bCalibrationNet;
+
+
+_EEData SensorIDData;
+_EEData Linear_k;
+_EEData Linear_b;
+_EEData SensorGain;
 uint32_t ADCBATData;
 
 uint32_t TxStartTimeIndex;

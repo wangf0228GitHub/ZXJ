@@ -34,7 +34,7 @@ namespace 无线网络49上位机
                 Uart.PortName=cbCom.Text;
                 if (WFGlobal.OpenSerialPort(ref Uart) == false)
                     return;
-                CP1616Packet start = CP1616Packet.CP1616ComProc(ref Uart, 5, 0,(ushort)0);
+                CP1616Packet start = CP1616Packet.CP1616ComProc(ref Uart, 1, 0,(ushort)0);
                 if (start == null)
                 {
                     Uart.Close();
@@ -51,13 +51,25 @@ namespace 无线网络49上位机
                 btNetStart.Text = "停止网络";
                 bStopNet = false;
                 btSetID.Enabled = false;
+
                 if (start.Data[0] == 2)
                 {
                     MessageBox.Show("网络已经启动，等待接入");
                 }
                 else
                 {
-                    MessageBox.Show("网络启动成功");
+                    waitProc = new WaitingProc();
+                    waitProc.MaxProgress = 20;
+                    WaitingProcFunc wpfWakeUp = new WaitingProcFunc(waitWakeUp);
+                    waitProc.Execute(wpfWakeUp, "等待唤醒无线网络节点", WaitingType.None, "");
+                    if (listView1.Items.Count != 0)
+                    {
+                        waitProc = new WaitingProc();
+                        waitProc.MaxProgress = 15;
+                        WaitingProcFunc wpfSignIn = new WaitingProcFunc(waitSignIn);
+                        waitProc.Execute(wpfSignIn, "等待无线网络节点点名", WaitingType.None, "");
+                        MessageBox.Show("网络启动成功");
+                    }
                 }
             }
             else
@@ -89,7 +101,7 @@ namespace 无线网络49上位机
                 }
             }
             sensorSingIn = new _SensorSignIn();
-            sensorBAT = new _SensorBAT();
+            sensorBAT = new _SensorBAT();            
 //             double yValue = 50.0;
 //             Random random = new Random();
 //             for (int pointIndex = 0; pointIndex < 20000; pointIndex++)
@@ -101,7 +113,7 @@ namespace 无线网络49上位机
 //             RxPacket = new CP1616Packet();
 //             this.Uart.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.Uart_DataReceived);
         }
-
+        WaitingProc waitProc;
         private void cbCom_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbCom.SelectedIndex == cbCom.Items.Count - 1)
@@ -167,7 +179,7 @@ namespace 无线网络49上位机
                         if (RxPacket.Header.Command == 0x02)//网络已经关闭
                         {
 //                             data[1] = 0x00;//要求关闭网络
-//                             CP1616Packet.CP1616ComSend(ref Uart, 3, 0, data);
+                            CP1616Packet.CP1616ComSend(ref Uart, 2, 0, data);
                             this.Uart.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(this.Uart_DataReceived);
                             Uart.Close();
                             this.Invoke((EventHandler)(delegate
@@ -189,10 +201,17 @@ namespace 无线网络49上位机
                     {
                         data[1] = 0x00;
                         CP1616Packet.CP1616ComSend(ref Uart, 3, 0, data);
-                        SignInProc();                        
+                        bSignIn = true;
+                        SignInProc();
+                        if (listView1.Items.Count == 0)//空网络
+                        {
+                            Uart.Close();
+                            btNetStart.Text = "启动网络";
+                            MessageBox.Show("当前网络没有发现任何无线节点，网络自动停止");
+                        }
                     }
                     else if (RxPacket.Header.Command == 0x20)
-                    {
+                    {                        
                         if (listView1.Items.Count == 0)
                         {
                             data[1] = 0x01;//请求传感器名单
@@ -200,6 +219,7 @@ namespace 无线网络49上位机
                         }
                         else
                         {
+                            bDataComing = true;
                             data[1] = 0x00;
                             CP1616Packet.CP1616ComSend(ref Uart, 3, 0, data);
                             ADCDataProc();

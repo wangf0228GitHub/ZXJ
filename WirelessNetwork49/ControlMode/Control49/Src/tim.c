@@ -40,7 +40,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		A7128_TxFIFO[pTargetIDIndex]=BroadcastAddr;
 		A7128_TxFIFO[pSourceIDIndex]=MasterAddr;		
 		A7128_TxFIFO[pCommandIndex]=FrameSyncCommand;
-		A7128_TxFIFO[pLenIndex]=0;		
+		A7128_TxFIFO[pLenIndex]=1;				
+		A7128_TxFIFO[pDataIndex]=bCalibrationNet;	
 		A7128_WriteFIFO_DMA();
 	}
 	if(htim->Instance==TIM14)
