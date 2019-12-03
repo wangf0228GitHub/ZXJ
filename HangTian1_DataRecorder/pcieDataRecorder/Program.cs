@@ -15,6 +15,7 @@ namespace pcieDataRecorder
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+            WFNetLib.ADO.SQLServerOP.ConnectionString = @"Data Source=.\sql2008;Initial Catalog=detect;Integrated Security=True";
 			Application.Run(new Form1());
 		}
 	}

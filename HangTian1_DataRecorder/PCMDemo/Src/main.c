@@ -73,7 +73,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t i,x,tx[100],index;
+	uint8_t i,x,tx[250],index,ddi;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -106,29 +106,26 @@ int main(void)
   tx[0]=0xfa;
   tx[1]=0xf3;
   tx[2]=0x30;
-  //tx[3]=0xfa;
-  tx[4]=index;
-  tx[5]=0x00;
-  tx[6]=3*12+3*8;
+  //tx[3]=0xfa;  
   while (1)
   {
-	  tx[3]=0xe0;
 	  index++;
+	  x++;
+	  tx[3]=0xe0;	  
 	  tx[4]=index;
-  /* USER CODE END WHILE */
-
-  /* USER CODE BEGIN 3 */
+	  tx[5]=0x00;
+	  tx[6]=3*12+3*8;  
 	  for(i=0;i<12;i++)
 	  {
 		  tx[7+i*3]=0xa0+i;
-		  tx[7+i*3+1]=x++;
-		  tx[7+i*3+2]=x++;
+		  tx[7+i*3+1]=x;
+		  tx[7+i*3+2]=x;
 	  }	 
 	  for(i=0;i<8;i++)
 	  {
 		  tx[7+36+i*3]=0xc0+i;
-		  tx[7+36+i*3+1]=x++;
-		  tx[7+36+i*3+2]=x++;
+		  tx[7+36+i*3+1]=x;
+		  tx[7+36+i*3+2]=x;
 	  }	
 	  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_RESET);
 	  HAL_Delay(1);
@@ -136,6 +133,139 @@ int main(void)
 	  HAL_Delay(1);
 	  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_SET);
 	  HAL_Delay(100);
+
+	  tx[3]=0xe1;	  
+	  tx[4]=index;
+	  tx[5]=0x00;
+	  tx[6]=162;	 
+	  ddi=7;
+	  tx[ddi++]=0xb8;
+	  for(i=0;i<9;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	 	  
+	  tx[ddi++]=0xb9;
+	  for(i=0;i<9;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+	  tx[ddi++]=0xba;
+	  for(i=0;i<9;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	
+	  tx[ddi++]=0xbb;
+	  for(i=0;i<9;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	 
+
+
+	  tx[ddi++]=0xbc;
+	  for(i=0;i<8;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	 	  
+	  tx[ddi++]=0xbd;
+	  for(i=0;i<8;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+	  tx[ddi++]=0xbe;
+	  for(i=0;i<8;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	
+	  tx[ddi++]=0xbf;
+	  for(i=0;i<8;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+
+
+	  tx[ddi++]=0xc0;
+	  for(i=0;i<5;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	 	  
+	  tx[ddi++]=0xc1;
+	  for(i=0;i<5;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+	  tx[ddi++]=0xc2;
+	  for(i=0;i<5;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	
+	  tx[ddi++]=0xc3;
+	  for(i=0;i<5;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+
+	  tx[ddi++]=0xc4;
+	  for(i=0;i<2;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	 	  
+	  tx[ddi++]=0xc5;
+	  for(i=0;i<2;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+	  tx[ddi++]=0xc6;
+	  for(i=0;i<2;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	
+	  tx[ddi++]=0xc7;
+	  for(i=0;i<2;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+
+	  tx[ddi++]=0xc8;
+	  for(i=0;i<9;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	 	  
+	  tx[ddi++]=0xc9;
+	  for(i=0;i<9;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+	  tx[ddi++]=0xca;
+	  for(i=0;i<10;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	
+	  tx[ddi++]=0xcb;
+	  for(i=0;i<10;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+
+	  tx[ddi++]=0xcc;
+	  for(i=0;i<3;i++)
+	  {
+		  tx[ddi++]=x;
+	  }	 	  
+	  tx[ddi++]=0xcd;
+	  for(i=0;i<3;i++)
+	  {
+		  tx[ddi++]=x;
+	  }
+	  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_RESET);
+	  HAL_Delay(1);
+	  HAL_SPI_Transmit(&hspi2,tx,7+162,1000);
+	  HAL_Delay(1);
+	  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_SET);
+	  HAL_Delay(100);
+  /* USER CODE END WHILE */
+
+  /* USER CODE BEGIN 3 */
+	  
   }
   /* USER CODE END 3 */
 

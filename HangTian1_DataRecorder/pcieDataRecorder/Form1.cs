@@ -27,20 +27,22 @@ namespace pcieDataRecorder
 		public Form1()
 		{
 			InitializeComponent();
-		}
-        int n10000=0;
-        int nn10000 = 0;
+		}        
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			//IntPtr pCH368 = CH368.CH367mOpenDevice(0, FALSE, TRUE, 0x00);
 			//MessageBox.Show(pCH368.ToString());
+            //MeasureE0DataDBOption e0 = new MeasureE0DataDBOption();
+            //MeasureE0DataDBOption.Insert(new MeasureE0Data());
             this.Enabled = false;
             startTimer.Enabled = true;
 		}
         CH368.mPCH367_INT_ROUTINE _CH368IntProc;
+        bool bLog = true;
         void CH368IntProc()
         {
-            byte[] readList = new byte[0x100];
+            byte[] readHeaderList = new byte[7];
+            byte[] readDataList = new byte[0x100];
             byte read = 0;
             /************************************************************************/
             /*  读ram                                                               */
@@ -55,24 +57,64 @@ namespace pcieDataRecorder
 //             CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr, readList, 64);
 //             this.Invoke((EventHandler)(delegate { textBox1.Text = StringsFunction.byteToHexStr(readList, 0, (int)64, " "); }));
             //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, (int)9, " "));
-            if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr, readList, 7) == 0)
+            if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr, readHeaderList, 7) == 0)
             {
                 MessageBox.Show("2");
                 return;
             }
-			Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, 7, " "));
-			if (readList[0] == 0xfa && readList[1] == 0xf3 && readList[2] == 0x30)
-			{
-				//Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, 7, " "));
-				uint len = BytesOP.MakeShort(readList[5], readList[6]);
-				if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr + 7, readList, len) == 0)
-				{
-					MessageBox.Show("3");
-					return;
-				}
-				Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, (int)len, " "));
-			}
+            if (bLog)
+            {
+                this.Invoke((EventHandler)(delegate 
+                {
+					textBox1.AppendText(DateTime.Now.ToString() + ":");
+                    textBox1.AppendText(StringsFunction.byteToHexStr(readHeaderList, 0, 7, " ")); 
+                }));
+                //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, 7, " "));
+            }
             
+            if (readHeaderList[0] == 0xfa && readHeaderList[1] == 0xf3 && readHeaderList[2] == 0x30)
+            {
+                //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, 7, " "));
+                uint readDataLen = BytesOP.MakeShort(readHeaderList[5], readHeaderList[6]);
+                if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr + 7, readDataList, readDataLen) == 0)
+                {
+                    MessageBox.Show("3");
+                    return;
+                }                
+                if (bLog)
+                {
+                    this.Invoke((EventHandler)(delegate
+                    {						
+                        textBox1.AppendText(StringsFunction.byteToHexStr(readDataList, 0, (int)readDataLen, " "));
+                    }));
+                }
+                if (readHeaderList[3] == 0xe0 || readHeaderList[3] == 0xe2)
+                {
+                    MeasureE0Data e0 = new MeasureE0Data();
+                    e0.Source = readHeaderList[3];
+                    Fuction.AnalyzeE0Data(ref e0, readDataList, readDataLen);
+                    e0.Time = DateTime.Now;
+					MeasureE0DataDBOption.Insert(e0);
+                }
+                else if (readHeaderList[3] == 0xe1 || readHeaderList[3] == 0xe3)
+                {
+                    MeasureE1Data e1 = new MeasureE1Data();
+                    e1.Source = readHeaderList[3];
+                    Fuction.AnalyzeE1Data(ref e1, readDataList, readDataLen);
+                    e1.Time = DateTime.Now;
+                    MeasureE1DataDBOption.Insert(e1);
+                }
+                //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, (int)len, " "));
+            }
+            if (bLog)
+            {                
+                this.Invoke((EventHandler)(delegate
+                {
+					textBox1.AppendText("\r\n");
+// 					bLog = false;
+//                     timerLog.Enabled = true;
+                }));
+            }
             //拉高片选 
             if (CH368.CH367mWriteIoByte(CH368Index, mBaseAddr + 0xf8, 0xb1) == 0)
             {
@@ -159,14 +201,20 @@ namespace pcieDataRecorder
         {
             startTimer.Enabled = false;
             pCH368 = CH368.CH367mOpenDevice(CH368Index, TRUE, TRUE, 0x00);
-            if (pCH368 == (IntPtr)(-1) )
-             {
-                 wp = new WaitingProc();
-                WaitingProcFunc wpf=new WaitingProcFunc(WaitingPCIE);
-                wp.Execute(wpf,"等待连接采集卡",WaitingType.With_ConfirmCancel,"未连接到采集卡，取消将退出软件，是否取消？");
-             }
-            else
-                InitPCIE();
+			if (pCH368 == (IntPtr)(-1))
+			{
+				wp = new WaitingProc();
+				WaitingProcFunc wpf = new WaitingProcFunc(WaitingPCIE);
+				wp.Execute(wpf, "等待连接采集卡", WaitingType.With_ConfirmCancel, "未连接到采集卡，取消将退出软件，是否取消？");
+			}
+			else
+			{
+				this.Invoke((EventHandler)(delegate
+				{
+					this.Enabled=true;
+				}));
+				InitPCIE();
+			}
         }
         void WaitingPCIE(object LockWatingThread)
         {
@@ -196,5 +244,17 @@ namespace pcieDataRecorder
                 }
             }
         }
+
+        private void timerLog_Tick(object sender, EventArgs e)
+        {
+            timerLog.Enabled = false;
+            bLog = true;
+        }
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+			if (textBox1.Text.Length > 20000)
+				textBox1.Clear();
+		}
 	}
 }

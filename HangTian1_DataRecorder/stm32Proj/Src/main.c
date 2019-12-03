@@ -168,6 +168,22 @@ int main(void)
 // 	  {
 // 		  ExRAM[i]=nIndex;
 // 	  }
+	  tx485[0] = 0x16;
+	  tx485[1] = '0';
+	  tx485[2] ='0';
+	  tx485[3] = '1';
+	  tx485[4] = '1';
+	  tx485[5] = '1';
+	  tx485[6] =  '1';
+	  tx485[7] = '1';
+	  tx485[8] = '0';
+	  tx485[9] = '5';
+	  tx485[10] = '1';
+	  tx485[11] = 'e';
+	  tx485[12] = 'b';
+	  tx485[13] = 0x0d;
+	  HAL_UART_Transmit(&huart1,tx485,14,1000);
+	  HAL_Delay(1000);
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */

@@ -49,7 +49,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\..\PCMDemo.gpdsc</RelativePath>
-        <Timestamp>131886383521029531</Timestamp>
+        <Timestamp>132187179540598867</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -270,11 +270,11 @@
       <ImportedConfiguration>
         <Settings>
           <IncludeDirectories>
-            <string>\\tsclient\F\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Inc</string>
-            <string>\\tsclient\F\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Drivers\CMSIS\Include</string>
-            <string>\\tsclient\F\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include</string>
-            <string>\\tsclient\F\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Drivers\STM32F4xx_HAL_Driver\Inc</string>
-            <string>\\tsclient\F\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy</string>
+            <string>F:\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Inc</string>
+            <string>F:\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Drivers\CMSIS\Include</string>
+            <string>F:\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include</string>
+            <string>F:\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Drivers\STM32F4xx_HAL_Driver\Inc</string>
+            <string>F:\work\ZXJ\HangTian1_DataRecorder\PCMDemo\PCMDemo\PCMDemo\..\..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy</string>
           </IncludeDirectories>
           <PreprocessorMacros>
             <string>$$com.sysprogs.bspoptions.primary_memory$$_layout</string>

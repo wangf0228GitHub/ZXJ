@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pcieDataRecorder", "pcieDat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFNetLib40", "..\..\WFLib\WFNetLib\WFNetLib40.csproj", "{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mcuDataRecorder", "stm32Proj\mcuDataRecorder\mcuDataRecorder.vcxproj", "{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,30 +76,6 @@ Global
 		{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}.Release|VisualGDB.ActiveCfg = Release|Any CPU
 		{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}.Release|x86.ActiveCfg = Release|Any CPU
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Debug|Any CPU.ActiveCfg = Debug|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Debug|Mixed Platforms.ActiveCfg = Debug|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Debug|Mixed Platforms.Build.0 = Debug|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Debug|x86.ActiveCfg = Debug|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.NET35|Any CPU.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.NET35|Mixed Platforms.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.NET35|Mixed Platforms.Build.0 = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.NET35|VisualGDB.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.NET35|VisualGDB.Build.0 = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.NET35|x86.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.OffLine|Any CPU.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.OffLine|Mixed Platforms.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.OffLine|Mixed Platforms.Build.0 = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.OffLine|VisualGDB.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.OffLine|VisualGDB.Build.0 = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.OffLine|x86.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Release|Any CPU.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Release|Mixed Platforms.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Release|Mixed Platforms.Build.0 = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Release|VisualGDB.Build.0 = Release|VisualGDB
-		{E592F5A0-7FD1-4E4E-92E4-24242A084AFC}.Release|x86.ActiveCfg = Release|VisualGDB
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

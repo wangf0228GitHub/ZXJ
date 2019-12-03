@@ -45,7 +45,7 @@
 uint32_t rxIndex;
 extern IDT71V321_DATA uint8_t ExRAM[2048];
 #define testLen 7+36+24
-uint8_t tmp[testLen];
+volatile uint8_t tmp[testLen];
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	GPIO_PinState gp;
@@ -61,25 +61,25 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				tmp[i]=ExRAM[i];
 			}
 			//pci卡处理			
-// 			if(ExRAM[0]==0xfa && ExRAM[1]==0xf3 && ExRAM[2]==0x30)
-// 			{
-// 				//rxIndex=ExRAM[4];
-// 				while (1)
-// 				{
-// 					gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
-// 					if(gp==GPIO_PIN_SET)
-// 						break;
-// 				}
-// 				HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_RESET);
-// 				while (1)
-// 				{
-// 					gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
-// 					if(gp==GPIO_PIN_RESET)
-// 						break;
-// 				}
-// 				HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
-// 
-// 			}
+ 			if(ExRAM[0]==0xfa && ExRAM[1]==0xf3 && ExRAM[2]==0x30)
+ 			{
+ 				//rxIndex=ExRAM[4];
+ 				while (1)
+ 				{
+ 					gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
+ 					if(gp==GPIO_PIN_SET)
+ 						break;
+ 				}
+ 				HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_RESET);
+ 				while (1)
+ 				{
+ 					gp=HAL_GPIO_ReadPin(CH368_SCS_GPIO_Port, CH368_SCS_Pin) ;
+ 					if(gp==GPIO_PIN_RESET)
+ 						break;
+ 				}
+ 				HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
+ 
+ 			}
 		}
 		else//下降沿，帧开始
 		{
