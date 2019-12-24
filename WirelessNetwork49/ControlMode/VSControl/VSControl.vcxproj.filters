@@ -345,11 +345,11 @@
     <ClCompile Include="..\..\A7128\A7128.c">
       <Filter>wf\7128</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\WF_Device\CP1616_Master.c">
-      <Filter>wf\lib</Filter>
-    </ClCompile>
     <ClCompile Include="..\Control49\wf\PCM.c">
       <Filter>wf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\WF_Device\CP1616_Client.c">
+      <Filter>wf\lib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,11 +392,11 @@
     <ClInclude Include="..\..\..\..\WF_Device\wfDefine.h">
       <Filter>wf\lib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\WF_Device\CP1616_Master.h">
-      <Filter>wf\lib</Filter>
-    </ClInclude>
     <ClInclude Include="..\Control49\wf\PCM.h">
       <Filter>wf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\WF_Device\CP1616_Client.h">
+      <Filter>wf\lib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

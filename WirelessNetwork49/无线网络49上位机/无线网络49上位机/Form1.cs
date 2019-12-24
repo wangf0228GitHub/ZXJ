@@ -10,6 +10,7 @@ using System.IO.Ports;
 using WFNetLib;
 using WFNetLib.PacketProc;
 using System.Diagnostics;
+using System.Threading;
 
 namespace 无线网络49上位机
 {
@@ -21,51 +22,134 @@ namespace 无线网络49上位机
             CP1616PacketHead.Addr_SIZE = 0;
             CP1616PacketHead.DataLen_SIZE = 2;
             CP1616PacketHead.bCheckVerify = false;
-            CP1616PacketHead.bIsDebugOut = true;
+            CP1616PacketHead.bIsDebugOut = false;
             CP1616PacketHead.CalcHeaderLen();
         }
         _SensorSignIn sensorSingIn;
         _SensorBAT sensorBAT;
+        byte waitCommand;
+        byte startResult;
         private void btNetStart_Click(object sender, EventArgs e)
         {
             if (btNetStart.Text == "启动网络")
-            {
-                this.Uart.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(this.Uart_DataReceived);
+            {                
                 Uart.PortName=cbCom.Text;
+                RxPacket = new CP1616Packet();
                 if (WFGlobal.OpenSerialPort(ref Uart) == false)
                     return;
-                CP1616Packet start = CP1616Packet.CP1616ComProc(ref Uart, 5, 0,(ushort)0);
-                if (start == null)
-                {
-                    Uart.Close();
-                    MessageBox.Show("与网络控制器通信失败");
-                    return;
-                }
                 Properties.Settings.Default.PortName = cbCom.Text;
-                Properties.Settings.Default.Save();
-                RxPacket = new CP1616Packet();
-                this.Uart.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.Uart_DataReceived);
+                Properties.Settings.Default.Save();                
                 sensorSingIn.clearSignIn();
                 listView1.Items.Clear();
-                lNetStatus.Text = "网络启动中:唤醒无线节点";
-                btNetStart.Text = "停止网络";
+                chart1.Series[0].Points.Clear();
+                chart2.Series[0].Points.Clear();
+                chart3.Series[0].Points.Clear();
+                chart4.Series[0].Points.Clear();
+                chart3.Series[1].Points.Clear();
+                chart4.Series[1].Points.Clear();
+                chart3.Series[2].Points.Clear();
+                chart4.Series[2].Points.Clear();
+                chart3.Series[3].Points.Clear();
+                chart4.Series[3].Points.Clear();
                 bStopNet = false;
-                btSetID.Enabled = false;
-                if (start.Data[0] == 2)
+                for (int i = 0; i < 3; i++)
                 {
+                    startResult = 0;
+                    waitCommand = 1;
+                    CP1616Packet.CP1616ComSend(ref Uart, waitCommand, 0, (ushort)0);
+                    int x = 0;
+                    while (true)
+                    {
+                        Thread.Sleep(1);
+                        if (startResult != 0)
+                            break;
+                        x++;
+                        if (x > 1000)
+                        {
+                            startResult = 0xff;
+                            break;
+                        }
+                    }
+                    if (startResult == 0xff)//超时了
+                    {
+
+                    }
+                    else
+                    {
+                        break;
+
+                    }
+                }
+                if (startResult == 0xff)
+                {
+                    MessageBox.Show("网络控制器未做应答!!!");
+                    Uart.Close();
+                    btNetStart.Text = "启动网络";
+                    return;
+                }                
+                else if (startResult == 2)
+                {
+                    bStopNet = false;
+                    btNetStart.Text = "停止网络";
                     MessageBox.Show("网络已经启动，等待接入");
+                }
+                else if (startResult == 3)
+                {
+                    bStopNet = false;
+                    btNetStart.Text = "停止网络";
+                    MessageBox.Show("标定网络已经启动，将自动转为测量网络，等待接入");
                 }
                 else
                 {
-                    MessageBox.Show("网络启动成功");
+                    WaitSometingForm.WaitSometing_Init();
+                    waitCommand = 0x10;//点名完成
+                    if (!WaitSometingForm.WaitSometing(10, 3000, "等待无线节点组网，预计时长25s"))
+                    {
+                        waitCommand = 0;
+                        Uart.Close();
+                        MessageBox.Show("组网失败");
+                        return;
+                    }
+                    if (listView1.Items.Count != 0)
+                    {
+                        WaitSometingForm.WaitSometing_Init();
+                        waitCommand = 0x20;//等待测量数据
+                        if (!WaitSometingForm.WaitSometing(10, 500, "等待网络数据，预计时长3s"))
+                        {
+                            waitCommand = 0;
+                            MessageBox.Show("组网失败");
+                            Uart.Close();
+                            bStopNet = false;
+                            return;
+                        }
+                        bStopNet = false;
+                        btNetStart.Text = "停止网络";
+                        MessageBox.Show("网络启动成功");
+                    }
+                    else
+                    {
+                        waitCommand = 0;
+                        MessageBox.Show("当前网络没有发现任何无线节点，网络自动停止");
+                        Uart.Close();
+                        btNetStart.Text = "启动网络";
+                        return;
+                    }
                 }
             }
             else
             {
                 bStopNet = true;
-                lNetStatus.Text = "等待网络停止";
-                btNetStart.Enabled = false;
-                btNetStart.Text = "等待网络停止";//启动网络";
+                WaitSometingForm.WaitSometing_Init();
+                waitCommand = 0x02;//等待网络停止
+                if (!WaitSometingForm.WaitSometing(10, 500, "等待网络停止，预计时长5s"))
+                {
+                    waitCommand = 0;
+                    MessageBox.Show("网络停止失败");
+                    return;
+                }
+                MessageBox.Show("网络已停止");
+                Uart.Close();
+                btNetStart.Text = "启动网络";
             }
         }
         bool bStopNet = false;
@@ -162,28 +246,28 @@ namespace 无线网络49上位机
                 {
                     byte[] data = new byte[2];
                     data[0] = RxPacket.Header.Command;
+                    if (waitCommand == RxPacket.Header.Command)
+                    {
+                        WaitSometingForm.bGenerateSometing = true;
+                    }
                     if (bStopNet)
                     {
-                        if (RxPacket.Header.Command == 0x02)//网络已经关闭
+                        data[1] = 0x02;//要求关闭网络
+                        CP1616Packet.CP1616ComSend(ref Uart, 3, 0, data);
+                    }
+                    else if (RxPacket.Header.Command == 1)//标定网络启动确认
+                    {
+                        startResult = RxPacket.Data[0];
+                    }
+                    else if (RxPacket.Header.Command == 0x22)//标定网络，请求转换为测量网络
+                    {
+                        this.Invoke((EventHandler)(delegate
                         {
-//                             data[1] = 0x00;//要求关闭网络
-//                             CP1616Packet.CP1616ComSend(ref Uart, 3, 0, data);
-                            this.Uart.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(this.Uart_DataReceived);
-                            Uart.Close();
-                            this.Invoke((EventHandler)(delegate
-                            {
-                                btNetStart.Enabled = true;
-                                btNetStart.Text = "启动网络";
-                                btSetID.Enabled = true;
-                                MessageBox.Show(this, "网络已停止");
-                            }));                            
-                            return;
-                        }
-                        else
-                        {
-                            data[1] = 0x02;//要求关闭网络
-                            CP1616Packet.CP1616ComSend(ref Uart, 3, 0, data);
-                        }
+                            textBox1.AppendText(DateTime.Now.ToString("HH:mm:ss:ffff") + ":标定网络转换为测量网络\r\n");
+                        })); 
+                        startResult = 3;
+                        data[1] = 0x03;
+                        CP1616Packet.CP1616ComSend(ref Uart, 3, 0, data);
                     }
                     else if (RxPacket.Header.Command == 0x10)
                     {
@@ -193,6 +277,7 @@ namespace 无线网络49上位机
                     }
                     else if (RxPacket.Header.Command == 0x20)
                     {
+                        startResult = 2;
                         if (listView1.Items.Count == 0)
                         {
                             data[1] = 0x01;//请求传感器名单
@@ -203,7 +288,14 @@ namespace 无线网络49上位机
                             data[1] = 0x00;
                             CP1616Packet.CP1616ComSend(ref Uart, 3, 0, data);
                             ADCDataProc();
-                        }                        
+                        }
+                        this.Invoke((EventHandler)(delegate
+                        {
+                            if (btNetStart.Text == "启动网络")
+                            {
+                                btNetStart.Text = "停止网络";
+                            }
+                        }));
                     }
                     RxPacket = new CP1616Packet();
                 }
@@ -219,23 +311,6 @@ namespace 无线网络49上位机
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Uart.Close();
-        }
-
-        private void btSetID_Click(object sender, EventArgs e)
-        {
-            this.Uart.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(this.Uart_DataReceived);
-            Uart.PortName = cbCom.Text;
-            if (WFGlobal.OpenSerialPort(ref Uart) == false)
-                return;
-            Uart.ReadTimeout = 15000;//12s唤醒，3s通信
-            SetIDForm sf = new SetIDForm(Uart);
-            sf.ShowDialog();
-            Uart.ReadTimeout = 200;
-            Uart.Close();
-        }
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            
         }
     }
 }

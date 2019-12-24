@@ -137,128 +137,128 @@ int main(void)
 	  tx[3]=0xe1;	  
 	  tx[4]=index;
 	  tx[5]=0x00;
-	  tx[6]=162;	 
+	  tx[6]=140;	 
 	  ddi=7;
 	  tx[ddi++]=0xb8;
-	  for(i=0;i<9;i++)
+	  for(i=0;i<8;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	 	  
 	  tx[ddi++]=0xb9;
-	  for(i=0;i<9;i++)
+	  for(i=0;i<8;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 	  tx[ddi++]=0xba;
-	  for(i=0;i<9;i++)
+	  for(i=0;i<8;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	
 	  tx[ddi++]=0xbb;
-	  for(i=0;i<9;i++)
+	  for(i=0;i<8;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	 
 
 
 	  tx[ddi++]=0xbc;
-	  for(i=0;i<8;i++)
+	  for(i=0;i<7;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	 	  
 	  tx[ddi++]=0xbd;
-	  for(i=0;i<8;i++)
+	  for(i=0;i<7;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 	  tx[ddi++]=0xbe;
-	  for(i=0;i<8;i++)
+	  for(i=0;i<7;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	
 	  tx[ddi++]=0xbf;
-	  for(i=0;i<8;i++)
+	  for(i=0;i<7;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 
 
 	  tx[ddi++]=0xc0;
-	  for(i=0;i<5;i++)
+	  for(i=0;i<4;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	 	  
 	  tx[ddi++]=0xc1;
-	  for(i=0;i<5;i++)
+	  for(i=0;i<4;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 	  tx[ddi++]=0xc2;
-	  for(i=0;i<5;i++)
+	  for(i=0;i<4;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	
 	  tx[ddi++]=0xc3;
-	  for(i=0;i<5;i++)
+	  for(i=0;i<4;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 
 	  tx[ddi++]=0xc4;
-	  for(i=0;i<2;i++)
+	  for(i=0;i<1;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	 	  
 	  tx[ddi++]=0xc5;
-	  for(i=0;i<2;i++)
+	  for(i=0;i<1;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 	  tx[ddi++]=0xc6;
-	  for(i=0;i<2;i++)
+	  for(i=0;i<1;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	
 	  tx[ddi++]=0xc7;
-	  for(i=0;i<2;i++)
+	  for(i=0;i<1;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 
 	  tx[ddi++]=0xc8;
-	  for(i=0;i<9;i++)
+	  for(i=0;i<8;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	 	  
 	  tx[ddi++]=0xc9;
-	  for(i=0;i<9;i++)
+	  for(i=0;i<8;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 	  tx[ddi++]=0xca;
-	  for(i=0;i<10;i++)
+	  for(i=0;i<9;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	
 	  tx[ddi++]=0xcb;
-	  for(i=0;i<10;i++)
+	  for(i=0;i<9;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 
 	  tx[ddi++]=0xcc;
-	  for(i=0;i<3;i++)
+	  for(i=0;i<2;i++)
 	  {
 		  tx[ddi++]=x;
 	  }	 	  
 	  tx[ddi++]=0xcd;
-	  for(i=0;i<3;i++)
+	  for(i=0;i<2;i++)
 	  {
 		  tx[ddi++]=x;
 	  }
 	  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_RESET);
 	  HAL_Delay(1);
-	  HAL_SPI_Transmit(&hspi2,tx,7+162,1000);
+	  HAL_SPI_Transmit(&hspi2,tx,7+140,1000);
 	  HAL_Delay(1);
 	  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_SET);
 	  HAL_Delay(100);

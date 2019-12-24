@@ -130,6 +130,12 @@
     <Filter Include="Header files\STM32Cube HAL\SPI">
       <UniqueIdentifier>{d7a15c6a-8fd9-45d3-92ed-b4404db8d445}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source files\STM32Cube HAL\IWDG">
+      <UniqueIdentifier>{9fdb903b-083a-4ec6-b393-cc39a2d8cde7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header files\STM32Cube HAL\IWDG">
+      <UniqueIdentifier>{e257584f-ebbf-4512-89f4-623b237f1843}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\gpio.c">
@@ -318,6 +324,12 @@
     <ClCompile Include="..\Src\dma.c">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\iwdg.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_iwdg.c">
+      <Filter>Source files\STM32Cube HAL\IWDG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h">
@@ -331,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="..\Inc\dma.h">
       <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\iwdg.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_iwdg.h">
+      <Filter>Header files\STM32Cube HAL\IWDG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

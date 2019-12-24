@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * COPYRIGHT(c) 2018 STMicroelectronics
+  * COPYRIGHT(c) 2019 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -40,6 +40,7 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "dma.h"
+#include "iwdg.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
@@ -68,6 +69,7 @@ void SystemClock_Config(void);
 IDT71V321_DATA uint8_t ExRAM[2048];
 uint8_t nIndex;
 uint32_t waitTick;
+extern volatile uint32_t rxErr;
 /* USER CODE END 0 */
 
 /**
@@ -107,6 +109,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
+  MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
 //   while (1)
 //   {
@@ -119,6 +122,7 @@ int main(void)
 
 
   //等待pci准备好
+  rxErr=0;
   HAL_GPIO_WritePin(CH368_INT_GPIO_Port, CH368_INT_Pin, GPIO_PIN_SET);
   waitTick=HAL_GetTick();
   while (1)
@@ -132,6 +136,7 @@ int main(void)
   
   __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_9);
   HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+  HAL_GPIO_WritePin(ZhT_GPIO_Port,ZhT_Pin,GPIO_PIN_SET);
 //   for(i=0;i<1024;i++)
 //   {
 // 	  readx[i]=*(uint8_t *)(0x60000000+i);
@@ -149,6 +154,7 @@ int main(void)
 // 	  tx485[i]=x;
   while (1)
   {	  
+	  HAL_IWDG_Refresh(&hiwdg);
 // 	  x++;
 // 	  for(i=0;i<12;i++)
 // 		  tx485[i]=x;
@@ -211,8 +217,9 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 4;

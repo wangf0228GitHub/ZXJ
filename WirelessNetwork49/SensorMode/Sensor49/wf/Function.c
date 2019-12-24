@@ -64,11 +64,11 @@ void MCUSleep(void)
 }
 void InitTimeIndex(void)
 {
-	if(SensorAddr==0)
+	if(SensorAddr==0 || SensorAddr==101)
 	{
 		TxStartTimeIndex=-1;
 		TxEndTimeIndex=-1;
-		SensorType=-1;//ÖÐÆµ
+		SensorType=-1;
 	}
 	else if(SensorAddr<=4)//¸ßÆµ4£¨1~4£©,128+2
 	{

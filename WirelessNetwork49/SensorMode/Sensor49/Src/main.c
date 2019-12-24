@@ -117,24 +117,34 @@ int main(void)
   //EEData.u8[2]=5;
   //wfEEPROM_WriteWord(0,EEData.u32);
   //EEData.u32=0;
-  SensorIDData.u16[0]=0x6677;
-  SensorIDData.u8[2]=10;
-  wfEEPROM_WriteWord(0,SensorIDData.u32);
-  SensorIDData.u32=0;
+//   SensorIDData.u16[0]=0x6677;
+//   SensorIDData.u8[2]=10;
+//   wfEEPROM_WriteWord(0,SensorIDData.u32);
+//   SensorIDData.u32=0;
   SensorIDData.u32=wfEEPROM_ReadWord(0);
   if(SensorIDData.u16[0]==0x6677)//地址验证正确
   {
 	  SensorAddr=SensorIDData.u8[2];
+	  Linear_k.u32=wfEEPROM_ReadWord(4);
+	  Linear_b.u32=wfEEPROM_ReadWord(8);
+	  SensorGain.u32=wfEEPROM_ReadWord(12);
   }
   else
   {
-	  SensorAddr=0;
+	  SensorAddr=101;
+	  Linear_k.u32=1;
+	  Linear_b.u32=0;
+	  SensorGain.u32=1;
+	  SensorIDData.u16[0]=0x6677;
+	  SensorIDData.u8[2]=101;
+	  wfEEPROM_WriteWord(0,SensorIDData.u32);
+	  wfEEPROM_WriteWord(4,Linear_k.u32);
+	  wfEEPROM_WriteWord(8,Linear_b.u32);
+	  wfEEPROM_WriteWord(12,SensorGain.u32);
+	  
   }
-  //SensorAddr=15;
   InitTimeIndex();
-  Linear_k.u32=wfEEPROM_ReadWord(4);
-  Linear_b.u32=wfEEPROM_ReadWord(8);
-  SensorGain.u32=wfEEPROM_ReadWord(12);
+  
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -162,14 +172,7 @@ int main(void)
   /************************************************************************/
   /*                                                                      */
   /************************************************************************/
-  YLED_ON(); 
-  u16x=100;
-  Linear_k.f=1.26584;
-  RLED_Toggle();
-  fx=Linear_k.f*x+Linear_b.f;
-  fx=fx*SensorGain.f;
-  u16x=(uint16_t)fx;
-  RLED_Toggle();
+  YLED_ON();   
 //   bNewFrame=0;
 //   TimeIndex=999;
 //   HAL_TIM_Base_Stop_IT(&htim7);
@@ -273,8 +276,6 @@ int main(void)
   /************************************************************************/
   /*                                                                      */
   /************************************************************************/
-
-
     __HAL_TIM_SET_COUNTER(&htim6,0);
     __HAL_TIM_CLEAR_IT(&htim6,TIM_IT_UPDATE);
     HAL_TIM_Base_Start_IT(&htim6); 

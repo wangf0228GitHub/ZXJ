@@ -51,8 +51,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.cbCom = new System.Windows.Forms.ToolStripComboBox();
             this.btNetStart = new System.Windows.Forms.ToolStripButton();
-            this.btSetID = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -63,13 +61,11 @@
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lNetStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Uart = new System.IO.Ports.SerialPort(this.components);
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Uart = new System.IO.Ports.SerialPort(this.components);
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -89,12 +85,11 @@
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart4)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,9 +97,7 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cbCom,
-            this.btNetStart,
-            this.btSetID,
-            this.toolStripButton1});
+            this.btNetStart});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1048, 25);
@@ -127,28 +120,6 @@
             this.btNetStart.Size = new System.Drawing.Size(60, 22);
             this.btNetStart.Text = "启动网络";
             this.btNetStart.Click += new System.EventHandler(this.btNetStart_Click);
-            // 
-            // btSetID
-            // 
-            this.btSetID.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btSetID.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btSetID.Image = ((System.Drawing.Image)(resources.GetObject("btSetID.Image")));
-            this.btSetID.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSetID.Name = "btSetID";
-            this.btSetID.Size = new System.Drawing.Size(97, 22);
-            this.btSetID.Text = "设定无线节点ID";
-            this.btSetID.Click += new System.EventHandler(this.btSetID_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Visible = false;
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // splitContainer1
             // 
@@ -252,11 +223,8 @@
             chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea1.AxisX.Maximum = 25600D;
             chartArea1.AxisX.Minimum = 0D;
-            chartArea1.AxisY.Interval = 0.25D;
-            chartArea1.AxisY.MajorGrid.Interval = 0.25D;
+            chartArea1.AxisY.MajorGrid.Interval = 0D;
             chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.Maximum = 0.5D;
-            chartArea1.AxisY.Minimum = -0.5D;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -301,11 +269,8 @@
             chartArea2.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea2.AxisX.Maximum = 1600D;
             chartArea2.AxisX.Minimum = 0D;
-            chartArea2.AxisY.Interval = 0.25D;
-            chartArea2.AxisY.MajorGrid.Interval = 0.25D;
+            chartArea2.AxisY.MajorGrid.Interval = 0D;
             chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea2.AxisY.Maximum = 0.5D;
-            chartArea2.AxisY.Minimum = -0.5D;
             chartArea2.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -324,6 +289,24 @@
             this.chart2.TabIndex = 1;
             this.chart2.Text = "chart2";
             // 
+            // splitContainer5
+            // 
+            this.splitContainer5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer5.Name = "splitContainer5";
+            // 
+            // splitContainer5.Panel1
+            // 
+            this.splitContainer5.Panel1.Controls.Add(this.chart3);
+            // 
+            // splitContainer5.Panel2
+            // 
+            this.splitContainer5.Panel2.Controls.Add(this.chart4);
+            this.splitContainer5.Size = new System.Drawing.Size(802, 123);
+            this.splitContainer5.SplitterDistance = 406;
+            this.splitContainer5.TabIndex = 2;
+            // 
             // chart3
             // 
             chartArea3.AxisX.Interval = 40D;
@@ -331,11 +314,8 @@
             chartArea3.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea3.AxisX.Maximum = 200D;
             chartArea3.AxisX.Minimum = 0D;
-            chartArea3.AxisY.Interval = 20D;
-            chartArea3.AxisY.MajorGrid.Interval = 20D;
+            chartArea3.AxisY.MajorGrid.Interval = 0D;
             chartArea3.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea3.AxisY.Maximum = 100D;
-            chartArea3.AxisY.Minimum = -40D;
             chartArea3.Name = "ChartArea1";
             this.chart3.ChartAreas.Add(chartArea3);
             this.chart3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -375,57 +355,6 @@
             this.chart3.TabIndex = 1;
             this.chart3.Text = "chart3";
             // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(1046, 120);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lNetStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 440);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1048, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lNetStatus
-            // 
-            this.lNetStatus.Name = "lNetStatus";
-            this.lNetStatus.Size = new System.Drawing.Size(56, 17);
-            this.lNetStatus.Text = "网络状态";
-            // 
-            // Uart
-            // 
-            this.Uart.BaudRate = 230400;
-            this.Uart.ReadBufferSize = 81920;
-            this.Uart.ReadTimeout = 200;
-            // 
-            // splitContainer5
-            // 
-            this.splitContainer5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer5.Name = "splitContainer5";
-            // 
-            // splitContainer5.Panel1
-            // 
-            this.splitContainer5.Panel1.Controls.Add(this.chart3);
-            // 
-            // splitContainer5.Panel2
-            // 
-            this.splitContainer5.Panel2.Controls.Add(this.chart4);
-            this.splitContainer5.Size = new System.Drawing.Size(802, 123);
-            this.splitContainer5.SplitterDistance = 406;
-            this.splitContainer5.TabIndex = 2;
-            // 
             // chart4
             // 
             chartArea4.AxisX.Interval = 40D;
@@ -433,11 +362,8 @@
             chartArea4.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea4.AxisX.Maximum = 200D;
             chartArea4.AxisX.Minimum = 0D;
-            chartArea4.AxisY.Interval = 1D;
-            chartArea4.AxisY.MajorGrid.Interval = 1D;
+            chartArea4.AxisY.MajorGrid.Interval = 0D;
             chartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea4.AxisY.Maximum = 3D;
-            chartArea4.AxisY.Minimum = 0D;
             chartArea4.Name = "ChartArea1";
             this.chart4.ChartAreas.Add(chartArea4);
             this.chart4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -477,12 +403,29 @@
             this.chart4.TabIndex = 2;
             this.chart4.Text = "chart4";
             // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(0, 0);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(1046, 120);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // Uart
+            // 
+            this.Uart.BaudRate = 230400;
+            this.Uart.ReadBufferSize = 81920;
+            this.Uart.ReadTimeout = 200;
+            this.Uart.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.Uart_DataReceived);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1048, 462);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form1";
@@ -510,13 +453,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -529,8 +470,6 @@
         private System.Windows.Forms.ToolStripButton btNetStart;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel lNetStatus;
         private System.Windows.Forms.ToolStripComboBox cbCom;
         private System.IO.Ports.SerialPort Uart;
         private System.Windows.Forms.ListView listView1;
@@ -541,10 +480,8 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer splitContainer4;
-        private System.Windows.Forms.ToolStripButton btSetID;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.SplitContainer splitContainer5;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
     }

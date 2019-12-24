@@ -34,8 +34,8 @@
 #include "..\wf\Variables.h"
 #include "..\wf\Function.h"
 #include "..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_uart.h"
-#include "..\..\..\..\..\WF_Device\CP1616_Master.h"
 #include "..\..\..\..\..\WF_Device\wfDefine.h"
+#include "..\..\..\..\..\WF_Device\CP1616_Client.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -134,87 +134,16 @@ int main(void)
 //   bRXing=0;
   YLED_OFF();
   RLED_OFF();
-  PCM_TxBuf[0]=0x16;
-  PCM_TxBuf[1]=0x16;
-  HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
+  CP1616_Client_TxList[0]=0x16;
+  CP1616_Client_TxList[1]=0x16;
+  while(HAL_UART_Receive_IT(&huart1,&huart1Rx,1)==HAL_OK);
   NetWorkMode=Net_Stop;
   ADCData4TXBuf=&ADCData4TX2;
   ADCData4SaveBuf=&ADCData4TX1;
   /************************************************************************/
   /*                                                                      */
   /************************************************************************/
-  //  while(1)
-//  {
-//	  if(bNetWoking==1)
-//	  {
-//		  if(NetWorkMode==Net_Start)
-//		  {
-//			  Networking_WakeUp();
-//			  if(bNetWoking==0)
-//				  continue;
-//			  if(Networking_SignIn()==0)//空网络
-//			  {
-//				  NetWorkMode=Net_Stop;
-//				  bNetWoking=0;
-//				  continue;
-//			  }
-//			  else
-//			  {
-//				  Networking_StartNet();
-//				  TimeIndex=998;
-//				  __HAL_TIM_CLEAR_IT(&htim14,TIM_IT_UPDATE);
-//				  HAL_TIM_Base_Start_IT(&htim14);
-//			  }
-//			  while(1)
-//			  {
-//				  if(bNewFrame)
-//				  {
-//					  bNewFrame=0;
-//				  }
-//				  if(bNetWoking==0)
-//					  break;
-//			  }
-//		  }
-//	  }
-//  }
-//  //HAL_UART_Transmit_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
-//  while(1)
-//  {
-//	  /*x8++;
-//	  for(i=0;i<7;i++)
-//	  {
-//		  PCM_RxBuf[i]=x8;
-//	  }
-//	  HAL_UART_Transmit_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
-//	  wfDelay_ms(1000);*/
-//	  //HAL_UART_DMAStop(&huart1);
-//  }
-////   for(i=0;i<64;i++)
-//// 	  A7128_TxFIFO[i+1]=i;
-////   A7128_WriteFIFO();
-////   while(1)
-////   {
-//// 	  A7128_StrobeCmd(CMD_TX); //entry tx
-//// 	  while(A7128_GIO1_Read()==1);
-////   }
-////   ADCData4TXBuf=&ADCData4TX2;
-////   ADCData4SaveBuf=&ADCData4TX1;
-////   RLED_Toggle();
-////   gMEMDMA2=0x12345678;
-////   HAL_DMA_PollForTransfer(&hdma_memtomem_dma1_stream2,HAL_DMA_FULL_TRANSFER,1);
-////   HAL_DMA_Start(&hdma_memtomem_dma1_stream2,(uint32_t)(&gMEMDMA2),(uint32_t)(&ADCDataTag.all),163);
-////   //清除当前存储区的现有数据
-////   HAL_DMA_PollForTransfer(&hdma_memtomem_dma1_stream2,HAL_DMA_FULL_TRANSFER,1);
-////   HAL_DMA_Start(&hdma_memtomem_dma1_stream2,(uint32_t)(&gMEMDMA2),(uint32_t)(&ADCData4SaveBuf->all),9750);
-//  HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
-//  RLED_Toggle();
-//  Networking_SignIn();
-//  //Networking_WakeUp();
-//  RLED_Toggle();
-//  while(1)
-//  {
-//
-//  }
+  
   /************************************************************************/
   /*                                                                      */
   /************************************************************************/
@@ -231,15 +160,12 @@ int main(void)
 		  Networking_SignIn();		  
 		  if(Uart_SignInProc()==0)
 		  {
-			  NetWorkMode=Net_Stop;
-			  HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
+			  NetWorkMode=Net_Stop;			  
 			  continue;
 		  }
 		  if(ADCDataLen==0)//空网络
 		  {
-			  //Uart_SignInProc();
 			  NetWorkMode=Net_Stop;
-			  HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
 			  continue;
 		  }
 		  Networking_StartNet();
@@ -255,72 +181,120 @@ int main(void)
 				  htim7.Instance->ARR = 2000-1;//200ms;
 				  for(retry=0;retry<2;retry++)
 				  {
-					  waitConfirmCommand=ADCDataSendCommand;
+					  //waitConfirmCommand=ADCDataSendCommand;
 					  bOk=0;
-					  PCM_TxBuf[pCP1616_Master_CommandIndex]=ADCDataSendCommand;
-					  PCM_TxBuf[3]=HIGH_BYTE(ADCDataLen);
-					  PCM_TxBuf[4]=LOW_BYTE(ADCDataLen);
-					  PCM_TxBuf[5]=0x00;
-					  PCM_TxBuf[6]=0x0d;
-					  HAL_UART_Transmit(&huart1,PCM_TxBuf,5,100);
-					  for(addr=0;addr<4;addr++)
+					  if(bCalibrationNet)//校准则只发送1个数据即可
 					  {
-						  if(SensorSignIn.H[addr]!=0)
+						  CP1616_Client_TxList[pCP1616_Client_CommandIndex]=ADCDataSendCommand_Calibration;
+						  CP1616_Client_TxList[3]=HIGH_BYTE(ADCDataLen_Calibration);
+						  CP1616_Client_TxList[4]=LOW_BYTE(ADCDataLen_Calibration);
+						  CP1616_Client_TxList[5]=0x00;
+						  CP1616_Client_TxList[6]=0x0d;
+						  HAL_UART_Transmit(&huart1,CP1616_Client_TxList,5,100);
+						  for(addr=0;addr<4;addr++)
 						  {
-							  HAL_UART_Transmit(&huart1,ADCData4TXBuf->H[addr][0],7680,1000);
-							  HAL_UART_Transmit(&huart1,&SensorBAT.H[addr],1,1000);
+							  if(SensorSignIn.H[addr]!=0)
+							  {
+								  HAL_UART_Transmit(&huart1,ADCData4TXBuf->H[addr][0],3,1000);
+								  HAL_UART_Transmit(&huart1,&SensorBAT.H[addr],1,1000);
+							  }
 						  }
+						  for(addr=0;addr<6;addr++)
+						  {
+							  if(SensorSignIn.M[addr]!=0)
+							  {
+								  HAL_UART_Transmit(&huart1,ADCData4TXBuf->M[addr][0],3,1000);
+								  HAL_UART_Transmit(&huart1,&SensorBAT.M[addr],1,1000);
+							  }
+						  }
+						  for(addr=0;addr<90;addr++)
+						  {
+							  if(SensorSignIn.L[addr]!=0)
+							  {
+								  HAL_UART_Transmit(&huart1,ADCData4TXBuf->L[addr],3,1000);
+								  HAL_UART_Transmit(&huart1,&SensorBAT.L[addr],1,1000);
+							  }
+						  }
+						  HAL_UART_Transmit(&huart1,&CP1616_Client_TxList[5],2,100);
 					  }
-					  for(addr=0;addr<6;addr++)
+					  else//实际数据
 					  {
-						  if(SensorSignIn.M[addr]!=0)
+						  CP1616_Client_TxList[pCP1616_Client_CommandIndex]=ADCDataSendCommand;
+						  CP1616_Client_TxList[3]=HIGH_BYTE(ADCDataLen);
+						  CP1616_Client_TxList[4]=LOW_BYTE(ADCDataLen);
+						  CP1616_Client_TxList[5]=0x00;
+						  CP1616_Client_TxList[6]=0x0d;
+						  HAL_UART_Transmit(&huart1,CP1616_Client_TxList,5,100);
+						  for(addr=0;addr<4;addr++)
 						  {
-							  HAL_UART_Transmit(&huart1,ADCData4TXBuf->M[addr][0],480,1000);
-							  HAL_UART_Transmit(&huart1,&SensorBAT.M[addr],1,1000);
+							  if(SensorSignIn.H[addr]!=0)
+							  {
+								  HAL_UART_Transmit(&huart1,ADCData4TXBuf->H[addr][0],7680,1000);
+								  HAL_UART_Transmit(&huart1,&SensorBAT.H[addr],1,1000);
+							  }
 						  }
-					  }
-					  for(addr=0;addr<90;addr++)
-					  {
-						  if(SensorSignIn.L[addr]!=0)
+						  for(addr=0;addr<6;addr++)
 						  {
-							  HAL_UART_Transmit(&huart1,ADCData4TXBuf->L[addr],60,1000);
-							  HAL_UART_Transmit(&huart1,&SensorBAT.L[addr],1,1000);
+							  if(SensorSignIn.M[addr]!=0)
+							  {
+								  HAL_UART_Transmit(&huart1,ADCData4TXBuf->M[addr][0],480,1000);
+								  HAL_UART_Transmit(&huart1,&SensorBAT.M[addr],1,1000);
+							  }
 						  }
+						  for(addr=0;addr<90;addr++)
+						  {
+							  if(SensorSignIn.L[addr]!=0)
+							  {
+								  HAL_UART_Transmit(&huart1,ADCData4TXBuf->L[addr],60,1000);
+								  HAL_UART_Transmit(&huart1,&SensorBAT.L[addr],1,1000);
+							  }
+						  }
+						  HAL_UART_Transmit(&huart1,&CP1616_Client_TxList[5],2,100);
 					  }
-					  HAL_UART_Transmit(&huart1,&PCM_TxBuf[5],2,100);
-					  HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
 					  HAL_TIM_Base_Stop(&htim7);
 					  __HAL_TIM_SET_COUNTER(&htim7,0);
 					  __HAL_TIM_CLEAR_FLAG(&htim7,TIM_FLAG_UPDATE);
 					  HAL_TIM_Base_Start(&htim7);
 					  while(1)
 					  {	
-						  if(bRxFrame)
+						  if(huart1.RxState!=HAL_UART_STATE_BUSY_RX)
 						  {
-							  UartRxProc();
-							  if(PCM_RxBuf[pCP1616_Master_CommandIndex]==3)
+							  while(HAL_UART_Receive_IT(&huart1,&huart1Rx,1)==HAL_OK);
+						  }
+						  if(CP1616_Client_Flags.Bits.bRx)
+						  {							  
+							  if(CP1616_Client_RxList[pCP1616_Client_CommandIndex]==3)
 							  {
-								  if(PCM_RxBuf[pCP1616_Master_DataIndex]==ADCDataSendCommand)
+								  if(CP1616_Client_RxList[pCP1616_Client_DataIndex]==CP1616_Client_TxList[pCP1616_Client_CommandIndex])
 								  {
-									  if(PCM_RxBuf[pCP1616_Master_DataIndex+1]==0)//收到数据确认
+									  if(CP1616_Client_RxList[pCP1616_Client_DataIndex+1]==0)//收到数据确认
 									  {
 										  bOk=1;
-										  break;
 									  }
-									  else if(PCM_RxBuf[pCP1616_Master_DataIndex+1]==1)//收到数据确认,并请求节点名单
+									  else if(CP1616_Client_RxList[pCP1616_Client_DataIndex+1]==1)//收到数据确认,并请求节点名单
 									  {
 										  bOk=1;
+										  CP1616_Client_EndProcCommand();
 										  Uart_SignInProc();
-										  break;
 									  }
-									  else if(PCM_RxBuf[pCP1616_Master_DataIndex+1]==2)//收到数据确认,并请求关闭网络
+									  else if(CP1616_Client_RxList[pCP1616_Client_DataIndex+1]==2)//收到数据确认,并请求关闭网络
 									  {
 										  NetWorkMode=Net_Stop;
 										  bOk=1;
-										  break;
+									  }		
+									  else if(CP1616_Client_RxList[pCP1616_Client_DataIndex+1]==3)//测量标定网络相互转换
+									  {
+										  bCalibrationNet=!bCalibrationNet;
+										  bOk=1;
 									  }
 								  }
-							  }							  
+								  CP1616_Client_EndProcCommand();
+								  break;
+							  }
+							  else
+							  {
+								  UartRxProc();
+							  }
 						  }			
 						  if(__HAL_TIM_GET_FLAG(&htim7,TIM_FLAG_UPDATE))//超时重试
 						  {
@@ -339,15 +313,25 @@ int main(void)
 						  break;
 				  }
 				  Uart_ClosedProc();
-				  HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
 				  break;
 			  }
 		  }
 	  }
 	  else//网络未启动，等待启动指令
 	  {
-		  if(bRxFrame)
-			UartRxProc();
+		  if(huart1.RxState!=HAL_UART_STATE_BUSY_RX)
+		  {
+			  while(HAL_UART_Receive_IT(&huart1,&huart1Rx,1)==HAL_OK);
+		  }
+		  if(CP1616_Client_Flags.Bits.bRx)
+		  {
+			  if(CP1616_Client_RxList[pCP1616_Client_CommandIndex]==3)
+			  {
+				  CP1616_Client_EndProcCommand();
+			  }
+			  else
+				UartRxProc();
+		  }
 	  }
     /* USER CODE END WHILE */
 

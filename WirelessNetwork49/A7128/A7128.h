@@ -34,6 +34,7 @@
 #define DataResendCommand 0x11 //请求重传采集数据，数据区长度为1，内容为请求重传的帧号
 #define ADCDataSendCommand 0x20 //无线节点数据上传，数据区长度字节意义转为数据帧号，数据区长度固定为60个字节
 #define ADCDataSendCommand_BAT 0x21 //无线节点最后一帧数据上传，帧号可由地址规律计算出，帧号区（数据区长度字节）为电池电量，数据区长度固定为60个字节
+#define ADCDataSendCommand_Calibration 0x22//用于标定的ADC数据
 //特殊指令
 #define SetIDCommand 0xf0 //设定节点ID
 #define SetCalibrationCommand 0xf1 //设定标定参数

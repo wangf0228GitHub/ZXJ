@@ -84,7 +84,7 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 				return;
 			}
 		}
-		if(SensorAddr==0)//未设定地址的
+		if(SensorAddr==0 || SensorAddr==101)//未设定地址的
 		{
 			A7128_SetRx();
 			return;
@@ -146,7 +146,9 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 			__HAL_TIM_SET_COUNTER(&htim7,0);
 			__HAL_TIM_CLEAR_IT(&htim7,TIM_IT_UPDATE);
 			HAL_TIM_Base_Start_IT(&htim7);
-			A7128_SetRx();
+			HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+			A7128_StrobeCmd(CMD_STBY);
+			//A7128_SetRx();
 			bCalibrationNet=A7128_RxFIFO[pDataIndex];
 			if(WF_CHECK_FLAG(htim2.Instance->CR1,TIM_CR1_CEN)==0)//开始采集数据,双通道
 			{
@@ -196,12 +198,24 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 			A7128_TxFIFO[pTargetIDIndex]=MasterAddr;
 			A7128_TxFIFO[pSourceIDIndex]=SensorAddr;		
 			A7128_TxFIFO[pCommandIndex]=SetCalibrationCommand;
-			A7128_TxFIFO[pLenIndex]=0;	//数据区长度
+			A7128_TxFIFO[pLenIndex]=24;	//数据区长度
 			for(i=0;i<4;i++)
 			{
-				Linear_k.u8[i]=A7128_TxFIFO[pDataIndex+i];
-				Linear_b.u8[i]=A7128_TxFIFO[pDataIndex+i+4];
-				SensorGain.u8[i]=A7128_TxFIFO[pDataIndex+i+8];
+				A7128_TxFIFO[pDataIndex+i]=Linear_k.u8[i];
+				A7128_TxFIFO[pDataIndex+i+4]=Linear_b.u8[i];
+				A7128_TxFIFO[pDataIndex+i+8]=SensorGain.u8[i];
+			}
+			for(i=0;i<4;i++)
+			{
+				Linear_k.u8[i]=A7128_RxFIFO[pDataIndex+i];
+				Linear_b.u8[i]=A7128_RxFIFO[pDataIndex+i+4];
+				SensorGain.u8[i]=A7128_RxFIFO[pDataIndex+i+8];
+			}
+			for(i=0;i<4;i++)
+			{
+				A7128_TxFIFO[pDataIndex+i+12]=Linear_k.u8[i];
+				A7128_TxFIFO[pDataIndex+i+16]=Linear_b.u8[i];
+				A7128_TxFIFO[pDataIndex+i+20]=SensorGain.u8[i];
 			}
 			wfEEPROM_WriteWord(4,Linear_k.u32);
 			wfEEPROM_WriteWord(8,Linear_b.u32);

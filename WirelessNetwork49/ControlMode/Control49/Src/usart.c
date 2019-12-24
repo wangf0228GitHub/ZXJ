@@ -23,41 +23,18 @@
 /* USER CODE BEGIN 0 */
 #include "..\wf\HardwareProfile.h"
 #include "..\wf\Variables.h"
-#include "..\..\..\..\..\WF_Device\CP1616_Master.h"
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-// 	uint8_t i;
-// 	xx++;
-// 	for(i=0;i<7;i++)
-// 	{
-// 		PCM_RxBuf[i]=xx;
-// 	}
-// 	HAL_UART_Transmit_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
-// 	RLED_Toggle();
-}
-void HAL_UART_TxHalfCpltCallback(UART_HandleTypeDef *huart)
-{
-	//huart->gState = HAL_UART_STATE_READY;
-	//RLED_Toggle();
-}
+#include "..\..\..\..\..\WF_Device\CP1616_Client.h"
+
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
- 	if((bRxFrame==0) || (PCM_RxBuf[0]==0x016 && PCM_RxBuf[1]==0x16 && PCM_RxBuf[PCM_RxFrameLen-1]==0x0d))
- 	{
-		bRxFrame=1;	 			
- 	}
-	else
-	{
- 		wfDelay_ms(1);
-  		HAL_UART_AbortReceive(&huart1);
-		HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);		
-	}	
+	CP1616_Client_ProcRx(huart1Rx);
+	while(HAL_UART_Receive_IT(&huart1,&huart1Rx,1)==HAL_OK);
 }
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *UartHandle)
 {
-	HAL_UART_AbortReceive(&huart1);
-	wfDelay_ms(1);
-	HAL_UART_Receive_DMA(&huart1,PCM_RxBuf,PCM_RxFrameLen);
+	huart1.RxState = HAL_UART_STATE_READY;
+	while(HAL_UART_Receive_IT(&huart1,&huart1Rx,1)==HAL_OK);
 }
 /* USER CODE END 0 */
 

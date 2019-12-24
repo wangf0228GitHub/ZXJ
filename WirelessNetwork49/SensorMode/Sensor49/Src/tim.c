@@ -33,7 +33,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		RLED_Toggle();
 		if(TimeIndex>=999)
 		{
-			TimeIndex=0;
+			TimeIndex=0;			
 			YLED_Toggle();
 			ADCData4TxEnd=ADCSaveIndex;
 			if(ADCData4TxEnd<ADCDataLen[SensorType])
@@ -45,18 +45,24 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			{
 				ADCData4TxStart=ADCData4TxEnd-ADCDataLen[SensorType];
 			}
-			if(SensorAddr!=1)//地址1无需先休眠
+			HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+			A7128_StrobeCmd(CMD_STBY);
+		}
+		else
+			TimeIndex++;		
+		
+		if(SensorAddr!=1)
+		{
+			if(TimeIndex==2)
 			{
 				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
 				A7128_StrobeCmd(CMD_SLEEP);
 			}
-		}
-		else
-			TimeIndex++;		
-		if(TimeIndex==758 && SensorAddr!=100)//异常处理前2ms，进入接收状态
-		{
-			A7128_SetRx();
-			NetWorkType=Net_RxData;	
+			else if(TimeIndex==TxStartTimeIndex-2)
+			{
+				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+				A7128_StrobeCmd(CMD_STBY);//为省电
+			}
 		}
 		/************************************************************************/
 		/*  根据时隙处理主机状态                                                */
@@ -95,11 +101,25 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 			HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
 			A7128_StrobeCmd(CMD_STBY);//为省电
-			if(SensorAddr==100)
+			if(SensorAddr>=98)
 			{
 				A7128_SetRx();
 				NetWorkType=Net_RxData;	
-			}	
+			}
+			else
+			{
+				A7128_StrobeCmd(CMD_SLEEP);
+			}
+		}
+		else if(TimeIndex==757 && SensorAddr<=97)//异常处理前3ms，进入接收状态
+		{
+			HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+			A7128_StrobeCmd(CMD_STBY);//为省电			
+		}
+		else if(TimeIndex==759 && SensorAddr!=100)
+		{
+			A7128_SetRx();
+			NetWorkType=Net_RxData;	
 		}
 	}
 	if(htim->Instance==TIM6)//10以上A7128未有动作，休眠

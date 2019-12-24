@@ -95,16 +95,14 @@ extern volatile uint32_t TimeIndex;
 extern volatile uint32_t gMEMDMA2;
 
 
-#define PCM_RxFrameLen 9
-extern uint8_t PCM_RxBuf[PCM_RxFrameLen];//16 16 cc 00 02 p1 p2 sum 0d 
-extern uint8_t PCM_TxBuf[50];//16 16 cc len len 
-extern uint8_t PCM_TxBuf_Ender[1];//0d
 
 extern uint32_t ADCDataLen;
+extern uint32_t ADCDataLen_Calibration;
 
 //extern volatile uint32_t bNetWoking;//网络是否启动
 extern volatile uint32_t bNewFrame;//新的一帧数据
 extern volatile uint32_t bNewADCData;//是否有新数据到达
-extern volatile uint32_t bRxFrame;
-extern volatile uint32_t waitConfirmCommand;
+
+extern uint8_t huart1Rx;
+//extern volatile uint32_t waitConfirmCommand;
 #endif

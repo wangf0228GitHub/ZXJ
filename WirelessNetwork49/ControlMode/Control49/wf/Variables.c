@@ -20,12 +20,14 @@ _SensorBAT SensorBAT;
 
 _SensorSignIn SensorSignIn;
 
-uint8_t PCM_RxBuf[PCM_RxFrameLen];
-uint8_t PCM_TxBuf[50];//16 16 cc len len 
-uint8_t PCM_TxBuf_Ender[1];//0d
+
+
+
 uint32_t ADCDataLen;
+uint32_t ADCDataLen_Calibration;
 //volatile uint32_t bNetWoking;//网络是否启动
 volatile uint32_t bNewFrame;//新的一帧数据
 volatile uint32_t bNewADCData;//是否有新数据到达
-volatile uint32_t bRxFrame;//是否有新数据到达
-volatile uint32_t waitConfirmCommand;
+
+uint8_t huart1Rx;
+//volatile uint32_t waitConfirmCommand;

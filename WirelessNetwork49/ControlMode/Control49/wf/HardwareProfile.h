@@ -21,8 +21,8 @@
 #define DMA4Copy hdma_memtomem_dma2_stream3
 #define DMA4Clear hdma_memtomem_dma1_stream2
 
-#define CP1616_Master_AddrLen 0
-#define CP1616_Master_DataBufLen 2
-#define CP1616_Master_TxProc(x,y)// Uart1_VerifySumAddTxByte(x)
-#define CP1616_Master_VerifyProc(x,y) 1
+#define CP1616_Client_AddrLen 0
+#define CP1616_Client_DataBufLen 2
+#define CP1616_Client_TxProc(x,y)// Uart1_VerifySumAddTxByte(x)
+#define CP1616_Client_VerifyProc(x,y) 1
 #endif

@@ -12,36 +12,39 @@ using WFNetLib.PacketProc;
 
 namespace 无线网络49上位机
 {
+    public delegate void UartRxProc(CP1616Packet rxPacket);
     public partial class formMain : Form
     {
         public formMain()
         {
             InitializeComponent();
         }
-        CP1616Packet RxPacket;
-        private void button1_Click(object sender, EventArgs e)
+        bool OpenUart()
         {
-            this.Uart.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(this.Uart_DataReceived);
             Uart.PortName = cbCom.Text;
+            RxPacket = new CP1616Packet();
             if (WFGlobal.OpenSerialPort(ref Uart) == false)
-                return;
-            CP1616Packet start = CP1616Packet.CP1616ComProc(ref Uart, 1, 0, (ushort)0);
-            if (start == null)
-            {
-                Uart.Close();
-                MessageBox.Show("与网络控制器通信失败");
-                return;
-            }
+                return false;
             Properties.Settings.Default.PortName = cbCom.Text;
             Properties.Settings.Default.Save();
-            RxPacket = new CP1616Packet();
-        }
+            
+            return true;
 
-        private void Uart_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        }        
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            if (!OpenUart())
+                return;
+            SetIDForm f = new SetIDForm(Uart);
+            uartRxProc = new UartRxProc(f.UartRxProc);
+            //this.Uart.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(f.Uart_DataReceived);
+            f.ShowDialog();
+            //this.Uart.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(f.Uart_DataReceived);
+            Uart.Close();
+            uartRxProc = null;
         }
-
+        CP1616Packet RxPacket;
+        UartRxProc uartRxProc;
         private void formMain_Load(object sender, EventArgs e)
         {
             string[] ports = SerialPort.GetPortNames();
@@ -85,6 +88,60 @@ namespace 无线网络49上位机
                     }
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (!OpenUart())
+                return;
+            Form1 f = new Form1(Uart);
+            uartRxProc = new UartRxProc(f.UartRxProc);
+            //this.Uart.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(f.Uart_DataReceived);
+            f.ShowDialog();
+            //this.Uart.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(f.Uart_DataReceived);
+            Uart.Close();
+            uartRxProc = null;
+        }
+
+        private void Uart_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            int irx;
+            byte rx;
+            while (true)
+            {
+                try
+                {
+                    irx = Uart.ReadByte();
+                }
+                catch
+                {
+                    return;
+                }
+                if (!Uart.IsOpen)
+                    return;
+                if (irx == -1)
+                    return;
+                rx = (byte)irx;
+                if (RxPacket.DataPacketed(rx))
+                {
+                    if(uartRxProc!=null)
+                        uartRxProc(RxPacket);
+                    RxPacket = new CP1616Packet();
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (!OpenUart())
+                return;
+            SetCalibrationForm f = new SetCalibrationForm(Uart);
+            uartRxProc = new UartRxProc(f.UartRxProc);
+            //this.Uart.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(f.Uart_DataReceived);
+            f.ShowDialog();
+            //this.Uart.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(f.Uart_DataReceived);
+            Uart.Close();
+            uartRxProc = null;
         }
     }
 }

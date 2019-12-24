@@ -7,7 +7,7 @@
     <Revision>3</Revision>
   </ToolchainVersion>
   <BspID>com.sysprogs.arm.stm32</BspID>
-  <BspVersion>4.7</BspVersion>
+  <BspVersion>2018.12R2</BspVersion>
   <McuID>STM32F407ZE</McuID>
   <MCUDefinitionFile>STM32F4xxxx/DeviceDefinitions/stm32f407xx.xml</MCUDefinitionFile>
   <MCUProperties>
@@ -61,7 +61,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\PCI_E.gpdsc</RelativePath>
-        <Timestamp>132187179559889970</Timestamp>
+        <Timestamp>132200793123826000</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -252,6 +252,17 @@
               </Files>
             </VirtualDirectorySnapshot>
             <VirtualDirectorySnapshot>
+              <Name>IWDG</Name>
+              <Files>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_iwdg.h</RelativePath>
+                </VirtualFileSnapshot>
+                <VirtualFileSnapshot>
+                  <RelativePath>..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_iwdg.c</RelativePath>
+                </VirtualFileSnapshot>
+              </Files>
+            </VirtualDirectorySnapshot>
+            <VirtualDirectorySnapshot>
               <Name>RCC</Name>
               <Files>
                 <VirtualFileSnapshot>
@@ -328,6 +339,9 @@
           <RelativePath>..\Inc\fsmc.h</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
+          <RelativePath>..\Inc\iwdg.h</RelativePath>
+        </VirtualFileSnapshot>
+        <VirtualFileSnapshot>
           <RelativePath>..\Inc\spi.h</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
@@ -350,6 +364,9 @@
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
           <RelativePath>..\Src\fsmc.c</RelativePath>
+        </VirtualFileSnapshot>
+        <VirtualFileSnapshot>
+          <RelativePath>..\Src\iwdg.c</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
           <RelativePath>..\Src\spi.c</RelativePath>

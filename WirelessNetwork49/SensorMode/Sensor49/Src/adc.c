@@ -42,8 +42,12 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 	if(bCalibrationNet)//标定时直接传输ad数据
 	{
 		ADCData4[ADCSaveIndex++]=ADCData4DMA.u8[0];
-		ADCData4[ADCSaveIndex++]=MAKE_BYTE(ADCData4DMA.u8[5],ADCData4DMA.u8[1]);
-		ADCData4[ADCSaveIndex++]=ADCData4DMA.u8[4];
+		
+		fx1=Linear_k.f*ADCData4DMA.u16[0]+Linear_b.f;
+		fx1=fx1*SensorGain.f;
+		x1=(uint16_t)fx1;
+		ADCData4[ADCSaveIndex++]=MAKE_BYTE(HIGH_BYTE(x1),ADCData4DMA.u8[1]);
+		ADCData4[ADCSaveIndex++]=LOW_BYTE(x1);
 	}
 	else//利用系数计算当前物理量
 	{

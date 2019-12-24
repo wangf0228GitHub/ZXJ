@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using WFNetLib.PacketProc;
 
 namespace 无线网络49上位机
 {
@@ -15,6 +16,13 @@ namespace 无线网络49上位机
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            CP1616PacketHead.Addr_SIZE = 0;
+            CP1616PacketHead.DataLen_SIZE = 2;
+            CP1616PacketHead.bCheckVerify = false;
+            CP1616PacketHead.bIsDebugOut = true;
+            CP1616PacketHead.CalcHeaderLen();
+
             Application.Run(new formMain());
         }
     }

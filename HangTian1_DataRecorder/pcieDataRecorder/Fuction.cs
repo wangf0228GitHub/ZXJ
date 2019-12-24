@@ -13,7 +13,7 @@ namespace pcieDataRecorder
         {
             for (uint i = 0; i < len; i += 3)
             {
-                int adc = BytesOP.MakeShort(data[i + 1], data[i + 2]);
+                int adc = BytesOP.MakeShort(data[i + 2], data[i + 1]);
                 switch (data[i])
                 {
                     case 0xa0:
@@ -86,98 +86,100 @@ namespace pcieDataRecorder
                 switch (data[i])
                 {
                     case 0xb8:
-                        e1.B8 = StringsFunction.byteToHexStr(data,(int)(i+1),9,"");
-                        i = i + 1 + 9;
+                        e1.B8 = StringsFunction.byteToHexStr(data,(int)(i+1),8,"");
+                        i = i + 1 + 8;
                         break;
                     case 0xb9:
-                        e1.B9 = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
-                        i = i + 1 + 9;
+                        e1.B9 = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        i = i + 1 + 8;
                         break;
                     case 0xba:
-                        e1.BA = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
-                        i = i + 1 + 9;
+                        e1.BA = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        i = i + 1 + 8;
                         break;
                     case 0xbb:
-                        e1.BB = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
-                        i = i + 1 + 9;
+                        e1.BB = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        i = i + 1 + 8;
                         break;
 
                     case 0xbc:
-                        e1.BC = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
-                        i = i + 1 + 8;
+                        e1.BC = StringsFunction.byteToHexStr(data, (int)(i + 1), 7, "");
+                        i = i + 1 + 7;
                         break;
                     case 0xbd:
-                        e1.BD = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
-                        i = i + 1 + 8;
+                        e1.BD = StringsFunction.byteToHexStr(data, (int)(i + 1), 7, "");
+                        i = i + 1 + 7;
                         break;
                     case 0xbe:
-                        e1.BE = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
-                        i = i + 1 + 8;
+                        e1.BE = StringsFunction.byteToHexStr(data, (int)(i + 1), 7, "");
+                        i = i + 1 + 7;
                         break;
                     case 0xbf:
-                        e1.BF = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
-                        i = i + 1 + 8;
+                        e1.BF = StringsFunction.byteToHexStr(data, (int)(i + 1), 7, "");
+                        i = i + 1 + 7;
                         break;
 
                     case 0xc0:
-                        e1.C0 = StringsFunction.byteToHexStr(data, (int)(i + 1), 5, "");
-                        i = i + 1 + 5;
+                        e1.C0 = StringsFunction.byteToHexStr(data, (int)(i + 1), 4, "");
+                        i = i + 1 + 4;
                         break;
                     case 0xc1:
-                        e1.C1 = StringsFunction.byteToHexStr(data, (int)(i + 1), 5, "");
-                        i = i + 1 + 5;
+                        e1.C1 = StringsFunction.byteToHexStr(data, (int)(i + 1), 4, "");
+                        i = i + 1 + 4;
                         break;
                     case 0xc2:
-                        e1.C2 = StringsFunction.byteToHexStr(data, (int)(i + 1), 5, "");
-                        i = i + 1 + 5;
+                        e1.C2 = StringsFunction.byteToHexStr(data, (int)(i + 1), 4, "");
+                        i = i + 1 + 4;
                         break;
                     case 0xc3:
-                        e1.C3 = StringsFunction.byteToHexStr(data, (int)(i + 1), 5, "");
-                        i = i + 1 + 5;
+                        e1.C3 = StringsFunction.byteToHexStr(data, (int)(i + 1), 4, "");
+                        i = i + 1 + 4;
                         break;
 
                     case 0xc4:
-                        e1.C4 = StringsFunction.byteToHexStr(data, (int)(i + 1), 2, "");
-                        i = i + 1 + 2;
+                        e1.C4 = StringsFunction.byteToHexStr(data, (int)(i + 1), 1, "");
+                        i = i + 1 + 1;
                         break;
                     case 0xc5:
-                        e1.C5 = StringsFunction.byteToHexStr(data, (int)(i + 1), 2, "");
-                        i = i + 1 + 2;
+                        e1.C5 = StringsFunction.byteToHexStr(data, (int)(i + 1), 1, "");
+                        i = i + 1 + 1;
                         break;
                     case 0xc6:
-                        e1.C6 = StringsFunction.byteToHexStr(data, (int)(i + 1), 2, "");
-                        i = i + 1 + 2;
+                        e1.C6 = StringsFunction.byteToHexStr(data, (int)(i + 1), 1, "");
+                        i = i + 1 + 1;
                         break;
                     case 0xc7:
-                        e1.C7 = StringsFunction.byteToHexStr(data, (int)(i + 1), 2, "");
-                        i = i + 1 + 2;
+                        e1.C7 = StringsFunction.byteToHexStr(data, (int)(i + 1), 1, "");
+                        i = i + 1 + 1;
                         break;
 
                     case 0xc8:
-                        e1.C8 = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
-                        i = i + 1 + 9;
+                        e1.C8 = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        i = i + 1 + 8;
                         break;
                     case 0xc9:
-                        e1.C9 = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
-                        i = i + 1 + 9;
+                        e1.C9 = StringsFunction.byteToHexStr(data, (int)(i + 1), 8, "");
+                        i = i + 1 + 8;
                         break;
                     case 0xca:
-                        e1.CA = StringsFunction.byteToHexStr(data, (int)(i + 1), 10, "");
-                        i = i + 1 + 10;
+                        e1.CA = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
+                        i = i + 1 + 9;
                         break;
                     case 0xcb:
-                        e1.CB = StringsFunction.byteToHexStr(data, (int)(i + 1), 10, "");
-                        i = i + 1 + 10;
+                        e1.CB = StringsFunction.byteToHexStr(data, (int)(i + 1), 9, "");
+                        i = i + 1 + 9;
                         break;
 
                     case 0xcc:
-                        e1.CC = StringsFunction.byteToHexStr(data, (int)(i + 1), 3, "");
-                        i = i + 1 + 3;
+                        e1.CC = StringsFunction.byteToHexStr(data, (int)(i + 1), 2, "");
+                        i = i + 1 + 2;
                         break;
                     case 0xcd:
-                        e1.CD = StringsFunction.byteToHexStr(data, (int)(i + 1), 3, "");
-                        i = i + 1 + 3;
+                        e1.CD = StringsFunction.byteToHexStr(data, (int)(i + 1), 2, "");
+                        i = i + 1 + 2;
                         break;
+                    default:
+                        return;
                 }
             }
         }

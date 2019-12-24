@@ -33,7 +33,7 @@ namespace pcieDataRecorder
 			//IntPtr pCH368 = CH368.CH367mOpenDevice(0, FALSE, TRUE, 0x00);
 			//MessageBox.Show(pCH368.ToString());
             //MeasureE0DataDBOption e0 = new MeasureE0DataDBOption();
-            //MeasureE0DataDBOption.Insert(new MeasureE0Data());
+            //MeasureE0DataDBOption.Insert(new MeasureE0Data());            
             this.Enabled = false;
             startTimer.Enabled = true;
 		}
@@ -66,8 +66,15 @@ namespace pcieDataRecorder
             {
                 this.Invoke((EventHandler)(delegate 
                 {
-					textBox1.AppendText(DateTime.Now.ToString() + ":");
-                    textBox1.AppendText(StringsFunction.byteToHexStr(readHeaderList, 0, 7, " ")); 
+                    try
+                    {
+                        textBox1.AppendText(DateTime.Now.ToString() + ":");
+                        textBox1.AppendText(StringsFunction.byteToHexStr(readHeaderList, 0, 7, " ")); 
+                    }
+                    catch 
+                    {
+                    	
+                    }					
                 }));
                 //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, 7, " "));
             }
@@ -75,7 +82,7 @@ namespace pcieDataRecorder
             if (readHeaderList[0] == 0xfa && readHeaderList[1] == 0xf3 && readHeaderList[2] == 0x30)
             {
                 //Debug.WriteLine(StringsFunction.byteToHexStr(readList, 0, 7, " "));
-                uint readDataLen = BytesOP.MakeShort(readHeaderList[5], readHeaderList[6]);
+                uint readDataLen = readHeaderList[6];// BytesOP.MakeShort(readHeaderList[5], readHeaderList[6]);
                 if (CH368.CH367mAccessBlock(CH368Index, CH368.mFuncReadMemByte, mMemAddr + 7, readDataList, readDataLen) == 0)
                 {
                     MessageBox.Show("3");
@@ -83,10 +90,18 @@ namespace pcieDataRecorder
                 }                
                 if (bLog)
                 {
-                    this.Invoke((EventHandler)(delegate
-                    {						
-                        textBox1.AppendText(StringsFunction.byteToHexStr(readDataList, 0, (int)readDataLen, " "));
-                    }));
+                    string str = StringsFunction.byteToHexStr(readDataList, 0, (int)readDataLen, " ");
+                    try
+			        {
+                        this.Invoke((EventHandler)(delegate
+                        {                            
+			                textBox1.AppendText(str);  
+                        }));
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 if (readHeaderList[3] == 0xe0 || readHeaderList[3] == 0xe2)
                 {
@@ -110,9 +125,17 @@ namespace pcieDataRecorder
             {                
                 this.Invoke((EventHandler)(delegate
                 {
-					textBox1.AppendText("\r\n");
-// 					bLog = false;
-//                     timerLog.Enabled = true;
+                    try
+                    {
+//                         bLog = false;
+//                         timerLog.Enabled = true;
+                        textBox1.AppendText("\r\n");                        
+                    }
+                    catch
+                    {
+                    	
+                    }
+					
                 }));
             }
             //拉高片选 
@@ -200,6 +223,9 @@ namespace pcieDataRecorder
         private void startTimer_Tick(object sender, EventArgs e)
         {
             startTimer.Enabled = false;
+            wp = new WaitingProc();
+            WaitingProcFunc wpf1 = new WaitingProcFunc(WaitingSQL);
+            wp.Execute(wpf1, "等待数据库启动", WaitingType.None, "");
             pCH368 = CH368.CH367mOpenDevice(CH368Index, TRUE, TRUE, 0x00);
 			if (pCH368 == (IntPtr)(-1))
 			{
@@ -214,7 +240,7 @@ namespace pcieDataRecorder
 					this.Enabled=true;
 				}));
 				InitPCIE();
-			}
+			}            
         }
         void WaitingPCIE(object LockWatingThread)
         {
@@ -244,7 +270,26 @@ namespace pcieDataRecorder
                 }
             }
         }
-
+        void WaitingSQL(object LockWatingThread)
+        {
+            while (true)
+            {
+                try
+                {
+                    MeasureE0DataDBOption.Get(1);
+                }
+                catch (System.Exception ex)
+                {
+                    Thread.Sleep(1000); 
+                    lock (LockWatingThread)
+                    {                            
+                        wp.SetProcessBarPerformStep();
+                    }
+                    continue;
+                }
+                break;
+            }
+        }
         private void timerLog_Tick(object sender, EventArgs e)
         {
             timerLog.Enabled = false;
