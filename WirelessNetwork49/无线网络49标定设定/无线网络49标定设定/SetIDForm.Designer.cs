@@ -56,7 +56,7 @@
             this.button1.Location = new System.Drawing.Point(155, 331);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(158, 57);
-            this.button1.TabIndex = 1;
+            this.button1.TabIndex = 2;
             this.button1.Text = "设定";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -68,7 +68,7 @@
             this.button2.Location = new System.Drawing.Point(423, 331);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(158, 57);
-            this.button2.TabIndex = 1;
+            this.button2.TabIndex = 3;
             this.button2.Text = "退出";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -84,7 +84,7 @@
             0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 68);
-            this.numericUpDown1.TabIndex = 2;
+            this.numericUpDown1.TabIndex = 1;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown1.Value = new decimal(new int[] {
             1,
@@ -114,7 +114,7 @@
             0});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(120, 68);
-            this.numericUpDown2.TabIndex = 4;
+            this.numericUpDown2.TabIndex = 0;
             this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown2.Value = new decimal(new int[] {
             101,

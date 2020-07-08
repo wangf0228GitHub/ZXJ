@@ -47,6 +47,7 @@ extern _EEData Linear_b;
 extern _EEData SensorGain;
 extern volatile uint32_t TimeIndex;
 
+extern uint32_t bAbnormal;
 
 extern volatile uint32_t ADCSaveIndex;
 extern volatile uint8_t ADCData4[7680+7680];

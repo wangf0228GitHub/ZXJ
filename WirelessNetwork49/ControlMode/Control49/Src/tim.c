@@ -29,7 +29,7 @@
 #include "..\wf\Function.h"
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	uint32_t addr,fIndex;
+	uint32_t addr,fIndex,i;
 	uint32_t x;
 	if(htim->Instance==TIM13)//发送同步指令，用于调节同步时隙时间偏移
 	{
@@ -96,8 +96,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			__HAL_TIM_CLEAR_IT(&htim13,TIM_IT_UPDATE);
 			HAL_TIM_Base_Start_IT(&htim13);			
 		}
-		else if(TimeIndex>=760)//7600~997为异常处理时隙
-		{			
+		else//异常处理
+		{
 			if(NetWorkMode==Net_Stop)//要求停止网络，则发送停止网络指令
 			{
 				if(bNewADCData==0)//网络停止成功
@@ -116,46 +116,64 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 					A7128_WriteFIFO_DMA();
 				}
 			}
-			else
+			else//先生成异常名单，再交互获得数据
 			{
-				if(GetBit(TimeIndex,0)==0)//偶数时隙发送问答请求
-				{
-					/************************************************************************/
-					/*  开始异常处理时隙,2个时隙一组，问答方式                              */
-					/************************************************************************/
-					for(addr=0;addr<90;addr++)
+				if(TimeIndex>=768)//768~997为异常处理时隙
+				{			
+					if(GetBit(TimeIndex,0)==0)//偶数时隙发送问答请求
 					{
-						if(SensorSignIn.L[addr]!=0 && ADCDataTag.L[addr]==0)
+						/************************************************************************/
+						/*  开始异常处理时隙,2个时隙一组，问答方式                              */
+						/************************************************************************/
+						if(AbnormalFrameErr>5)
 						{
-							NetAbnormalTxProc(addr+11,0);
-							return;
+							AbnormalFrameIndex++;
+							AbnormalFrameErr=0;
 						}
-					}
-					for(addr=0;addr<6;addr++)
-					{
-						for(fIndex=0;fIndex<8;fIndex++)
+						if(AbnormalFrameIndex>=AbnormalFrameCount)
 						{
-							if(SensorSignIn.M[addr]!=0 && ADCDataTag.M[addr][fIndex]==0)
-							{
-								NetAbnormalTxProc(addr+5,fIndex);
-								return;
-							}					
+							AbnormalFrameIndex=0;
 						}
-					}
-					for(addr=0;addr<4;addr++)
-					{
-						for(fIndex=0;fIndex<128;fIndex++)
+						for(i=AbnormalFrameIndex;i<AbnormalFrameCount;i++)
 						{
-							if(SensorSignIn.H[addr]!=0 && ADCDataTag.H[addr][fIndex]==0)
+							if(AbnormalFrameList[i].addr!=0)
 							{
-								NetAbnormalTxProc(addr+1,fIndex);
+								AbnormalFrameErr++;
+								NetAbnormalTxProc(AbnormalFrameList[i].addr,AbnormalFrameList[i].fIndex);
 								return;
 							}
 						}
-					}
+						for(i=0;i<AbnormalFrameIndex;i++)
+						{
+							if(AbnormalFrameList[i].addr!=0)
+							{
+								AbnormalFrameErr++;
+								NetAbnormalTxProc(AbnormalFrameList[i].addr,AbnormalFrameList[i].fIndex);
+								return;
+							}
+						}						
+					}		
 				}
-			}			
-		}
+				else if(TimeIndex>760)
+				{
+					A7128Work=A7128Work_OnlyTx;
+					A7128_TxFIFO[pTargetIDIndex]=BroadcastAddr;
+					A7128_TxFIFO[pSourceIDIndex]=MasterAddr;		
+					A7128_TxFIFO[pCommandIndex]=AbnormalAddrListCommand;
+					A7128_TxFIFO[pLenIndex]=AbnormalAddrCount;	
+					if(AbnormalAddrCount!=0)
+						A7128_WriteFIFO_DMA_ADC(AbnormalAddr);
+					else
+						A7128_WriteFIFO_DMA();
+				}
+				else if(TimeIndex==760)//生成异常处理名单
+				{
+					HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+					A7128_StrobeCmd(CMD_PLL);//为获得固定延时，约428us
+					MakeAbnormalFrameList();		
+				}
+			}
+		}		
 	}	
 }
 //定时器13，用于调节同步时隙时间偏移
@@ -318,3 +336,35 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/*
+for(addr=0;addr<90;addr++)
+{
+if(SensorSignIn.L[addr]!=0 && ADCDataTag.L[addr]==0)
+{
+NetAbnormalTxProc(addr+11,0);
+return;
+}
+}
+for(addr=0;addr<6;addr++)
+{
+for(fIndex=0;fIndex<8;fIndex++)
+{
+if(SensorSignIn.M[addr]!=0 && ADCDataTag.M[addr][fIndex]==0)
+{
+NetAbnormalTxProc(addr+5,fIndex);
+return;
+}					
+}
+}
+for(addr=0;addr<4;addr++)
+{
+for(fIndex=0;fIndex<128;fIndex++)
+{
+if(SensorSignIn.H[addr]!=0 && ADCDataTag.H[addr][fIndex]==0)
+{
+NetAbnormalTxProc(addr+1,fIndex);
+return;
+}
+}
+}
+*/

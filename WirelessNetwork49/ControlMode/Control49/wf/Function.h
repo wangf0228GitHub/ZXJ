@@ -15,4 +15,5 @@ uint32_t Uart_SignInProc(void);
 void Uart_ClosedProc(void);
 uint32_t Networking_GetCalibration(void);
 uint32_t Networking_SetCalibration(void);
+void MakeAbnormalFrameList(void);
 #endif

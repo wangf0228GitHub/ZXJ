@@ -48,6 +48,12 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 	if(hspi->Instance==A7128SPI.Instance)
 	{
 		A7128_SCS_High();
+		if(A7128Work==A7128Work_AbnormalRx)
+		{
+			AbnormalFrameList[AbnormalFrameIndex].addr=0;
+			AbnormalFrameErr=0;
+			AbnormalFrameIndex++;
+		}
 		if(A7128Work==A7128Work_AbnormalRx || A7128Work==A7128Work_RxADCData)
 		{
 			if(A7128_RxFIFO[pCommandIndex]==ADCDataSendCommand)

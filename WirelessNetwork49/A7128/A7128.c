@@ -304,11 +304,8 @@ void A7128_WriteFIFO_DMA_ADC(uint8_t* pBuf)
 	A7128_StrobeCmd(CMD_TFR);
 	A7128_TxFIFO[0]=FIFO_REG;
 	A7128_SCS_Low();
-	HAL_SPI_Transmit(&A7128SPI,(uint8_t*)A7128_TxFIFO,5,1);
+	HAL_SPI_Transmit(&A7128SPI,(uint8_t*)A7128_TxFIFO,5,1000);
 	HAL_SPI_Transmit_DMA(&A7128SPI,pBuf,60);
-	//while(A7128_SCS_Read()==GPIO_PIN_RESET);
-	// 	HAL_SPI_Transmit(&A7128SPI,A7128_TxFIFO,65,1000);
-	// 	A7128_SCS_High();
 }
 void A7128_TxData_byFIFO(void)
 {

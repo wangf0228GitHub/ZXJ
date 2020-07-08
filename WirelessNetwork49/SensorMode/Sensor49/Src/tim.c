@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -33,6 +33,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		RLED_Toggle();
 		if(TimeIndex>=999)
 		{
+			bAbnormal=0;
 			TimeIndex=0;			
 			YLED_Toggle();
 			ADCData4TxEnd=ADCSaveIndex;
@@ -47,18 +48,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			}
 			HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
 			A7128_StrobeCmd(CMD_STBY);
+			if(SensorAddr!=1)
+			{
+				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+				A7128_StrobeCmd(CMD_SLEEP);
+			}
 		}
 		else
 			TimeIndex++;		
 		
 		if(SensorAddr!=1)
 		{
-			if(TimeIndex==2)
-			{
-				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
-				A7128_StrobeCmd(CMD_SLEEP);
-			}
-			else if(TimeIndex==TxStartTimeIndex-2)
+// 			if(TimeIndex==1)
+// 			{
+// 				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+// 				A7128_StrobeCmd(CMD_SLEEP);
+// 			}
+			if(TimeIndex==TxStartTimeIndex-2)
 			{
 				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
 				A7128_StrobeCmd(CMD_STBY);//为省电
@@ -121,6 +127,19 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			A7128_SetRx();
 			NetWorkType=Net_RxData;	
 		}
+		if(bAbnormal==0)
+		{
+			if(TimeIndex==980)
+			{
+				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+				A7128_StrobeCmd(CMD_STBY);//为省电	
+			}
+			else if(TimeIndex==985)
+			{
+				A7128_SetRx();
+				NetWorkType=Net_RxData;
+			}
+		}
 	}
 	if(htim->Instance==TIM6)//10以上A7128未有动作，休眠
 	{
@@ -144,9 +163,9 @@ void MX_TIM2_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 3;//0;
+  htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 31249;//6249;
+  htim2.Init.Period = 6249;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)

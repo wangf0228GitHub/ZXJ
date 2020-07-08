@@ -24,7 +24,6 @@
 #include "dma.h"
 #include "spi.h"
 #include "tim.h"
-#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -132,9 +131,9 @@ int main(void)
   else
   {
 	  SensorAddr=101;
-	  Linear_k.u32=1;
-	  Linear_b.u32=0;
-	  SensorGain.u32=1;
+	  Linear_k.f=1;
+	  Linear_b.f=0;
+	  SensorGain.f=1;
 	  SensorIDData.u16[0]=0x6677;
 	  SensorIDData.u8[2]=101;
 	  wfEEPROM_WriteWord(0,SensorIDData.u32);
@@ -154,7 +153,6 @@ int main(void)
   MX_TIM7_Init();
   MX_TIM2_Init();
   MX_TIM6_Init();
-  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   wfDelay_init(32);
   HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
@@ -166,7 +164,9 @@ int main(void)
   ADCSaveIndex=0;
   YLED_OFF();
   RLED_OFF();  
-  
+  ENBAT_Disable();
+//   EN_ADD_3P3_Disable();
+//   EN_ADD_1P25_Disable();
   htim2.Instance->PSC = tim2Prescaler[SensorType];//0;
   htim2.Instance->ARR = tim2Period[SensorType];//6249;
   /************************************************************************/
@@ -276,9 +276,9 @@ int main(void)
   /************************************************************************/
   /*                                                                      */
   /************************************************************************/
-    __HAL_TIM_SET_COUNTER(&htim6,0);
-    __HAL_TIM_CLEAR_IT(&htim6,TIM_IT_UPDATE);
-    HAL_TIM_Base_Start_IT(&htim6); 
+     __HAL_TIM_SET_COUNTER(&htim6,0);
+     __HAL_TIM_CLEAR_IT(&htim6,TIM_IT_UPDATE);
+     HAL_TIM_Base_Start_IT(&htim6); 
 
   A7128_SetRx();
   NetWorkType=Net_RxData;
@@ -306,7 +306,6 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Configure the main internal regulator output voltage 
   */
@@ -333,12 +332,6 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
-  PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
   }

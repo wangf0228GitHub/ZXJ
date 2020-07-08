@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>无线网络49上位机</RootNamespace>
-    <AssemblyName>无线网络49上位机</AssemblyName>
+    <AssemblyName>无线网络49标定设定</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

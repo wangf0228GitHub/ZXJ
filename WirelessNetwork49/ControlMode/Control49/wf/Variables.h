@@ -77,7 +77,21 @@ typedef union
 }_SensorBAT;
 extern _SensorBAT SensorBAT;
 
-
+typedef union
+{	
+	struct
+	{
+		uint8_t addr;
+		uint8_t fIndex;		
+	};
+	uint32_t all;
+}_AbnormalFrame;
+extern _AbnormalFrame AbnormalFrameList[115];
+extern uint32_t AbnormalFrameCount;
+extern uint32_t AbnormalFrameIndex;
+extern uint32_t AbnormalAddrCount;
+extern uint32_t AbnormalFrameErr;
+extern uint8_t AbnormalAddr[60];
 typedef union
 {	
 	struct

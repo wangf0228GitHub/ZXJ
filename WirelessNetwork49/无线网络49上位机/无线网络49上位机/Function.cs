@@ -58,7 +58,7 @@ namespace 无线网络49上位机
         {
             int liIndex = 0;
             int dataIndex = 0;
-            bool bLog = false;
+/*            bool bLog = false;*/
             this.Invoke((EventHandler)(delegate
             {
                 textBox1.AppendText(DateTime.Now.ToString("HH:mm:ss:ffff") + ":收到传感器数据\r\n");//WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, " ")\
@@ -83,17 +83,17 @@ namespace 无线网络49上位机
                             ad2 = BytesOP.MakeShort(BytesOP.GetHighNibble(adad[1]), adad[2]);
                             chart1.Series[0].Points.AddY(ad1);
                             chart1.Series[0].Points.AddY(ad2);
-                            if (ad1 == 0 && ad2 == 0)
-                                bLog = true;
+                            //if (ad1 == 0 && ad2 == 0)
+                            //    bLog = true;
 //                             chart1.Series[0].Points.AddY(Calc.GetSensorType0(k, ad1));
 //                             chart1.Series[0].Points.AddY(Calc.GetSensorType0(k, ad2));
                         }
-                        if (bLog)
-                        {
-                            WFNetLib.Log.TextLog.AddTextLog("无线节点："+(k+1).ToString()+"\r\n",true);
-                            WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex,7681," "));
-                            bLog = false;
-                        }
+//                         if (bLog)
+//                         {
+//                             WFNetLib.Log.TextLog.AddTextLog("无线节点："+(k+1).ToString()+"\r\n",true);
+//                             WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex,7681," "));
+//                             bLog = false;
+//                         }
                         //li.SubItems[1].Text = Calc.GetSensorType0(k, ad2).ToString("F02");
                         li.SubItems[1].Text = ad2.ToString();
                         liIndex++;
@@ -126,17 +126,17 @@ namespace 无线网络49上位机
 
                             chart2.Series[0].Points.AddY(ad1);
                             chart2.Series[0].Points.AddY(ad2);
-                            if (ad1 == 0 && ad2 == 0)
-                                bLog = true;
+                            //if (ad1 == 0 && ad2 == 0)
+                            //    bLog = true;
 //                             chart2.Series[0].Points.AddY(Calc.GetSensorType1(k, ad1));
 //                             chart2.Series[0].Points.AddY(Calc.GetSensorType1(k, ad2));
                         }
-                        if (bLog)
-                        {
-                            WFNetLib.Log.TextLog.AddTextLog("无线节点：" + (k + 5).ToString() + "\r\n", true);
-                            WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex, 481, " "));
-                            bLog = false;
-                        }
+//                         if (bLog)
+//                         {
+//                             WFNetLib.Log.TextLog.AddTextLog("无线节点：" + (k + 5).ToString() + "\r\n", true);
+//                             WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex, 481, " "));
+//                             bLog = false;
+//                         }
                         //li.SubItems[1].Text = Calc.GetSensorType1(k, ad2).ToString("F02");
                         li.SubItems[1].Text = ad2.ToString();
                         liIndex++;
@@ -187,15 +187,15 @@ namespace 无线网络49上位机
                                 chart4.Series[k-4].Points.AddY(ad1);
                                 chart4.Series[k-4].Points.AddY(ad2);
                             }
-                            if (ad1 == 0 && ad2 == 0)
-                                bLog = true;
+                            //if (ad1 == 0 && ad2 == 0)
+                            //    bLog = true;
                         }
-                        if (bLog)
-                        {
-                            WFNetLib.Log.TextLog.AddTextLog("无线节点：" + (k + 11).ToString() + "\r\n", true);
-                            WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex, 61, " "));
-                            bLog = false;
-                        }
+//                         if (bLog)
+//                         {
+//                             WFNetLib.Log.TextLog.AddTextLog("无线节点：" + (k + 11).ToString() + "\r\n", true);
+//                             WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex, 61, " "));
+//                             bLog = false;
+//                         }
                         li.SubItems[1].Text = ad2.ToString();
                         liIndex++;
                         dataIndex = dataIndex + 61;

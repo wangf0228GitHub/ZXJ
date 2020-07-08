@@ -19,6 +19,72 @@ void A7128_SetRx(void)
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	A7128_StrobeCmd(CMD_RX);
 }
+void MakeAbnormalFrameList(void)
+{
+	uint32_t addr,fIndex;
+	uint32_t bAbnormalAddr;
+	AbnormalFrameCount=0;
+	AbnormalFrameIndex=0;
+	AbnormalAddrCount=0;
+	for(addr=0;addr<90;addr++)
+	{
+		if(SensorSignIn.L[addr]!=0 && ADCDataTag.L[addr]==0)
+		{
+			if(AbnormalAddrCount<60)
+			{
+				AbnormalAddr[AbnormalAddrCount++]=addr+11;
+			}
+			if(AbnormalFrameCount<115)
+			{
+				AbnormalFrameList[AbnormalFrameCount].addr=addr+11;
+				AbnormalFrameList[AbnormalFrameCount].fIndex=0;
+				AbnormalFrameCount++;
+			}
+		}
+	}
+	for(addr=0;addr<6;addr++)
+	{
+		bAbnormalAddr=0;
+		for(fIndex=0;fIndex<8;fIndex++)
+		{
+			if(SensorSignIn.M[addr]!=0 && ADCDataTag.M[addr][fIndex]==0)
+			{				
+				bAbnormalAddr=1;
+				if(AbnormalFrameCount<115)
+				{
+					AbnormalFrameList[AbnormalFrameCount].addr=addr+5;
+					AbnormalFrameList[AbnormalFrameCount].fIndex=fIndex;
+					AbnormalFrameCount++;
+				}
+			}					
+		}
+		if(AbnormalAddrCount<60 && bAbnormalAddr!=0)
+		{
+			AbnormalAddr[AbnormalAddrCount++]=addr+5;
+		}
+	}
+	for(addr=0;addr<4;addr++)
+	{
+		bAbnormalAddr=0;
+		for(fIndex=0;fIndex<128;fIndex++)
+		{
+			if(SensorSignIn.H[addr]!=0 && ADCDataTag.H[addr][fIndex]==0)
+			{
+				bAbnormalAddr=1;
+				if(AbnormalFrameCount<115)
+				{
+					AbnormalFrameList[AbnormalFrameCount].addr=addr+1;
+					AbnormalFrameList[AbnormalFrameCount].fIndex=fIndex;
+					AbnormalFrameCount++;
+				}
+			}
+		}
+		if(AbnormalAddrCount<60 && bAbnormalAddr!=0)
+		{
+			AbnormalAddr[AbnormalAddrCount++]=addr+1;
+		}
+	}
+}
 void NetAbnormalTxProc(uint32_t addr,uint32_t fIndex)
 {
 	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
@@ -321,7 +387,7 @@ void UartRxProc(void)
 /************************************************************************/
 void Networking_WakeUp(uint32_t x5)
 {
-	uint32_t i;;
+	uint32_t i;
 	htim7.Instance->ARR = 20000-1;//4s//50000-1;//10s;
 	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
 	A7128_StrobeCmd(CMD_PLL);//为获得固定延时，约428us

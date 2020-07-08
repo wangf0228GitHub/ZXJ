@@ -42,11 +42,14 @@ void A7128_SetRx(void)
 void MCUSleep(void)
 {
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	
+	ENBAT_Disable();
+// 	EN_ADD_3P3_Disable();
+// 	EN_ADD_1P25_Disable();
+
 	HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
-	HAL_TIM_Base_Stop_IT(&htim7);
-	A7128_StrobeCmd(CMD_STBY);
-	A7128_WOREnable();
+ 	HAL_TIM_Base_Stop_IT(&htim7);
+ 	A7128_StrobeCmd(CMD_STBY);
+ 	A7128_WOREnable();
 	
 	GPIO_InitStruct.Pin = A7128_GIO1_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;

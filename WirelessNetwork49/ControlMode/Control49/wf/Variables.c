@@ -20,7 +20,12 @@ _SensorBAT SensorBAT;
 
 _SensorSignIn SensorSignIn;
 
-
+uint32_t AbnormalFrameErr;
+uint32_t AbnormalFrameCount;
+uint32_t AbnormalFrameIndex;
+_AbnormalFrame AbnormalFrameList[115];
+uint32_t AbnormalAddrCount;
+uint8_t AbnormalAddr[60];
 
 
 uint32_t ADCDataLen;

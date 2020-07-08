@@ -109,12 +109,6 @@
     <Filter Include="wf\7128">
       <UniqueIdentifier>{69394970-a7f8-4ada-a944-f0bd38c65b09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source files\STM32Cube HAL\UART">
-      <UniqueIdentifier>{3a567275-8e1d-49e0-b8ed-486ec0a6594b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header files\STM32Cube HAL\UART">
-      <UniqueIdentifier>{62aceadb-b82a-45f1-b0fe-659e266b6a55}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\gpio.c">
@@ -312,15 +306,6 @@
     <ClCompile Include="..\wf\Variables.c">
       <Filter>wf</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\usart.c">
-      <Filter>Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Drivers\STM32L0xx_HAL_Driver\Src\stm32l0xx_hal_uart.c">
-      <Filter>Source files\STM32Cube HAL\UART</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Drivers\STM32L0xx_HAL_Driver\Src\stm32l0xx_hal_uart_ex.c">
-      <Filter>Source files\STM32Cube HAL\UART</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\tim.h">
@@ -361,12 +346,6 @@
     </ClInclude>
     <ClInclude Include="..\Inc\usart.h">
       <Filter>Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_hal_uart.h">
-      <Filter>Header files\STM32Cube HAL\UART</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Drivers\STM32L0xx_HAL_Driver\Inc\stm32l0xx_hal_uart_ex.h">
-      <Filter>Header files\STM32Cube HAL\UART</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

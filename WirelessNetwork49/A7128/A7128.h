@@ -28,7 +28,7 @@
 #define StartNetCommand	0x02 //采集网络启动
 #define StopNetCommand	0x03 //采集网络停止
 #define FrameSyncCommand	0x04 //帧同步
-
+#define AbnormalAddrListCommand	0x05 //异常地址名单
 //问答指令
 #define SignInCommand 0x10 //点名，签到，数据区为电池电量
 #define DataResendCommand 0x11 //请求重传采集数据，数据区长度为1，内容为请求重传的帧号

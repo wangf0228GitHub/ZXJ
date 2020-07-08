@@ -313,6 +313,7 @@ int main(void)
 						  break;
 				  }
 				  Uart_ClosedProc();
+				  NVIC_SystemReset();
 				  break;
 			  }
 		  }

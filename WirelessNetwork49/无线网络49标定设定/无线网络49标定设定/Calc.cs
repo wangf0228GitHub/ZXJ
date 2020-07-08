@@ -9,7 +9,9 @@ namespace 无线网络49上位机
     {
         public static string GetBAT(byte bat)
         {
-            return bat.ToString("");
+            double f;
+            f = -0.000000574 * bat * bat * bat * bat + 0.0004658 * bat * bat * bat - 0.1269794 * bat * bat + 14.1424792 * bat - 545.36;
+            return f.ToString("F1");
         }
         public static double GetSensorType0(int addr, ushort ad)
         {

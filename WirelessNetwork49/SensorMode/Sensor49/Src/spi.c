@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -120,8 +120,8 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 					Error_Handler();
 				}
 				ENBAT_Enable();
-				EN_ADD_3P3_Enable();
-				EN_ADD_1P25_Enable();
+// 				EN_ADD_3P3_Enable();
+// 				EN_ADD_1P25_Enable();
 				ADCSaveIndex=0;
 				HAL_TIM_Base_Start(&htim2);
 				HAL_ADC_Start_DMA(&hadc, (uint32_t *)ADCData4DMA.u8, 4);
@@ -167,11 +167,32 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
 					Error_Handler();
 				}
 				ENBAT_Enable();
-				EN_ADD_3P3_Enable();
-				EN_ADD_1P25_Enable();
+// 				EN_ADD_3P3_Enable();
+// 				EN_ADD_1P25_Enable();
 				ADCSaveIndex=0;
 				HAL_TIM_Base_Start(&htim2);
 				HAL_ADC_Start_DMA(&hadc, (uint32_t *)ADCData4DMA.u8, 4);
+			}
+			break;
+		case AbnormalAddrListCommand://异常节点名单
+			if(bAbnormal)
+			{
+				A7128_SetRx();
+				break;
+			}
+			for(i=0;i<A7128_RxFIFO[pLenIndex];i++)
+			{
+				if(A7128_RxFIFO[pDataIndex+i]==SensorAddr)//异常名单中
+				{
+					bAbnormal=1;
+					A7128_SetRx();
+					break;
+				}
+			}
+			if(bAbnormal==0)
+			{
+				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+				A7128_StrobeCmd(CMD_SLEEP);
 			}
 			break;
 		case SignInCommand: //点名，签到，数据区为电池电量
@@ -289,7 +310,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     PA6     ------> SPI1_MISO
     PA7     ------> SPI1_MOSI 
     */
-    GPIO_InitStruct.Pin = A7128_SCK_Pin|A7128_GIO2A6_Pin|A7128_SDIO_Pin;
+    GPIO_InitStruct.Pin = A7128_SCK_Pin|A7128_GIO2_Pin|A7128_SDIO_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
@@ -353,7 +374,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
     PA6     ------> SPI1_MISO
     PA7     ------> SPI1_MOSI 
     */
-    HAL_GPIO_DeInit(GPIOA, A7128_SCK_Pin|A7128_GIO2A6_Pin|A7128_SDIO_Pin);
+    HAL_GPIO_DeInit(GPIOA, A7128_SCK_Pin|A7128_GIO2_Pin|A7128_SDIO_Pin);
 
     /* SPI1 DMA DeInit */
     HAL_DMA_DeInit(spiHandle->hdmatx);

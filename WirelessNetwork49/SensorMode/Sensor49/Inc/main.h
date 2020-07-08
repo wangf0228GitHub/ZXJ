@@ -58,8 +58,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define A7128_GIO2_Pin GPIO_PIN_13
-#define A7128_GIO2_GPIO_Port GPIOC
 #define A7128_GIO1_Pin GPIO_PIN_0
 #define A7128_GIO1_GPIO_Port GPIOA
 #define A7128_GIO1_EXTI_IRQn EXTI0_1_IRQn
@@ -69,8 +67,8 @@ void Error_Handler(void);
 #define A7128_SCS_GPIO_Port GPIOA
 #define A7128_SCK_Pin GPIO_PIN_5
 #define A7128_SCK_GPIO_Port GPIOA
-#define A7128_GIO2A6_Pin GPIO_PIN_6
-#define A7128_GIO2A6_GPIO_Port GPIOA
+#define A7128_GIO2_Pin GPIO_PIN_6
+#define A7128_GIO2_GPIO_Port GPIOA
 #define A7128_SDIO_Pin GPIO_PIN_7
 #define A7128_SDIO_GPIO_Port GPIOA
 #define BAT_AD_OUT_Pin GPIO_PIN_0
@@ -81,22 +79,6 @@ void Error_Handler(void);
 #define Run_YLED_GPIO_Port GPIOA
 #define Run_RLED_Pin GPIO_PIN_11
 #define Run_RLED_GPIO_Port GPIOA
-#define A7128_CKO_Pin GPIO_PIN_15
-#define A7128_CKO_GPIO_Port GPIOA
-#define CONFIG1_Pin GPIO_PIN_3
-#define CONFIG1_GPIO_Port GPIOB
-#define CONFIG2_Pin GPIO_PIN_4
-#define CONFIG2_GPIO_Port GPIOB
-#define CONFIG3_Pin GPIO_PIN_5
-#define CONFIG3_GPIO_Port GPIOB
-#define CONFIG4_Pin GPIO_PIN_6
-#define CONFIG4_GPIO_Port GPIOB
-#define CONFIG5_Pin GPIO_PIN_7
-#define CONFIG5_GPIO_Port GPIOB
-#define EN_ADD_3P3_Pin GPIO_PIN_8
-#define EN_ADD_3P3_GPIO_Port GPIOB
-#define EN_ADD_1P25_Pin GPIO_PIN_9
-#define EN_ADD_1P25_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 #define TXMode
 #define YLED_ON() HAL_GPIO_WritePin(Run_YLED_GPIO_Port,Run_YLED_Pin,GPIO_PIN_RESET)
