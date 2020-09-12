@@ -104,6 +104,8 @@
             this.pbU3 = new System.Windows.Forms.PictureBox();
             this.pbU2 = new System.Windows.Forms.PictureBox();
             this.pbU1 = new System.Windows.Forms.PictureBox();
+            this.btExcel = new System.Windows.Forms.Button();
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -126,7 +128,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(26, 13);
+            this.button1.Location = new System.Drawing.Point(26, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(101, 38);
             this.button1.TabIndex = 0;
@@ -138,7 +140,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.Location = new System.Drawing.Point(157, 12);
+            this.button2.Location = new System.Drawing.Point(142, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 38);
             this.button2.TabIndex = 0;
@@ -150,7 +152,7 @@
             // btReport
             // 
             this.btReport.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btReport.Location = new System.Drawing.Point(289, 12);
+            this.btReport.Location = new System.Drawing.Point(258, 12);
             this.btReport.Name = "btReport";
             this.btReport.Size = new System.Drawing.Size(101, 38);
             this.btReport.TabIndex = 5;
@@ -162,7 +164,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button4.Location = new System.Drawing.Point(417, 12);
+            this.button4.Location = new System.Drawing.Point(490, 12);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(101, 38);
             this.button4.TabIndex = 4;
@@ -254,9 +256,9 @@
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(26, 67);
+            this.label4.Location = new System.Drawing.Point(26, 62);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(167, 39);
+            this.label4.Size = new System.Drawing.Size(176, 39);
             this.label4.TabIndex = 2;
             this.label4.Text = "姓名";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -265,9 +267,9 @@
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(192, 67);
+            this.label5.Location = new System.Drawing.Point(201, 62);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(167, 39);
+            this.label5.Size = new System.Drawing.Size(197, 39);
             this.label5.TabIndex = 3;
             this.label5.Text = "学号";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -276,9 +278,9 @@
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label6.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(358, 67);
+            this.label6.Location = new System.Drawing.Point(396, 62);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(167, 39);
+            this.label6.Size = new System.Drawing.Size(195, 39);
             this.label6.TabIndex = 4;
             this.label6.Text = "班级";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -287,9 +289,9 @@
             // 
             this.lClass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lClass.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lClass.Location = new System.Drawing.Point(358, 105);
+            this.lClass.Location = new System.Drawing.Point(396, 100);
             this.lClass.Name = "lClass";
-            this.lClass.Size = new System.Drawing.Size(167, 39);
+            this.lClass.Size = new System.Drawing.Size(195, 39);
             this.lClass.TabIndex = 7;
             this.lClass.Text = "姓名";
             this.lClass.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -298,9 +300,9 @@
             // 
             this.lNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lNumber.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lNumber.Location = new System.Drawing.Point(192, 105);
+            this.lNumber.Location = new System.Drawing.Point(201, 100);
             this.lNumber.Name = "lNumber";
-            this.lNumber.Size = new System.Drawing.Size(167, 39);
+            this.lNumber.Size = new System.Drawing.Size(197, 39);
             this.lNumber.TabIndex = 6;
             this.lNumber.Text = "姓名";
             this.lNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -309,9 +311,9 @@
             // 
             this.lName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lName.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lName.Location = new System.Drawing.Point(26, 105);
+            this.lName.Location = new System.Drawing.Point(26, 100);
             this.lName.Name = "lName";
-            this.lName.Size = new System.Drawing.Size(167, 39);
+            this.lName.Size = new System.Drawing.Size(176, 39);
             this.lName.TabIndex = 5;
             this.lName.Text = "姓名";
             this.lName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -337,6 +339,7 @@
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "实验参数";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // lStepS
             // 
@@ -904,6 +907,23 @@
             this.pbU1.TabIndex = 0;
             this.pbU1.TabStop = false;
             // 
+            // btExcel
+            // 
+            this.btExcel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btExcel.Location = new System.Drawing.Point(374, 12);
+            this.btExcel.Name = "btExcel";
+            this.btExcel.Size = new System.Drawing.Size(101, 38);
+            this.btExcel.TabIndex = 4;
+            this.btExcel.TabStop = false;
+            this.btExcel.Text = "导出数据";
+            this.btExcel.UseVisualStyleBackColor = true;
+            this.btExcel.Click += new System.EventHandler(this.btExcel_Click);
+            // 
+            // saveFileDialog2
+            // 
+            this.saveFileDialog2.DefaultExt = "xls";
+            this.saveFileDialog2.Filter = "excel 文件|*.xls|所有文件|*.*";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -920,6 +940,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btExcel);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.btReport);
             this.Controls.Add(this.button2);
@@ -1033,5 +1054,7 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btExcel;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog2;
     }
 }

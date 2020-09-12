@@ -35,6 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>.\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -110,9 +115,9 @@
       <Project>{FF8FFA8D-5A95-4BCE-877D-00DF5076A2F4}</Project>
       <Name>WFNetLib40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\WFLib\WFOffice2007\WFOffice2007_40.csproj">
+    <ProjectReference Include="..\..\..\WFLib\WFOffice2007\WFOffice2003_40.csproj">
       <Project>{9BC4D8DE-01F7-4535-97C3-C24926095EB9}</Project>
-      <Name>WFOffice2007_40</Name>
+      <Name>WFOffice2003_40</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="图片\坐标轴标题.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Microsoft.Office.Interop.Excel.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

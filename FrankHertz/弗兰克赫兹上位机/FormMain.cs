@@ -10,10 +10,11 @@ using System.IO.Ports;
 using WFNetLib.PacketProc;
 using System.Threading;
 using WFNetLib;
-using WFOffice2007;
+using WFOffice;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Office.Interop.Excel;
 
 namespace 弗兰克赫兹上位机
 {
@@ -283,7 +284,7 @@ namespace 弗兰克赫兹上位机
         public void MakeReport(string filename)
         {
             WordReport report = new WordReport();
-            double d;
+            //double d;
             if (bYaGuan != 0)
             {
                 report.CreateNewDocument(System.Windows.Forms.Application.StartupPath + "\\弗兰克_氩.dot");
@@ -342,12 +343,12 @@ namespace 弗兰克赫兹上位机
             lClass.Text = f.textBox3.Text;
             ExFormProc();
 
-//             /*for (int i = 0; i < 1024; i += 5)
+//             for (int i = 0; i < 1024; i += 5)
 //             {
 //                 double da = i * 0.08;
 //                 double Ip = i / 2;
 //                 chart1.Series[0].Points.AddXY(da, Ip);
-//             } */           
+//             }           
         }
         void ExFormProc()
         {
@@ -639,6 +640,128 @@ namespace 弗兰克赫兹上位机
         private void button2_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(System.Windows.Forms.Application.StartupPath + "\\弗兰克赫兹实验讲义.pdf");
+        }
+        ExcelExport ee;
+        private void btExcel_Click(object sender, EventArgs e)
+        {
+            if (chart1.Series[0].Points.Count == 0)
+            {
+                MessageBox.Show("没有实验数据需要导出!");
+                return;
+            }
+            if (saveFileDialog2.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            ee = new ExcelExport(chart1.Series[0].Points.Count);
+            ee.bShowExcel = false;
+            ee.ExcelWorkbookCallbackProc = new ExcelExport.ExcelWorkbookCallback(ExcelWorkbookCallbackProc);
+            ee.ExcelExportProc();
+            MessageBox.Show("实验数据导出成功\r\n" + saveFileDialog2.FileName);
+        }
+        private bool ExcelWorkbookCallbackProc(Workbook wBook,int sheetIndex, int index)
+        {
+            Worksheet wSheet;
+            string str;
+            wSheet = (Worksheet)wBook.Worksheets[1];
+            Range dr;
+            if (index == -1)
+            {               
+                wSheet = (Worksheet)wBook.Worksheets[1];
+                wSheet.Name = "光电效应实验数据";
+                dr = wSheet.get_Range("A2", "A5");
+                dr.Merge(0);
+                dr.Value = "实验人员";
+                dr.HorizontalAlignment = XlVAlign.xlVAlignCenter;
+                dr.VerticalAlignment = XlVAlign.xlVAlignCenter;
+                wSheet.Cells[2, 2] = "实验时间"; wSheet.Cells[2, 3] = DateTime.Now.ToString("yyyy.MM.dd   HH:mm");
+                wSheet.Cells[3, 2] = "姓名"; wSheet.Cells[3, 3] = lName.Text;
+                wSheet.Cells[4, 2] = "学号"; wSheet.Cells[4, 3] = lNumber.Text;
+                wSheet.Cells[5, 2] = "班级"; wSheet.Cells[5, 3] = lClass.Text;
+
+                dr = wSheet.get_Range("A7", "A10");
+                dr.Merge(0);
+                dr.Value = "实验条件";
+                dr.HorizontalAlignment = XlVAlign.xlVAlignCenter;
+                dr.VerticalAlignment = XlVAlign.xlVAlignCenter;
+                wSheet.Cells[7, 2] = "电子管类型";
+                if (bYaGuan != 0)
+                    wSheet.Cells[7, 3] = "氩管";
+                else
+                    wSheet.Cells[7, 3] = "氖管";
+                wSheet.Cells[8, 2] = "灯丝电压"; wSheet.Cells[8, 3] = UF.ToString("f02")+"V";
+                wSheet.Cells[9, 2] = "控制柵电压"; wSheet.Cells[9, 3] = UG1K.ToString("f02")+"V";
+                wSheet.Cells[10, 2] = "拒斥电压"; wSheet.Cells[10, 3] = UG2A.ToString("f02")+"V";
+
+
+                dr = wSheet.get_Range("A12", "C12");
+                dr.Merge(0);
+                dr.Value = "实验数据";
+                dr.HorizontalAlignment = XlVAlign.xlVAlignCenter;
+                dr.VerticalAlignment = XlVAlign.xlVAlignCenter;
+
+                wSheet.Cells[13, 1] = "序号";
+                wSheet.Cells[13, 2] = "加速电压(V)";
+                wSheet.Cells[13, 3] = "电流(10^-8A)";
+//                 dr = wSheet.get_Range("A7", "C10");
+//                 dr.Columns.AutoFit();
+//                 dr.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+//                 dr.Borders.LineStyle = XlLineStyle.xlContinuous;
+
+            }
+            else if (index == int.MaxValue)
+            {
+                dr=wSheet.get_Range("A1");
+                dr.ColumnWidth = 12;
+                dr = wSheet.get_Range("B1");
+                dr.ColumnWidth = 18;
+                dr = wSheet.get_Range("C1");
+                dr.ColumnWidth = 18;
+
+                dr = wSheet.get_Range("A2", "C5");
+                dr.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                dr.Borders.LineStyle = XlLineStyle.xlContinuous;
+
+                dr = wSheet.get_Range("A7", "C10");
+                dr.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                dr.Borders.LineStyle = XlLineStyle.xlContinuous;
+
+                str = "C" + (12 + 1 + chart1.Series[0].Points.Count).ToString();
+                dr = wSheet.get_Range("A12", str);
+                dr.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                dr.Borders.LineStyle = XlLineStyle.xlContinuous;
+
+                str = "B" + (13 + chart1.Series[0].Points.Count).ToString();
+                dr = wSheet.get_Range("B14", str);
+                dr.NumberFormat = "0.0";
+
+                str = "C" + (13 + chart1.Series[0].Points.Count).ToString();
+                dr = wSheet.get_Range("C14", str);
+                dr.NumberFormat = "0";
+
+                dr = wSheet.get_Range("A1", str);
+                dr.Font.Name = "宋体";
+                dr.Font.Size = "11";
+
+                wBook.Saved = true;
+                wBook.SaveCopyAs(saveFileDialog2.FileName);
+//                 dr = wSheet.get_Range("A1", "A5");
+//                 //dr.Columns.Width=12;
+//                 dr.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+//                 dr.Borders.LineStyle = XlLineStyle.xlContinuous;
+            }
+            else
+            {
+                wSheet.Cells[14+index, 1] = (index+1).ToString();
+                wSheet.Cells[14 + index, 2] = chart1.Series[0].Points[index].XValue.ToString();
+                wSheet.Cells[14 + index, 3] = chart1.Series[0].Points[index].YValues[0].ToString();
+            }
+            return true;
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
