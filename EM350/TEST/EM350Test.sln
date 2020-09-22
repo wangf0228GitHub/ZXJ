@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EM350Test", "EM350Test\EM350Test.vcxproj", "{FFD37BEE-67B3-4302-8975-03B99C6BDABE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFD37BEE-67B3-4302-8975-03B99C6BDABE}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{FFD37BEE-67B3-4302-8975-03B99C6BDABE}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{FFD37BEE-67B3-4302-8975-03B99C6BDABE}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{FFD37BEE-67B3-4302-8975-03B99C6BDABE}.Release|VisualGDB.Build.0 = Release|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
