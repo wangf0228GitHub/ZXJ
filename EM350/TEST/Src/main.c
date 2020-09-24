@@ -23,7 +23,6 @@
 #include "usart.h"
 #include "gpio.h"
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
@@ -37,66 +36,6 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 const char ATEnd[] = { "\r\0" };
-const char AT0[] = { "AT" };
-const char AT1[] = { "ATE1" };
-const char AT2[] = { "AT^CURC=0" };
-const char AT3[] = { "AT^STSF" };
-const char AT4[] = { "ATS0" };
-const char AT5[] = { "AT+CGREG=2" };
-const char AT6[] = { "AT+CMEE=2" };
-const char AT7[] = { "AT+CPIN" };
-const char AT8[] = { "AT+CSQ" };
-const char AT9[] = { "AT+IOMODE=1,0" };
-const char AT10[] = { "AT^SICS=0,conType,GPRS0" };
-const char AT11[] = { "AT^SICS=0,apn,1234" };
-const char AT12[] = { "AT^SISS=0,conId,0" };
-const char AT13[] = { "AT^SISS=0,srvType,Socket" };
-const char AT14[] = { "AT^SISS=0,address,\"sockudp://172.22.44.33:7003\"" };
-const char AT15[] = { "AT^SISO=0" };
-const char AT16[] = { "AT^SISW=0,6" };
-const char AT17[] = { "<23545755>" };
-const char AT18[] = { "AT^SISR=0,1500" };
-const char AT19[] = { "AT^IPINIT=\"1234\"" };
-const char AT20[] = { "AT^IPINIT" };
-const char AT21[] = { "AT^IPOPEN=1,\"UDP\",\"172.22.44.33\",7003,5500" };
-const char AT22[] = { "AT^IPSEND=1,\"123456\"" };
-const char AT23[] = { "AT" };
-const char AT24[] = { "AT" };
-const char AT25[] = { "AT" };
-const char AT26[] = { "AT" };
-const char AT27[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
-// const char AT8[] = { "AT" };
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -120,7 +59,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void atSystemInit(void);
 /* USER CODE END 0 */
 
 /**
@@ -132,65 +71,8 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	uint32_t i;	
 	atIndex=0;
-	atCount=0;
-	ATList[atCount++]=(uint8_t*)AT0;
-	ATList[atCount++]=(uint8_t*)AT1;
-	ATList[atCount++]=(uint8_t*)AT2;
-	ATList[atCount++]=(uint8_t*)AT3;
-	ATList[atCount++]=(uint8_t*)AT4;
-	ATList[atCount++]=(uint8_t*)AT5;
-	ATList[atCount++]=(uint8_t*)AT6;
-	ATList[atCount++]=(uint8_t*)AT7;
-	ATList[atCount++]=(uint8_t*)AT8;
-	ATList[atCount++]=(uint8_t*)AT9;
-	ATList[atCount++]=(uint8_t*)AT10;
-	ATList[atCount++]=(uint8_t*)AT11;
-	ATList[atCount++]=(uint8_t*)AT12;
-	ATList[atCount++]=(uint8_t*)AT13;
-	ATList[atCount++]=(uint8_t*)AT14;
-	ATList[atCount++]=(uint8_t*)AT15;
-	ATList[atCount++]=(uint8_t*)AT16;
-	ATList[atCount++]=(uint8_t*)AT17;
-	ATList[atCount++]=(uint8_t*)AT18;
-	ATList[atCount++]=(uint8_t*)AT19;
-	ATList[atCount++]=(uint8_t*)AT20;
-	ATList[atCount++]=(uint8_t*)AT21;
-	ATList[atCount++]=(uint8_t*)AT22;
-	ATList[atCount++]=(uint8_t*)AT23;
-	ATList[atCount++]=(uint8_t*)AT24;
-	ATList[atCount++]=(uint8_t*)AT25;
-	ATList[atCount++]=(uint8_t*)AT26;
-	ATList[atCount++]=(uint8_t*)AT27;
-// 	ATList[atCount++]=(uint8_t*)AT28;
-// 	ATList[atCount++]=(uint8_t*)AT29;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
-// 	ATList[atCount++]=(uint8_t*)AT0;
+	atCount=0;	
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -213,6 +95,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  atSystemInit();
   txByteLen=0;
   for(i=0;i<15;i++)
 	  txByteList[i]=i;

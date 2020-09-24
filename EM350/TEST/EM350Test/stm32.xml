@@ -2,12 +2,12 @@
 <EmbeddedProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
   <ToolchainVersion>
-    <GCC>9.2.1</GCC>
-    <GDB>8.3.0</GDB>
-    <Revision>1</Revision>
+    <GCC>9.3.1</GCC>
+    <GDB>9.2.0</GDB>
+    <Revision>2</Revision>
   </ToolchainVersion>
   <BspID>com.sysprogs.arm.stm32</BspID>
-  <BspVersion>2018.12R2</BspVersion>
+  <BspVersion>2019.06</BspVersion>
   <McuID>STM32F767IG</McuID>
   <MCUDefinitionFile>STM32F7xxxx/DeviceDefinitions/stm32f767xx.xml</MCUDefinitionFile>
   <MCUProperties>
@@ -49,7 +49,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\EM350Test.gpdsc</RelativePath>
-        <Timestamp>132452331729985446</Timestamp>
+        <Timestamp>132452544088162900</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>

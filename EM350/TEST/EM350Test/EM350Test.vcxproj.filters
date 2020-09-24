@@ -294,6 +294,9 @@
     <ClCompile Include="..\..\..\..\WF_Device\ATCommand.c">
       <Filter>wf\LIB</Filter>
     </ClCompile>
+    <ClCompile Include="..\wf\SystemInit.c">
+      <Filter>wf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\gpio.h">
