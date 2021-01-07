@@ -129,6 +129,7 @@ int main(void)
   A7128_Init();
   A7128_StrobeCmd(CMD_STBY);
   A7128_SetCH(60); //freq 915.001MHz
+  bA7128Reseted = 1;
 //   bFirst=1;
 //   bRLEDOn=0;
 //   bRXing=0;
@@ -175,6 +176,13 @@ int main(void)
 		  HAL_TIM_Base_Start_IT(&htim14);		
 		  while(1)
 		  {
+			  if (bA7128Reseted == 0)//重新初始化a7128
+			  {
+				  A7128_Init();
+				  A7128_StrobeCmd(CMD_STBY);
+				  A7128_SetCH(60); //freq 915.001MHz
+				  bA7128Reseted = 1;
+			  }
 			  if(bNewFrame)
 			  {
 				  bNewFrame=0;

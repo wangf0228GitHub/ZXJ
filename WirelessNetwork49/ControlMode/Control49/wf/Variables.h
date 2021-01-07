@@ -52,7 +52,7 @@ extern _ADCData* ADCData4TXBuf;
 extern _ADCData* ADCData4SaveBuf;
 
 extern volatile uint32_t bCalibrationNet;
-
+extern volatile uint32_t bA7128Reseted;
 typedef union
 {	
 	struct

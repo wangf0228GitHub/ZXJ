@@ -25,6 +25,7 @@
 #include "..\wf\Variables.h"
 #include "..\..\..\A7128\A7128.h"
 #include "..\wf\Function.h"
+#include "wfSys.h"
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	uint32_t FrameIndex;
@@ -48,6 +49,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			}
 			HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
 			A7128_StrobeCmd(CMD_STBY);
+// 			if (A7128_ReadReg(PLL1_REG) != 60)
+// 			{
+// 				while (1)
+// 				{
+// 					if (A7128_ReadReg(PLL1_REG) == 60)
+// 						break;
+// 					YLED_Toggle();
+// 					wfDelay_ms(20);
+// 				}
+// 			}
 			if(SensorAddr!=1)
 			{
 				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
@@ -78,6 +89,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			FrameIndex=TimeIndex-TxStartTimeIndex;
 			if(TimeIndex==TxStartTimeIndex)//第一次启动PLL，减少发送延时
 			{
+				/************************************************************************/
+				/* 第一帧发送前检查是否模块参数丢失                                     */
+				/************************************************************************/
+				if (A7128_ReadReg(PLL1_REG) != 60)
+				{
+					RLED_ON();
+					HAL_TIM_Base_Stop_IT(&htim7);
+					A7128_Init();
+					A7128_StrobeCmd(CMD_STBY);
+					A7128_SetCH(60); //freq 915.001MHz
+					A7128_SetRx();
+					NetWorkType = Net_RxData;
+					return;
+				}
 				HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
 				A7128_StrobeCmd(CMD_PLL);//为获得固定延时，约428us
 			}

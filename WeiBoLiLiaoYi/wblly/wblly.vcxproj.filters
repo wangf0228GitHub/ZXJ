@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="WF">
+      <UniqueIdentifier>{113579de-2e8b-4b10-bec0-35bf6475a5be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\FlagDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HardwareProfile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\LED.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pic16f887.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\WF_Device\pic\afx.h">
+      <Filter>WF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\WF_Device\TLV56XX.h">
+      <Filter>WF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\WF_Device\TM1638.h">
+      <Filter>WF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\WF_Device\wfDefine.h">
+      <Filter>WF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\WF_Device\TypeDefine.h">
+      <Filter>WF</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Init.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Key.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LED.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\WF_Device\pic\afx.c">
+      <Filter>WF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\WF_Device\TLV56XX.c">
+      <Filter>WF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\WF_Device\TM1638.c">
+      <Filter>WF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\WF_Device\TypeDefine.c">
+      <Filter>WF</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\WeiBoLiLiaoYi.mcw">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="..\WeiBoLiLiaoYi.mcp">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -49,7 +49,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		RLED_Toggle();
 		if(TimeIndex>=999)
 		{
-			TimeIndex=0;
+			TimeIndex=0;			
 			gTempIndex++;
 		}
 		else
@@ -92,12 +92,24 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 		else if(TimeIndex==998)//同步时隙，启动定时器13，用于调节同步时隙时间偏移
 		{
+			if (bA7128Reseted == 0)
+				return;
 			__HAL_TIM_SET_COUNTER(&htim13,0);
 			__HAL_TIM_CLEAR_IT(&htim13,TIM_IT_UPDATE);
-			HAL_TIM_Base_Start_IT(&htim13);			
+			HAL_TIM_Base_Start_IT(&htim13);	
+			/************************************************************************/
+			/* 检查是否模块参数丢失									                */
+			/************************************************************************/
+			if (A7128_ReadReg(PLL1_REG) != 60)
+			{
+				bA7128Reseted = 0;
+				HAL_TIM_Base_Stop_IT(&htim13);
+			}
 		}
 		else//异常处理
 		{
+			if (bA7128Reseted == 0)
+				return;
 			if(NetWorkMode==Net_Stop)//要求停止网络，则发送停止网络指令
 			{
 				if(bNewADCData==0)//网络停止成功

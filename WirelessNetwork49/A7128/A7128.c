@@ -39,7 +39,7 @@ void A7128_WriteID(void)
 	A7128_SCS_Low();
 	HAL_SPI_Transmit(&A7128SPI,(uint8_t*)ID_Tab,8+1,100);
 	A7128_SCS_High();
-	A7128_ReadID();
+	//A7128_ReadID();
 }
 void A7128_ReadID(void)
 {
@@ -53,20 +53,30 @@ void A7128_ReadID(void)
 /*********************************************************************
 ** CHGroupCal
 *********************************************************************/
-void A7128_CHGroupCal(uint8_t ch)
+int A7128_CHGroupCal(uint8_t ch)
 {
 	uint8_t tmp;
 	uint8_t vb,vbcf;
 	uint8_t deva,adev;
-
+	uint32_t errTimes = 0;
 	A7128_WriteReg(PLL1_REG, ch);
 	A7128_WriteReg(CALIBRATION_REG, 0x0C);
 	do
 	{
 		tmp = A7128_ReadReg(CALIBRATION_REG);
 		tmp &= 0x0C;
+		if (tmp != 0)
+		{
+			wfDelay_ms(1);
+			errTimes++;
+			if (errTimes > 20)
+			{
+				return 0;
+			}
+		}
 	}
 	while (tmp);
+	return 1;
 	/*
 		//for check
 		tmp = A7128_ReadReg(VCOCAL1_REG);
@@ -86,12 +96,12 @@ void A7128_CHGroupCal(uint8_t ch)
 /*********************************************************************
 ** calibration
 *********************************************************************/
-void A7128_Cal(void)
+int A7128_Cal(void)
 {
 	uint8_t tmp;
 	uint8_t fb,fbcf,fcd;
 	uint8_t vcb,vccf;
-
+	uint32_t errTimes=0;
 	//calibration RSSI,IF, VCC procedure
 	A7128_StrobeCmd(CMD_PLL); //PLL state
 	A7128_WriteReg(CALIBRATION_REG, 0x13);
@@ -99,15 +109,28 @@ void A7128_Cal(void)
 	{
 		tmp = A7128_ReadReg(CALIBRATION_REG);
 		tmp &= 0x13;
+		if(tmp!=0)
+		{
+			wfDelay_ms(1);
+			errTimes++;
+			if (errTimes > 20)
+			{
+				return 0;
+			}
+		}
 	}
 	while (tmp);
 
 	//calibration VBC,VDC procedure
 	//校准905M,915M,925M三个频点
-	A7128_CHGroupCal(20); //calibrate channel group Bank I
-	A7128_CHGroupCal(60); //calibrate channel group Bank II
-	A7128_CHGroupCal(100); //calibrate channel group Bank III
+	if (A7128_CHGroupCal(20) == 0) //calibrate channel group Bank I
+		return 0;
+	if (A7128_CHGroupCal(60) == 0) //calibrate channel group Bank II
+		return 0;
+	if (A7128_CHGroupCal(100) == 0) //calibrate channel group Bank III
+		return 0;
 	A7128_StrobeCmd(CMD_STBY); //return to STBY state
+	return 1;
 	/*
 	//for check
 	tmp = A7128_ReadReg(IFCAL1_REG);
@@ -351,10 +374,15 @@ void A7128_Init(void)
 	A7128_SCS_High();
 // 	A7128_SCK_Low();
 // 	A7128_SDIO_OUT();
- 	A7128_Reset(); //reset A7128 RF chip
-	A7128_Config(); //config A7128 chip
- 	A7128_WriteID(); //write ID code 	
- 	A7128_Cal(); //calibration
+	while(1)
+	{
+		A7128_Reset(); //reset A7128 RF chip
+		wfDelay_ms(1);
+		A7128_Config(); //config A7128 chip
+		A7128_WriteID(); //write ID code 	
+		if (A7128_Cal() == 1)
+			break;//calibration
+	}
  	//A7128_RCCal(); //Ring osc calibration
 }
 /************************************************************************

@@ -14,7 +14,7 @@ volatile uint32_t ADCData4TxStart;
 
 volatile uint32_t bCalibrationNet;
 
-uint32_t bAbnormal;
+volatile uint32_t bAbnormal;
 
 _EEData SensorIDData;
 _EEData Linear_k;

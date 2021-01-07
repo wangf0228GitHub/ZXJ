@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LampEM350", "LampEM350\LampEM350.vcxproj", "{5AA0524B-D046-4E5C-A20E-176CCECB554A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Module watt_hour_meter", "watt_hour_meter\watt_hour_meter.vcxproj", "{E68ADA21-93D0-4696-9733-5BA25702D8F6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Module LightSensor BH1750", "LightSensor\LightSensor.vcxproj", "{EA6C5AE4-AB13-4C17-9195-230F901787BB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtcSD250X", "rtcSD250X\rtcSD250X.vcxproj", "{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|VisualGDB = Release|VisualGDB
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AA0524B-D046-4E5C-A20E-176CCECB554A}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{5AA0524B-D046-4E5C-A20E-176CCECB554A}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{5AA0524B-D046-4E5C-A20E-176CCECB554A}.Debug|x64.ActiveCfg = Debug|VisualGDB
+		{5AA0524B-D046-4E5C-A20E-176CCECB554A}.Debug|x86.ActiveCfg = Debug|VisualGDB
+		{5AA0524B-D046-4E5C-A20E-176CCECB554A}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{5AA0524B-D046-4E5C-A20E-176CCECB554A}.Release|VisualGDB.Build.0 = Release|VisualGDB
+		{5AA0524B-D046-4E5C-A20E-176CCECB554A}.Release|x64.ActiveCfg = Release|VisualGDB
+		{5AA0524B-D046-4E5C-A20E-176CCECB554A}.Release|x86.ActiveCfg = Release|VisualGDB
+		{E68ADA21-93D0-4696-9733-5BA25702D8F6}.Debug|VisualGDB.ActiveCfg = Debug|Win32
+		{E68ADA21-93D0-4696-9733-5BA25702D8F6}.Debug|x64.ActiveCfg = Debug|Win32
+		{E68ADA21-93D0-4696-9733-5BA25702D8F6}.Debug|x86.ActiveCfg = Debug|Win32
+		{E68ADA21-93D0-4696-9733-5BA25702D8F6}.Debug|x86.Build.0 = Debug|Win32
+		{E68ADA21-93D0-4696-9733-5BA25702D8F6}.Release|VisualGDB.ActiveCfg = Release|Win32
+		{E68ADA21-93D0-4696-9733-5BA25702D8F6}.Release|x64.ActiveCfg = Release|Win32
+		{E68ADA21-93D0-4696-9733-5BA25702D8F6}.Release|x86.ActiveCfg = Release|Win32
+		{E68ADA21-93D0-4696-9733-5BA25702D8F6}.Release|x86.Build.0 = Release|Win32
+		{EA6C5AE4-AB13-4C17-9195-230F901787BB}.Debug|VisualGDB.ActiveCfg = Debug|Win32
+		{EA6C5AE4-AB13-4C17-9195-230F901787BB}.Debug|x64.ActiveCfg = Debug|Win32
+		{EA6C5AE4-AB13-4C17-9195-230F901787BB}.Debug|x86.ActiveCfg = Debug|Win32
+		{EA6C5AE4-AB13-4C17-9195-230F901787BB}.Debug|x86.Build.0 = Debug|Win32
+		{EA6C5AE4-AB13-4C17-9195-230F901787BB}.Release|VisualGDB.ActiveCfg = Release|Win32
+		{EA6C5AE4-AB13-4C17-9195-230F901787BB}.Release|x64.ActiveCfg = Release|Win32
+		{EA6C5AE4-AB13-4C17-9195-230F901787BB}.Release|x86.ActiveCfg = Release|Win32
+		{EA6C5AE4-AB13-4C17-9195-230F901787BB}.Release|x86.Build.0 = Release|Win32
+		{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}.Debug|VisualGDB.ActiveCfg = Debug|Win32
+		{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}.Debug|x64.ActiveCfg = Debug|Win32
+		{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}.Debug|x86.ActiveCfg = Debug|Win32
+		{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}.Debug|x86.Build.0 = Debug|Win32
+		{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}.Release|VisualGDB.ActiveCfg = Release|Win32
+		{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}.Release|x64.ActiveCfg = Release|Win32
+		{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}.Release|x86.ActiveCfg = Release|Win32
+		{E2EE3F9C-C2B5-440A-8ED3-51F92029031C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

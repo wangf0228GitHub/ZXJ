@@ -50,11 +50,13 @@ void MCUSleep(void)
  	HAL_TIM_Base_Stop_IT(&htim7);
  	A7128_StrobeCmd(CMD_STBY);
  	A7128_WOREnable();
-	
+
+	NetWorkType = Net_Sleep;
 	GPIO_InitStruct.Pin = A7128_GIO1_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
 	GPIO_InitStruct.Pull = GPIO_PULLDOWN;
 	HAL_GPIO_Init(A7128_GIO1_GPIO_Port, &GPIO_InitStruct);
+	
 	 HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
 	__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_0);
 	HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
@@ -62,7 +64,7 @@ void MCUSleep(void)
 
 	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
 	HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1); 
-	NetWorkType=Net_Sleep;
+	
 	HAL_PWR_EnterSTANDBYMode();
 }
 void InitTimeIndex(void)

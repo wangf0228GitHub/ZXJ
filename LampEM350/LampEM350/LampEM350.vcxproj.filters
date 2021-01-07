@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{3d7ce593-aac6-4489-9fda-98aa0d78ef83}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{06d32473-be65-412d-86d2-21c86bb84297}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{cc2c7c30-7196-43ec-a4b4-53e15a815ae7}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="VisualGDB settings">
+      <UniqueIdentifier>{41eb561b-b036-45e1-b9c4-f5b761d2f2c6}</UniqueIdentifier>
+      <Extensions>vgdbsettings</Extensions>
+    </Filter>
+    <Filter Include="wfLib">
+      <UniqueIdentifier>{18c57ad1-faa0-46cd-9b96-ab6ad3fbff47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wfLib\Common">
+      <UniqueIdentifier>{930b0976-421e-4b8c-92c9-5edf6471abe5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LampEM350.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="wfString.cpp">
+      <Filter>wfLib\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="InitSystem.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Variables.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>wfLib</Filter>
+    </ClCompile>
+    <ClCompile Include="INIProc.cpp">
+      <Filter>wfLib</Filter>
+    </ClCompile>
+    <ClCompile Include="watt_hour_meter_proc.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSensorProc.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="EM350ATProc.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LampEM350-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="LampEM350-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="LampConfig.ini">
+      <Filter>Resource files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="wfString.h">
+      <Filter>wfLib\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareProfile.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="newTypes.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
