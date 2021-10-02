@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vsPESD_Device", "PESD_Device\vsPESD_Device\vsPESD_Device.vcxproj", "{C64C3CA5-B41F-41E4-9BC3-87295284067E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WF_Device", "..\..\WF_Device\WF_Device.vcxproj", "{90B86704-708E-4979-BE79-BAC2870D5B98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		2.0|x64 = 2.0|x64
+		2.0|x86 = 2.0|x86
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.2.0|x64.ActiveCfg = Release|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.2.0|x64.Build.0 = Release|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.2.0|x86.ActiveCfg = Release|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.2.0|x86.Build.0 = Release|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.Debug|x64.ActiveCfg = Debug|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.Debug|x86.ActiveCfg = Debug|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.Debug|x86.Build.0 = Debug|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.Release|x64.ActiveCfg = Release|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.Release|x86.ActiveCfg = Release|Win32
+		{C64C3CA5-B41F-41E4-9BC3-87295284067E}.Release|x86.Build.0 = Release|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.2.0|x64.ActiveCfg = 2.0|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.2.0|x86.ActiveCfg = 2.0|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.2.0|x86.Build.0 = 2.0|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.Debug|x64.ActiveCfg = Debug|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.Debug|x86.ActiveCfg = Debug|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.Debug|x86.Build.0 = Debug|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.Release|x64.ActiveCfg = Release|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.Release|x86.ActiveCfg = Release|Win32
+		{90B86704-708E-4979-BE79-BAC2870D5B98}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
