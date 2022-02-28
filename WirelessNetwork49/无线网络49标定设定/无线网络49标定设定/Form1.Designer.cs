@@ -121,7 +121,7 @@
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "数值";
+            this.columnHeader4.Text = "物理量";
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader4.Width = 100;
             // 

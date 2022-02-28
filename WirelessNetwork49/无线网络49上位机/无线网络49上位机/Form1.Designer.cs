@@ -138,7 +138,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Size = new System.Drawing.Size(1048, 437);
-            this.splitContainer1.SplitterDistance = 311;
+            this.splitContainer1.SplitterDistance = 371;
             this.splitContainer1.TabIndex = 1;
             // 
             // splitContainer2
@@ -156,7 +156,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1048, 311);
+            this.splitContainer2.Size = new System.Drawing.Size(1048, 371);
             this.splitContainer2.SplitterDistance = 242;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -174,7 +174,7 @@
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(240, 309);
+            this.listView1.Size = new System.Drawing.Size(240, 369);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -187,7 +187,7 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "数据";
+            this.columnHeader2.Text = "物理量";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader2.Width = 91;
             // 
@@ -212,8 +212,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(802, 311);
-            this.splitContainer3.SplitterDistance = 94;
+            this.splitContainer3.Size = new System.Drawing.Size(802, 371);
+            this.splitContainer3.SplitterDistance = 112;
             this.splitContainer3.TabIndex = 1;
             // 
             // chart1
@@ -223,8 +223,14 @@
             chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea1.AxisX.Maximum = 25600D;
             chartArea1.AxisX.Minimum = 0D;
-            chartArea1.AxisY.MajorGrid.Interval = 0D;
+            chartArea1.AxisX.Title = "采样点";
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            chartArea1.AxisY.Interval = 10D;
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.AxisY.LabelStyle.Format = "F1";
             chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisY.Title = "高频振动 /g";
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -239,7 +245,7 @@
             series1.LegendText = "高频振动";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(800, 92);
+            this.chart1.Size = new System.Drawing.Size(800, 110);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -258,8 +264,8 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer5);
-            this.splitContainer4.Size = new System.Drawing.Size(802, 213);
-            this.splitContainer4.SplitterDistance = 86;
+            this.splitContainer4.Size = new System.Drawing.Size(802, 255);
+            this.splitContainer4.SplitterDistance = 102;
             this.splitContainer4.TabIndex = 0;
             // 
             // chart2
@@ -269,8 +275,13 @@
             chartArea2.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea2.AxisX.Maximum = 1600D;
             chartArea2.AxisX.Minimum = 0D;
-            chartArea2.AxisY.MajorGrid.Interval = 0D;
+            chartArea2.AxisX.Title = "采样点";
+            chartArea2.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            chartArea2.AxisY.Interval = 2D;
+            chartArea2.AxisY.LabelStyle.Format = "F2";
             chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea2.AxisY.Title = "低频振动 /g";
+            chartArea2.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             chartArea2.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -285,7 +296,7 @@
             series2.LegendText = "低频振动";
             series2.Name = "Series1";
             this.chart2.Series.Add(series2);
-            this.chart2.Size = new System.Drawing.Size(800, 84);
+            this.chart2.Size = new System.Drawing.Size(800, 100);
             this.chart2.TabIndex = 1;
             this.chart2.Text = "chart2";
             // 
@@ -303,7 +314,7 @@
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.chart4);
-            this.splitContainer5.Size = new System.Drawing.Size(802, 123);
+            this.splitContainer5.Size = new System.Drawing.Size(802, 149);
             this.splitContainer5.SplitterDistance = 406;
             this.splitContainer5.TabIndex = 2;
             // 
@@ -314,8 +325,16 @@
             chartArea3.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea3.AxisX.Maximum = 200D;
             chartArea3.AxisX.Minimum = 0D;
+            chartArea3.AxisX.Title = "采样点";
+            chartArea3.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            chartArea3.AxisY.Interval = 10D;
+            chartArea3.AxisY.LabelStyle.Format = "F1";
             chartArea3.AxisY.MajorGrid.Interval = 0D;
             chartArea3.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea3.AxisY.Maximum = 40D;
+            chartArea3.AxisY.Minimum = 10D;
+            chartArea3.AxisY.Title = "温度 /℃";
+            chartArea3.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             chartArea3.Name = "ChartArea1";
             this.chart3.ChartAreas.Add(chartArea3);
             this.chart3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -351,7 +370,7 @@
             this.chart3.Series.Add(series4);
             this.chart3.Series.Add(series5);
             this.chart3.Series.Add(series6);
-            this.chart3.Size = new System.Drawing.Size(404, 121);
+            this.chart3.Size = new System.Drawing.Size(404, 147);
             this.chart3.TabIndex = 1;
             this.chart3.Text = "chart3";
             // 
@@ -362,8 +381,16 @@
             chartArea4.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea4.AxisX.Maximum = 200D;
             chartArea4.AxisX.Minimum = 0D;
+            chartArea4.AxisX.Title = "采样点";
+            chartArea4.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            chartArea4.AxisY.Interval = 10D;
+            chartArea4.AxisY.LabelStyle.Format = "F0";
             chartArea4.AxisY.MajorGrid.Interval = 0D;
             chartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea4.AxisY.Maximum = 150D;
+            chartArea4.AxisY.Minimum = 50D;
+            chartArea4.AxisY.Title = "压力 /kPa";
+            chartArea4.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             chartArea4.Name = "ChartArea1";
             this.chart4.ChartAreas.Add(chartArea4);
             this.chart4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -399,7 +426,7 @@
             this.chart4.Series.Add(series8);
             this.chart4.Series.Add(series9);
             this.chart4.Series.Add(series10);
-            this.chart4.Size = new System.Drawing.Size(390, 121);
+            this.chart4.Size = new System.Drawing.Size(390, 147);
             this.chart4.TabIndex = 2;
             this.chart4.Text = "chart4";
             // 
@@ -410,7 +437,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(1046, 120);
+            this.textBox1.Size = new System.Drawing.Size(1046, 60);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 

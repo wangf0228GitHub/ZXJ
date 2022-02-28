@@ -22,12 +22,27 @@
 
 /* USER CODE BEGIN 0 */
 #include "HardwareProfile.h"
+uint8_t Uart2List[200];
+uint8_t Uart2ListIndex;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 {
 	if (UartHandle->Instance == huart1.Instance)
 	{
 		CP1616_Client_ProcRx(huart1Rx);
 		while (HAL_UART_Receive_IT(&huart1, &huart1Rx, 1) == HAL_OK);
+	}
+	if (UartHandle->Instance == huart2.Instance)
+	{
+		if(Mode==2)
+		{
+			Uart2List[Uart2ListIndex++] = huart2Rx;
+			if (huart2Rx == '\n')
+			{
+				CP1616_Client_SendData(0x12, Uart2List, Uart2ListIndex);
+				Uart2ListIndex = 0;
+			}
+		}
+		while (HAL_UART_Receive_IT(&huart2, &huart2Rx, 1) == HAL_OK);
 	}
 }
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *UartHandle)
@@ -68,7 +83,7 @@ void MX_USART2_UART_Init(void)
 {
 
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 50;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;

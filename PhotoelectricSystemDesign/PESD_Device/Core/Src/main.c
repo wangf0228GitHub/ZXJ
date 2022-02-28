@@ -28,6 +28,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 uint8_t huart1Rx;
+uint8_t huart2Rx;
+uint8_t Mode;
+uint8_t AD2List[200];
+uint8_t AD2NeedCount;
+uint8_t AD2ListIndex;
 void UartRxProc(void);
 void ReadADC1(void);
 #include "HardwareProfile.h"
@@ -72,6 +77,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	uint8_t tx[20], i;
+	uint32_t x32;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -84,6 +90,7 @@ int main(void)
   {
 	  tx[i] = 0x55;
   }
+  tx[19] = '\n';
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -103,27 +110,34 @@ int main(void)
   MX_TIM16_Init();
   /* USER CODE BEGIN 2 */
   wfDelay_init(24);
+  Mode = 1;
   while (HAL_UART_Receive_IT(&huart1, &huart1Rx, 1) == HAL_OK);
+  while (HAL_UART_Receive_IT(&huart2, &huart2Rx, 1) == HAL_OK);
   CP1616_Client_Init();
-  CP1616_Client_SendOK(0x01);
   HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
-  HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 4095);
+  x32 = 0;
+  for (i=0;i<10;i++)
+  {
+	  x32 += 409;
+	  HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, x32);
+	  ReadADC1();
+  }
 
-  HAL_GPIO_WritePin(LED_WorkLink_ADC1_GPIO_Port, LED_WorkLink_ADC1_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_ADC2_GPIO_Port, LED_WorkLink_ADC2_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_AD2JT_GPIO_Port, LED_WorkLink_AD2JT_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_HL2TZ_GPIO_Port, LED_WorkLink_HL2TZ_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_HL2Led_GPIO_Port, LED_WorkLink_HL2Led_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_Mode1_GPIO_Port, LED_Mode1_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_Mode2_GPIO_Port, LED_Mode2_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_Mode3_GPIO_Port, LED_Mode3_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_PC_GPIO_Port, LED_WorkLink_PC_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_XH2AD_GPIO_Port, LED_WorkLink_XH2AD_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_DAC_GPIO_Port, LED_WorkLink_DAC_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_IV2AD_GPIO_Port, LED_WorkLink_IV2AD_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_Si2IV_GPIO_Port, LED_WorkLink_Si2IV_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_Tx2_GPIO_Port, LED_WorkLink_Tx2_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(LED_WorkLink_Rx2_GPIO_Port, LED_WorkLink_Rx2_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_ADC1_GPIO_Port, LED_WorkLink_ADC1_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_ADC2_GPIO_Port, LED_WorkLink_ADC2_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_AD2JT_GPIO_Port, LED_WorkLink_AD2JT_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_HL2TZ_GPIO_Port, LED_WorkLink_HL2TZ_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_HL2Led_GPIO_Port, LED_WorkLink_HL2Led_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_Mode1_GPIO_Port, LED_Mode1_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_Mode2_GPIO_Port, LED_Mode2_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_Mode3_GPIO_Port, LED_Mode3_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_PC_GPIO_Port, LED_WorkLink_PC_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_XH2AD_GPIO_Port, LED_WorkLink_XH2AD_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_DAC_GPIO_Port, LED_WorkLink_DAC_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_IV2AD_GPIO_Port, LED_WorkLink_IV2AD_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_Si2IV_GPIO_Port, LED_WorkLink_Si2IV_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_Tx2_GPIO_Port, LED_WorkLink_Tx2_Pin, GPIO_PIN_RESET);
+//   HAL_GPIO_WritePin(LED_WorkLink_Rx2_GPIO_Port, LED_WorkLink_Rx2_Pin, GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -134,12 +148,21 @@ int main(void)
 	  {
 		  while (HAL_UART_Receive_IT(&huart1, &huart1Rx, 1) == HAL_OK);
 	  }
+	  if (huart2.RxState != HAL_UART_STATE_BUSY_RX)
+	  {
+		  while (HAL_UART_Receive_IT(&huart2, &huart2Rx, 1) == HAL_OK);
+	  }
 	  if (CP1616_Client_Flags.Bits.bRx)
 	  {
 		  UartRxProc();
 	  }
-	  ReadADC1();
-	  HAL_UART_Transmit(&huart2, tx, 20, 1000);
+// 	  if (Mode == 2)
+// 	  {
+// 		  HAL_UART_Transmit(&huart2, tx, 20, 1000000);
+// 		  HAL_Delay(1000);
+// 	  }
+	  //ReadADC1();
+	  //
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -176,7 +199,7 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV16;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)

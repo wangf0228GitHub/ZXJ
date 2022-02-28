@@ -69,7 +69,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	uint8_t i,tx[20];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -91,7 +91,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_IWDG_Init();
+  //MX_IWDG_Init();
   MX_SPI1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
@@ -100,6 +100,7 @@ int main(void)
   ADS131_Init();  
   __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
   HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
+
   while (HAL_UART_Receive_IT(&huart2, &huart2Rx, 1) == HAL_OK);
   /* USER CODE END 2 */
 

@@ -20,8 +20,27 @@
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
 
-/* USER CODE BEGIN 0 */
 
+/* USER CODE BEGIN 0 */
+#include "CP1616_Client.h"
+void ReadADC2(void);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	uint32_t FrameIndex;
+	if (htim->Instance == TIM7)
+	{
+		ReadADC2();
+		if (AD2ListIndex >= AD2NeedCount)
+		{
+			CP1616_Client_SendData(0x11, AD2List, AD2NeedCount*2);
+			AD2ListIndex = 0;
+		}
+	}
+	else if (htim->Instance == TIM16)
+	{
+		
+	}
+}
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim7;
@@ -33,7 +52,7 @@ void MX_TIM7_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
   htim7.Instance = TIM7;
-  htim7.Init.Prescaler = 24;
+  htim7.Init.Prescaler = 3000;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim7.Init.Period = 1000;
   htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;

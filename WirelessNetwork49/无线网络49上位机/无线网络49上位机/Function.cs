@@ -71,8 +71,10 @@ namespace 无线网络49上位机
                         li.SubItems[2].Text = Calc.GetBAT(sensorBAT.H[k]);
                         ushort ad1,ad2=0;
                         byte[] adad=new byte[3];
-                        if (chart1.Series[0].Points.Count > 5120*4)
+                        int filterLen = 6;
+                        if (chart1.Series[0].Points.Count > 5120 *4)
                             chart1.Series[0].Points.Clear();
+                        /*
                         for (int i = 0; i < 7680; i += 3)
                         {
                             adad[0]=RxPacket.Data[dataIndex+i];
@@ -81,24 +83,55 @@ namespace 无线网络49上位机
                             
                             ad1=BytesOP.MakeShort(BytesOP.GetLowNibble(adad[1]), adad[0]);
                             ad2 = BytesOP.MakeShort(BytesOP.GetHighNibble(adad[1]), adad[2]);
-                            chart1.Series[0].Points.AddY(ad1);
-                            chart1.Series[0].Points.AddY(ad2);
-                            //if (ad1 == 0 && ad2 == 0)
-                            //    bLog = true;
-//                             chart1.Series[0].Points.AddY(Calc.GetSensorType0(k, ad1));
-//                             chart1.Series[0].Points.AddY(Calc.GetSensorType0(k, ad2));
+
+                            double f1, f2;
+                            f1 = ad1/10.0 - 70.0;
+                            f2 = ad2/10.0 - 70.0;
+                            chart1.Series[0].Points.AddY(f1);
+                            chart1.Series[0].Points.AddY(f2);
                         }
-//                         if (bLog)
-//                         {
-//                             WFNetLib.Log.TextLog.AddTextLog("无线节点："+(k+1).ToString()+"\r\n",true);
-//                             WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex,7681," "));
-//                             bLog = false;
-//                         }
-                        //li.SubItems[1].Text = Calc.GetSensorType0(k, ad2).ToString("F02");
-                        li.SubItems[1].Text = ad2.ToString();
+                        */
+                        List<double> fList = new List<double>();
+                        for (int i = 0; i < 7680; i += 3)
+                        {
+                            adad[0] = RxPacket.Data[dataIndex + i];
+                            adad[1] = RxPacket.Data[dataIndex + i + 1];
+                            adad[2] = RxPacket.Data[dataIndex + i + 2];
+
+                            ad1 = BytesOP.MakeShort(BytesOP.GetLowNibble(adad[1]), adad[0]);
+                            ad2 = BytesOP.MakeShort(BytesOP.GetHighNibble(adad[1]), adad[2]);
+
+                            double f1, f2;
+                            f1 = ad1 / 10.0 - 70.0;
+                            f2 = ad2 / 10.0 - 70.0;
+                            fList.Add(f1);
+                            fList.Add(f2);
+                        }
+                        double f = 0;
+                        for (int i = 0; i < (fList.Count- filterLen); i++)
+                        {                            
+                            List<double> tempList = new List<double>();
+                            for(int j=0;j< filterLen; j++)
+                            {
+                                tempList.Add(fList[i + j]);
+                            }
+                            f = 0;
+                            for (int j = 0; j < filterLen; j++)
+                            {
+                                f+=tempList[j];
+                            }
+                            f = f - tempList.Max();
+                            f = f - tempList.Min();
+                            f = f / (filterLen-2);
+                            chart1.Series[0].Points.AddY(f);                            
+                        }
+                        for (int i = 0; i < filterLen; i++)
+                        {
+                            chart1.Series[0].Points.AddY(f);
+                        }
+                        li.SubItems[1].Text = f.ToString("F1");
                         liIndex++;
                         dataIndex = dataIndex + 7681;
-                        //Debug.WriteLine(debug.ToString());
                     }
                 }
                 for (int k = 0; k < 6; k++)
@@ -110,12 +143,11 @@ namespace 无线网络49上位机
                         li.SubItems[2].Text = Calc.GetBAT(sensorBAT.M[k]);
                         ushort ad1, ad2 = 0;
                         byte[] adad = new byte[3];
+                        int filterLen = 6;
                         if (chart2.Series[0].Points.Count > 320 * 4)
                             chart2.Series[0].Points.Clear();
-                        //                         StringBuilder debug = new StringBuilder();
-                        //                         debug.Append(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, " "));
-                        //                         debug.Append("\r\n");
-                        //double u1=0.0, u2=0.0;
+                        double f1=0, f2;
+                        List<double> fList = new List<double>();
                         for (int i = 0; i < 480; i += 3)
                         {
                             adad[0] = RxPacket.Data[dataIndex + i];
@@ -123,25 +155,40 @@ namespace 无线网络49上位机
                             adad[2] = RxPacket.Data[dataIndex + i + 2];
                             ad1 = BytesOP.MakeShort(BytesOP.GetLowNibble(adad[1]), adad[0]);
                             ad2 = BytesOP.MakeShort(BytesOP.GetHighNibble(adad[1]), adad[2]);
-
-                            chart2.Series[0].Points.AddY(ad1);
-                            chart2.Series[0].Points.AddY(ad2);
-                            //if (ad1 == 0 && ad2 == 0)
-                            //    bLog = true;
-//                             chart2.Series[0].Points.AddY(Calc.GetSensorType1(k, ad1));
-//                             chart2.Series[0].Points.AddY(Calc.GetSensorType1(k, ad2));
+                            //                             chart2.Series[0].Points.AddY(ad1);
+                            //                             chart2.Series[0].Points.AddY(ad2);                            
+                            f1 = ad1/100.0 - 5.0;
+                            f2 = ad2/100.0 - 5.0;
+                            fList.Add(f1);
+                            fList.Add(f2);
+                            //                             chart2.Series[0].Points.AddY(f1);
+                            //                             chart2.Series[0].Points.AddY(f2);
                         }
-//                         if (bLog)
-//                         {
-//                             WFNetLib.Log.TextLog.AddTextLog("无线节点：" + (k + 5).ToString() + "\r\n", true);
-//                             WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex, 481, " "));
-//                             bLog = false;
-//                         }
-                        //li.SubItems[1].Text = Calc.GetSensorType1(k, ad2).ToString("F02");
-                        li.SubItems[1].Text = ad2.ToString();
+                        double f = 0;
+                        for (int i = 0; i < (fList.Count - filterLen); i++)
+                        {
+                            List<double> tempList = new List<double>();
+                            for (int j = 0; j < filterLen; j++)
+                            {
+                                tempList.Add(fList[i + j]);
+                            }
+                            f = 0;
+                            for (int j = 0; j < filterLen; j++)
+                            {
+                                f += tempList[j];
+                            }
+                            f = f - tempList.Max();
+                            f = f - tempList.Min();
+                            f = f / (filterLen - 2);
+                            chart2.Series[0].Points.AddY(f);
+                        }
+                        for (int i = 0; i < filterLen; i++)
+                        {
+                            chart2.Series[0].Points.AddY(f);
+                        }
+                        li.SubItems[1].Text = f.ToString("F2");
                         liIndex++;
                         dataIndex = dataIndex + 481;
-                        //Debug.WriteLine(debug.ToString());
                     }
                 }
 //                bool bNeedDebug = false;
@@ -156,7 +203,8 @@ namespace 无线网络49上位机
                         li.SubItems[2].Text = Calc.GetBAT(sensorBAT.L[k]);
                         ushort ad1, ad2 = 0;
                         byte[] adad = new byte[3];
-                        if(k<4)
+                        int filterLen = 6;
+                        if (k<4)
                         {
                             if (chart3.Series[k].Points.Count > 40 * 4)
                             {
@@ -170,6 +218,8 @@ namespace 无线网络49上位机
                                 chart4.Series[k-4].Points.Clear();
                             }
                         }
+                        double f1=0, f2;
+                        List<double> fList = new List<double>();
                         for (int i = 0; i < 60; i += 3)
                         {
                             adad[0] = RxPacket.Data[dataIndex + i];
@@ -179,24 +229,82 @@ namespace 无线网络49上位机
                             ad2 = BytesOP.MakeShort(BytesOP.GetHighNibble(adad[1]), adad[2]);
                             if(k<4)
                             {
-                                chart3.Series[k].Points.AddY(ad1);
-                                chart3.Series[k].Points.AddY(ad2);
+                                //                                 chart3.Series[k].Points.AddY(ad1);
+                                //                                 chart3.Series[k].Points.AddY(ad2);                                
+                                f1 = ad1/10.0 - 40.0;
+                                f2 = ad2/10.0 - 40.0;
+                                //chart3.Series[k].Points.AddY(f1);
+                                //chart3.Series[k].Points.AddY(f2);.
+                                fList.Add(f1);
+                                fList.Add(f2);
                             }
                             else
                             {
-                                chart4.Series[k-4].Points.AddY(ad1);
-                                chart4.Series[k-4].Points.AddY(ad2);
+                                //                                 chart4.Series[k-4].Points.AddY(ad1);
+                                //                                 chart4.Series[k-4].Points.AddY(ad2);
+                                f1 = ad1/1.0 - 0.0;
+                                f2 = ad2/1.0 - 0.0;
+                                //                                 chart4.Series[k-4].Points.AddY(f1);
+                                //                                 chart4.Series[k-4].Points.AddY(f2);
+                                fList.Add(f1);
+                                fList.Add(f2);
                             }
                             //if (ad1 == 0 && ad2 == 0)
                             //    bLog = true;
                         }
-//                         if (bLog)
-//                         {
-//                             WFNetLib.Log.TextLog.AddTextLog("无线节点：" + (k + 11).ToString() + "\r\n", true);
-//                             WFNetLib.Log.TextLog.AddTextLog(WFNetLib.StringFunc.StringsFunction.byteToHexStr(RxPacket.Data, dataIndex, 61, " "));
-//                             bLog = false;
-//                         }
-                        li.SubItems[1].Text = ad2.ToString();
+                        if (k < 4)
+                        {
+                            double f = 0;
+                            for (int i = 0; i < (fList.Count - filterLen); i++)
+                            {
+                                List<double> tempList = new List<double>();
+                                for (int j = 0; j < filterLen; j++)
+                                {
+                                    tempList.Add(fList[i + j]);
+                                }
+                                f = 0;
+                                for (int j = 0; j < filterLen; j++)
+                                {
+                                    f += tempList[j];
+                                }
+                                f = f - tempList.Max();
+                                f = f - tempList.Min();
+                                f = f / (filterLen - 2);
+                                chart3.Series[k].Points.AddY(f);
+                            }
+                            for (int i = 0; i < filterLen; i++)
+                            {
+                                chart3.Series[k].Points.AddY(f);
+                            }
+                            li.SubItems[1].Text = f1.ToString("F1");
+                        }
+                        else
+                        {
+                            double f = 0;
+                            for (int i = 0; i < (fList.Count - filterLen); i++)
+                            {
+                                List<double> tempList = new List<double>();
+                                for (int j = 0; j < filterLen; j++)
+                                {
+                                    tempList.Add(fList[i + j]);
+                                }
+                                f = 0;
+                                for (int j = 0; j < filterLen; j++)
+                                {
+                                    f += tempList[j];
+                                }
+                                f = f - tempList.Max();
+                                f = f - tempList.Min();
+                                f = f / (filterLen - 2);
+                                chart4.Series[k-4].Points.AddY(f);
+                            }
+                            for (int i = 0; i < filterLen; i++)
+                            {
+                                chart4.Series[k-4].Points.AddY(f);
+                            }
+                            li.SubItems[1].Text = f1.ToString("F0");
+                        }
+                        
                         liIndex++;
                         dataIndex = dataIndex + 61;
                     }

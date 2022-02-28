@@ -95,6 +95,13 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 
 extern uint8_t huart1Rx;
+extern uint8_t huart2Rx;
+extern uint8_t Mode;
+extern uint8_t AD2List[200];
+extern uint8_t AD2NeedCount;
+extern uint8_t AD2ListIndex;
+extern uint8_t Uart2List[200];
+extern uint8_t Uart2ListIndex;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

@@ -82,7 +82,7 @@ namespace 无线网络49上位机
                         ad2 = BytesOP.MakeShort(BytesOP.GetHighNibble(adad[1]), adad[2]);
 
                         li.SubItems[1].Text = ad1.ToString("");
-                        li.SubItems[2].Text = ad2.ToString("");
+                        li.SubItems[2].Text = (ad2 / 10.0 - 70.0).ToString("F1");
                         liIndex++;
                         dataIndex = dataIndex + 4;
                         //Debug.WriteLine(debug.ToString());
@@ -104,7 +104,7 @@ namespace 无线网络49上位机
                         ad2 = BytesOP.MakeShort(BytesOP.GetHighNibble(adad[1]), adad[2]);
 
                         li.SubItems[1].Text = ad1.ToString("");
-                        li.SubItems[2].Text = ad2.ToString("");
+                        li.SubItems[2].Text = (ad2 / 100.0 - 5.0).ToString("F2");
                         liIndex++;
                         dataIndex = dataIndex + 4;
                     }
@@ -125,7 +125,14 @@ namespace 无线网络49上位机
                         ad2 = BytesOP.MakeShort(BytesOP.GetHighNibble(adad[1]), adad[2]);
 
                         li.SubItems[1].Text = ad1.ToString("");
-                        li.SubItems[2].Text = ad2.ToString("");
+                        if (k < 4)
+                        {
+                            li.SubItems[2].Text = (ad2 / 10.0 - 40.0).ToString("F1");
+                        }
+                        else
+                        {
+                            li.SubItems[2].Text = (ad2 / 1.0 - 0.0).ToString("F0");
+                        }
                         liIndex++;
                         dataIndex = dataIndex + 4;
                     }
