@@ -67,8 +67,8 @@ void InitVariable(void)
 {
 	unsigned char i;
 	knobFlags.AllFlag = 0;
-	If = 850;
-	Ic = 450;
+	If = 0;
+	Ic = 0;
 	U = 0;
 	Ifset = 10;
 	Icset = 10;
@@ -94,8 +94,6 @@ void InitSystem( void )
 	DAC8830_3_Init();
 	MCP3201_Init();
 
-	DAC8830_Setting(0);
-	DAC8830_2_Setting(0);
-	DAC8830_3_Setting(0);
+	DASet(0x07);
 	MCP3201_ReadAD();
 }

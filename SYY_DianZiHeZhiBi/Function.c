@@ -62,8 +62,8 @@ void Display_ShowIa(void)
 	{
 		AD += MCP3201_ReadAD();
 	}
-	AD = AD / 4;
-	Ia = AD / 4;
+	AD = AD >>2;
+	Ia = AD >>3;
 	Ia = Ia - Ia0;
 	int len = sprintf(DisplayLine_Ia, "%+d", Ia);
 	for (i = 0; i < (len - 1); i++)
@@ -93,26 +93,31 @@ void DASet(uint8_t who)
 	if ((who & 0x01) != 0)
 	{
 		//灯丝电流If ：0-0.850A
-		//DA=If*(1.024/850)*65536/2.048=If*32
+		//DA=If*(1.2/850)*65536/2.048=If*32*1200/850
 		x = (uint32_t)If;
-		x = x << 15;
+		x = x << 5;
+		x = x * 1200;
 		x = x / 850;
 		DAC8830_2_Setting((uint16_t)x);
 	}
 	if ((who & 0x02) != 0)
 	{
 		//励磁电流IC ：0 - 0.450A
-		//DA=IC*(1.024/450)*65536/2.048=If*32
+		//DA=IC*(1.2/450)*65536/2.048=If*32*1200/450
 		x = (uint32_t)Ic;
-		x = x << 15;
+		x = x << 5;
+		x = x * 1200;
 		x = x / 450;
 		DAC8830_3_Setting((uint16_t)x);
 	}
 	if ((who & 0x04) != 0)
 	{
 		//阳极电压U：0-150.0V
-		//DA=U*(1.5/1500)*65536/2.048=U*32
-		DAC8830_Setting((uint16_t)(U << 5));		
+		//DA=U*(1.8/1500)*65536/2.048=U*32
+		x = U * 18;
+		x = x << 5;
+		x = x / 15;
+		DAC8830_Setting((uint16_t)(x));		
 	}
 }
 void Display_ShowSet(uint8_t who)
@@ -121,7 +126,7 @@ void Display_ShowSet(uint8_t who)
 	if((who&0x01)!=0)
 	{
 		//灯丝电流If ：0-0.850A
-		//DA=If*(1.024/850)*65536/2.048=If*32
+		//DA=If*(1.2/850)*65536/2.048=If*32
 		sprintf(DisplayLine_If, "%03d", If);
 		TM1650_2_WriteData(Display_LEDAddr[0], TM1650_LEDNumCode[0] | 0x80);
 		TM1650_2_WriteData(Display_LEDAddr[1], TM1650_LEDNumCode[DisplayLine_If[0] - '0']);

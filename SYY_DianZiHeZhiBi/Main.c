@@ -26,7 +26,7 @@ void main()
 		if (knobFlags.AllFlag != 0)
 		{
 			Beep_W = 1;
-			if (knobFlags.bCW1)
+			if (knobFlags.bCW3)
 			{
 				if(Ic<450)
 				{
@@ -40,7 +40,7 @@ void main()
 					Display_ShowSet(0x02);
 				}
 			}
-			if (knobFlags.bCCW1)
+			if (knobFlags.bCCW3)
 			{
 				if (Ic != 0)
 				{
@@ -55,7 +55,7 @@ void main()
 					Display_ShowSet(0x02);
 				}
 			}
-			if (knobFlags.bCW2)
+			if (knobFlags.bCW1)
 			{
 				if(If<850)
 				{
@@ -69,7 +69,7 @@ void main()
 					Display_ShowSet(0x01);
 				}
 			}
-			if (knobFlags.bCCW2)
+			if (knobFlags.bCCW1)
 			{
 				if (If != 0)
 				{
@@ -84,7 +84,7 @@ void main()
 					Display_ShowSet(0x01);
 				}
 			}
-			if (knobFlags.bCW3)
+			if (knobFlags.bCW2)
 			{
 				if(U<1500)
 				{
@@ -98,7 +98,7 @@ void main()
 					Display_ShowSet(0x04);
 				}
 			}
-			if (knobFlags.bCCW3)
+			if (knobFlags.bCCW2)
 			{
 				if (U != 0)
 				{
@@ -117,10 +117,10 @@ void main()
 			__delay_ms(10);
 			Beep_W = 0;
 		}
-		if (K1_R == 0)
+		if (K3_R == 0)
 		{
 			__delay_ms(5);
-			if (K1_R == 0)
+			if (K3_R == 0)
 			{
 				Beep_W = 1;	
 				gFlags.bSetIc_Show = 0;
@@ -143,16 +143,16 @@ void main()
 				Display_ShowFlash(0x02);
 				__delay_20ms(3);
 				Beep_W = 0;
-				while (K1_R == 0)
+				while (K3_R == 0)
 				{
 					FlashTick();
 				}
 			}
 		}
-		if (K2_R == 0)
+		if (K1_R == 0)
 		{
 			__delay_ms(5);
-			if (K2_R == 0)
+			if (K1_R == 0)
 			{
 				Beep_W = 1;
 				gFlags.bSetIf_Show = 0;
@@ -173,16 +173,16 @@ void main()
 				Display_ShowFlash(0x01);
 				__delay_20ms(3);
 				Beep_W = 0;
-				while (K2_R == 0)
+				while (K1_R == 0)
 				{
 					FlashTick();
 				}
 			}
 		}
-		if (K3_R == 0)
+		if (K2_R == 0)
 		{
 			__delay_ms(5);
-			if (K3_R == 0)
+			if (K2_R == 0)
 			{
 				Beep_W = 1;
 				gFlags.bSetU_Show = 0;
@@ -203,7 +203,7 @@ void main()
 				Display_ShowFlash(0x04);
 				__delay_20ms(3);
 				Beep_W = 0;
-				while (K3_R == 0)
+				while (K2_R == 0)
 				{
 					FlashTick();
 				}

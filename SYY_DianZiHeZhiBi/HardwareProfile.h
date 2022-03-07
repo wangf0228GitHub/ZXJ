@@ -19,11 +19,11 @@
 #define SimI2C
 #define SimI2C_Delay_Ex
 #define SimI2C_Delay() __delay_us(50);
-#define SimI2C_CLK_IO TRISF0
-#define SimI2C_DATA_IO TRISF1
-#define SimI2C_CLK_W LATF0
-#define SimI2C_DATA_W LATF1
-#define SimI2C_DATA_R RF1
+#define SimI2C_CLK_IO TRISF4
+#define SimI2C_DATA_IO TRISF5
+#define SimI2C_CLK_W LATF4
+#define SimI2C_DATA_W LATF5
+#define SimI2C_DATA_R RF5
 
 #define SIMI2C_SCL_High()	SimI2C_CLK_W=1
 #define SIMI2C_SCL_Low()	SimI2C_CLK_W=0
@@ -37,11 +37,11 @@
 #define SimI2C_2
 #define SimI2C_2_Delay_Ex
 #define SimI2C_2_Delay() __delay_us(50);
-#define SimI2C_2_CLK_IO TRISF2
-#define SimI2C_2_DATA_IO TRISF3
-#define SimI2C_2_CLK_W LATF2
-#define SimI2C_2_DATA_W LATF3
-#define SimI2C_2_DATA_R RF3
+#define SimI2C_2_CLK_IO TRISF0
+#define SimI2C_2_DATA_IO TRISF1
+#define SimI2C_2_CLK_W LATF0
+#define SimI2C_2_DATA_W LATF1
+#define SimI2C_2_DATA_R RF1
 
 #define SimI2C_2_SCL_High() SimI2C_2_CLK_W=1
 #define SimI2C_2_SCL_Low()	SimI2C_2_CLK_W=0
@@ -56,11 +56,11 @@
 #define SimI2C_3
 #define SimI2C_3_Delay_Ex
 #define SimI2C_3_Delay() __delay_us(50);
-#define SimI2C_3_CLK_IO TRISF4
-#define SimI2C_3_DATA_IO TRISF5
-#define SimI2C_3_CLK_W LATF4
-#define SimI2C_3_DATA_W LATF5
-#define SimI2C_3_DATA_R RF5
+#define SimI2C_3_CLK_IO TRISF6
+#define SimI2C_3_DATA_IO TRISF7
+#define SimI2C_3_CLK_W LATF6
+#define SimI2C_3_DATA_W LATF7
+#define SimI2C_3_DATA_R RF7
 
 #define SimI2C_3_SCL_High() SimI2C_3_CLK_W=1
 #define SimI2C_3_SCL_Low()	SimI2C_3_CLK_W=0
@@ -75,11 +75,11 @@
 #define SimI2C_4
 #define SimI2C_4_Delay_Ex
 #define SimI2C_4_Delay() __delay_us(50);
-#define SimI2C_4_CLK_IO TRISF6
-#define SimI2C_4_DATA_IO TRISF7
-#define SimI2C_4_CLK_W LATF6
-#define SimI2C_4_DATA_W LATF7
-#define SimI2C_4_DATA_R RF7
+#define SimI2C_4_CLK_IO TRISF2
+#define SimI2C_4_DATA_IO TRISF3
+#define SimI2C_4_CLK_W LATF2
+#define SimI2C_4_DATA_W LATF3
+#define SimI2C_4_DATA_R RF3
 
 #define SimI2C_4_SCL_High() SimI2C_4_CLK_W=1
 #define SimI2C_4_SCL_Low()	SimI2C_4_CLK_W=0
